@@ -1,6 +1,7 @@
 package com.ua.web;
 
-import com.ua.entity.User;
+import com.ua.entity.Administrator;
+import com.ua.entity.Staff;
 
 import java.io.*;
 import javax.servlet.ServletException;
@@ -19,17 +20,17 @@ public class LoginServlet extends HttpServlet {
 
         // (2) process an input info
         // obtain from DB
-        User user = new User();
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setRole("admin");
+        Staff staff = new Administrator();
+        staff.setLogin(login);
+        staff.setPassword(password);
+        staff.setRole("admin");
 
         String forward = "index.html";
 
         HttpSession session = request.getSession();
-        if (user != null) {
+        if (staff != null) {
             // (3) save a result as an attibute
-            session.setAttribute("currentUser", user);
+            session.setAttribute("currentUser", staff);
             forward = "view.jsp";
         }
 
