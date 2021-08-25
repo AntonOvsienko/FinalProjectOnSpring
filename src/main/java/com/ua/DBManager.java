@@ -61,26 +61,22 @@ public class DBManager {
             parameters[i] = var[i];
         }
         String role = returnRole(parameters[0], parameters[1]);
-        if (role.equals("0")){
+        int id = returnID(parameters[0], parameters[1]);
+        if (role.equals("0")) {
             return;
         }
-        int id = returnID(parameters[0], parameters[1]);
-        String Path = "INSERT INTO " + role + " (_id ,name_Surname,login_password_id) VALUES (?,?,?)";
-        String checkLoginPassword = "SELECT * FROM login_password WHERE login=\'" +
-                parameters[0] + "\' AND password=\'" + parameters[1] + "\'";
+        String find = "SELECT * FROM " + role + " WHERE id=" + parameters[3];
         try (Connection con = getConnection(URL, FILE);
-             PreparedStatement pstmt = con.prepareStatement(Path);
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(checkLoginPassword)) {
-            if (rs.next()) {
-                pstmt.setInt(1, Integer.parseInt(parameters[3]));
-                pstmt.setString(2, parameters[2]);
-                pstmt.setInt(3, id);
-                pstmt.executeUpdate();
+             Statement ps = con.prepareStatement(find)) {
+            if (!ps.execute(find)) {
+                fullLoginNew(parameters, role, id);
+            } else {
+                fullLoginUpdate(parameters, role);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
 
     public String returnRole(String login, String password) {
@@ -99,21 +95,80 @@ public class DBManager {
         return "0";
     }
 
+    public void fullLoginNew(String[] parameters, String role, int id) {
+        String pathNew = "INSERT INTO " + role + " (id ,name_Surname,login_password_id) VALUES (?,?,?)";
+        String checkLoginPassword = "SELECT * FROM login_password WHERE login=\'" +
+                parameters[0] + "\' AND password=\'" + parameters[1] + "\'";
+        try (Connection con = getConnection(URL, FILE);
+             PreparedStatement pstmt = con.prepareStatement(pathNew);
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(checkLoginPassword)) {
+            if (rs.next()) {
+                pstmt.setInt(1, Integer.parseInt(parameters[3]));
+                pstmt.setString(2, parameters[2]);
+                pstmt.setInt(3, id);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void fullLoginUpdate(String[] parameters, String role) { //var={login,password,name_Surname,identification_code}
+        String pathNew = "UPDATE " + role + " SET name_surname=? WHERE id=?";
+        String checkLoginPassword = "SELECT * FROM login_password WHERE login=\'" +
+                parameters[0] + "\' AND password=\'" + parameters[1] + "\'";
+        try (Connection con = getConnection(URL, FILE);
+             PreparedStatement pstmt = con.prepareStatement(pathNew);
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(checkLoginPassword)) {
+            if (rs.next()) {
+                pstmt.setString(1, parameters[2]);
+                pstmt.setInt(2, Integer.parseInt(parameters[3]));
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public int returnID(String login, String password) {
         ResultSet result;
-        try(
-        Connection con = getConnection(URL, FILE);
-        PreparedStatement ps = con.prepareStatement("SELECT * FROM login_password WHERE login=? " +
-                "AND password=?")){
-        ps.setString(1, login);
-        ps.setString(2, password);
-        result = ps.executeQuery();
-        result.next();
-        return Integer.parseInt(result.getString("id"));
+        try (
+                Connection con = getConnection(URL, FILE);
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM login_password WHERE login=?" +
+                        "AND password=?")) {
+            ps.setString(1, login);
+            ps.setString(2, password);
+            result = ps.executeQuery();
+            result.next();
+            return Integer.parseInt(result.getString("id"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return 0;
+    }
+
+    public boolean checkStaff(Staff persona) {
+        ResultSet result;
+        String table;
+        if (persona instanceof Doctor) {
+            table = "doctor";
+        } else if (persona instanceof Nurse) {
+            table = "nurse";
+        } else {
+            table = "patient";
+        }
+        String finddoctor = "SELECT * FROM " + table + " WHERE id=?";
+        try (Connection con = getConnection(URL, FILE);
+             PreparedStatement ps = con.prepareStatement(finddoctor)) {
+            ps.setInt(1, persona.getId());
+            result = ps.executeQuery();
+            return result.next();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 //
 //    public List<User> findAllUsers() {
@@ -159,6 +214,8 @@ public class DBManager {
             users = new Doctor();
         } else if (rs.getString("role").equals("nurse")) {
             users = new Nurse();
+        } else if (rs.getString("role").equals("patient")) {
+            users = new Patient();
         }
         users.setLogin(rs.getString("login"));
         users.setPassword(rs.getString("password"));
@@ -180,21 +237,23 @@ public class DBManager {
         return ("SELECT * FROM " + rs.getString("role") + " WHERE login_password_id=?");
     }
 
-//    public void setDoctorForPatient(Doctor doctor, Patient patient) {
-//        try (PreparedStatement find = con.prepareStatement("SELECT * FROM users_teams WHERE user_id=? " +
-//                     "AND team_id=?");
-//             PreparedStatement in = con.prepareStatement("INSERT INTO users_teams (user_id,team_id) VALUES (?, ?)",
-//                     Statement.RETURN_GENERATED_KEYS)) {
-//            if (checkForDuplicate(find, login, name)) {
-//                in.setInt(1, login.getId());
-//                in.setInt(2, name.getId());
-//                in.executeUpdate();
-//            }
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//    }
-//
+    public void setDoctorForPatient(Staff doctor, Staff patient) {
+        if (!checkStaff(doctor) || !checkStaff(patient)) {
+            return;
+        }
+        try (Connection con = getConnection(URL, FILE);
+             PreparedStatement findpatient = con.prepareStatement(
+                     "UPDATE patient SET doctor_id=? WHERE id=?")) {
+            findpatient.setInt(1, doctor.getId());
+            findpatient.setInt(2, patient.getId());
+            findpatient.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    //
 //    public void setTeamsForUser(User login, Team... name) throws SQLException {
 //        con.setTransactionIsolation(4);
 //        con.setAutoCommit(false);
