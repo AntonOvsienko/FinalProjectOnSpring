@@ -151,17 +151,10 @@ public class DBManager {
 
     public boolean checkStaff(Staff persona) {
         ResultSet result;
-        String table;
-        if (persona instanceof Doctor) {
-            table = "doctor";
-        } else if (persona instanceof Nurse) {
-            table = "nurse";
-        } else {
-            table = "patient";
-        }
-        String finddoctor = "SELECT * FROM " + table + " WHERE id=?";
+        String table = persona.getClass().getSimpleName().toLowerCase();
+        String find = "SELECT * FROM " + table + " WHERE id=?";
         try (Connection con = getConnection(URL, FILE);
-             PreparedStatement ps = con.prepareStatement(finddoctor)) {
+             PreparedStatement ps = con.prepareStatement(find)) {
             ps.setInt(1, persona.getId());
             result = ps.executeQuery();
             return result.next();
@@ -290,17 +283,7 @@ public class DBManager {
 //        return teams;
 //    }
 //
-//    public boolean checkForDuplicate(PreparedStatement duplicate, User login, Team name) throws SQLException {
-//        duplicate.setInt(1, login.getId());
-//        duplicate.setInt(2, name.getId());
-//        ResultSet resultSet = duplicate.executeQuery();
-//        if (!resultSet.next()) return true;
-//        if (duplicate.execute()) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
+
     public boolean checkForDuplicateByLogin(PreparedStatement duplicate, String login) throws SQLException {
         duplicate.setString(1, login);
         return resultDublicate(duplicate);
