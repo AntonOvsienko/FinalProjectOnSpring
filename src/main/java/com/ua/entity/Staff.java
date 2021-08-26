@@ -3,6 +3,9 @@ package com.ua.entity;
 public abstract class Staff {
 
     private int id;
+    private int age;
+    private String gender;
+    private String passport;
     private String login;
     private String password;
     private String role;
@@ -38,6 +41,24 @@ public abstract class Staff {
     public void setId(int id) {
         this.id = id;
     }
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        this.age = age;
+    }
+    public String getGender() {
+        return gender;
+    }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    public String getPassport() {
+        return passport;
+    }
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
 
     @Override
     public String toString() {
@@ -50,7 +71,7 @@ public abstract class Staff {
     public boolean equals(Object obj) {
         if (obj == null) return false;
         Staff staff = (Staff) obj;
-        if (login.equals(staff.getLogin())) {
+        if (passport.equals(staff.getPassport())) {
             return true;
         }
         return false;
