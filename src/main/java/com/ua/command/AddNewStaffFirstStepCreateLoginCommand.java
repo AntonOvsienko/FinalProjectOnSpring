@@ -11,7 +11,7 @@ public class AddNewStaffFirstStepCreateLoginCommand implements Command {
     private static final Logger log = Logger.getLogger(AddNewStaffFirstStepCreateLoginCommand.class.getName());
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session==>" + session);
         session.setMaxInactiveInterval(30);
@@ -23,8 +23,7 @@ public class AddNewStaffFirstStepCreateLoginCommand implements Command {
             return "errorMessage/errorRepeatPassword.jsp";
         }
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager
+            con = DriverManager
                     .getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Rusleo1984");
             System.out.println("con ==> " + con);
             PreparedStatement ps = con.prepareStatement(
@@ -54,10 +53,15 @@ public class AddNewStaffFirstStepCreateLoginCommand implements Command {
             System.out.println(id);
             newStaff2.setInt(1, id);
             newStaff2.executeUpdate();
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             log.log(Level.WARNING, "", throwables.getMessage());
         }
 
         return "controller?command=updateStaff";
+    }
+
+    @Override
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        return null;
     }
 }

@@ -27,6 +27,10 @@
     </select></p>
     <p><input type="submit" value="Создать"></p>
 </form>
+<form id="auth2" action="controller" method="get">
+    <input name="command" value="exit" hidden>
+    <p><input type="submit" value="Закончить сессию"></p>
+</form>
 <p><input type="submit" onclick="showForm()" value="Удалить логин"></p>
 </body>
 </html>

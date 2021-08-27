@@ -2,8 +2,13 @@ package com.ua.entity;
 
 public class Doctor extends Staff{
     private int id;
+    private int age;
+    private String gender;
+    private String passport;
     private String login;
     private String password;
     private String role;
-    private String nameSurname;
+    private String name;
+    private String surname;
+
 }

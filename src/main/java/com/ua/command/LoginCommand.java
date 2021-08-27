@@ -11,7 +11,7 @@ public class LoginCommand implements Command {
     private static final Logger log = Logger.getLogger(LoginCommand.class.getName());
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp,Connection con) {
         // get login, password
         // obtain from DB user by login
         // check password
@@ -30,12 +30,12 @@ public class LoginCommand implements Command {
         String password = (String) session.getAttribute("password");
         String role;
         int keyLogin = 0;
+        PreparedStatement ps;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Rusleo1984");
+            con = DriverManager.getConnection
+                    ("jdbc:mysql://localhost:3306/mydb", "root", "Rusleo1984");
             System.out.println("con ==> " + con);
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM login_password WHERE login=? " +
+            ps = con.prepareStatement("SELECT * FROM login_password WHERE login=? " +
                     "AND password=?");
             ps.setString(1, login);
             ps.setString(2, password);
@@ -76,9 +76,20 @@ public class LoginCommand implements Command {
                     }
                 }
             }
-        } catch (SQLException | ClassNotFoundException throwables) {
+        }  catch (SQLException throwables) {
             log.log(Level.SEVERE, "", throwables.getMessage());
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException throwables) {
+                log.log(Level.SEVERE, "", throwables.getMessage());
+            }
         }
         return address;
+    }
+
+    @Override
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        return null;
     }
 }

@@ -11,7 +11,7 @@ public class AddNewStaffSecondStepAccountContent implements Command {
     private static final Logger log = Logger.getLogger(AddNewStaffSecondStepAccountContent.class.getName());
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp,Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
         System.out.println(session.getAttribute("keyLogin"));
@@ -35,8 +35,7 @@ public class AddNewStaffSecondStepAccountContent implements Command {
                 + "\nrole-" + role
                 + "\ngender-" + gender);
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager
+           con = DriverManager
                     .getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Rusleo1984");
             System.out.println("con ==> " + con);
             String update = "UPDATE " + role +
@@ -46,9 +45,14 @@ public class AddNewStaffSecondStepAccountContent implements Command {
             System.out.println(update);
             Statement newLogin = con.createStatement();
             newLogin.executeUpdate(update);
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             log.log(Level.WARNING, "", throwables.getMessage());
         }
         return "users/doctor.jsp";
+    }
+
+    @Override
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        return null;
     }
 }
