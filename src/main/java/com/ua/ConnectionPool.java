@@ -1,8 +1,6 @@
 package com.ua;
 
 
-import com.ua.entity.*;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -10,24 +8,23 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 
-public class DBManager {
-    private static final String SQL_INSERT_USER = "insert into users values (DEFAULT, ?, ?)";
-    private static DBManager instance;
+public class ConnectionPool {
+    private static ConnectionPool instance;
 
-    public static synchronized DBManager getInstance() {
+    public static synchronized ConnectionPool getInstance() {
         if (instance == null) {
-            instance = new DBManager();
+            instance = new ConnectionPool();
         }
         return instance;
     }
 
-    private DBManager() {
+    private ConnectionPool() {
         try {
             Context initContext = new InitialContext();
             Context envContext = (Context) initContext.lookup("java:/comp/env");
-            ds = (DataSource) envContext.lookup("jdbc/TestDB");
+            ds = (DataSource) envContext.lookup("jdbc/FinalBD");
         } catch (NamingException ex) {
-            throw new IllegalStateException("Cannot init DBManager", ex);
+            throw new IllegalStateException("Cannot init ConnectionPool", ex);
         }
     }
 

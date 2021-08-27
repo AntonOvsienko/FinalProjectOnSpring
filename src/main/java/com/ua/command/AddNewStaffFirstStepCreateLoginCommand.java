@@ -23,8 +23,6 @@ public class AddNewStaffFirstStepCreateLoginCommand implements Command {
             return "errorMessage/errorRepeatPassword.jsp";
         }
         try {
-            con = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Rusleo1984");
             System.out.println("con ==> " + con);
             PreparedStatement ps = con.prepareStatement(
                     "SELECT * FROM login_password WHERE login=?");

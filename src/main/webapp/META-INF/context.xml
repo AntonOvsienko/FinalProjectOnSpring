@@ -1,6 +1,6 @@
 <Context>
 
-  <Resource name="jdbc/TestDB" 
+  <Resource name="jdbc/FinalBD"
   		auth="Container" 
   		type="javax.sql.DataSource"
 

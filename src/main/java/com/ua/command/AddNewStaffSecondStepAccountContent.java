@@ -15,6 +15,7 @@ public class AddNewStaffSecondStepAccountContent implements Command {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
         System.out.println(session.getAttribute("keyLogin"));
+
         Integer keyLogin = (Integer) session.getAttribute("keyLogin");
         String role = (String) session.getAttribute("role");
         String login = (String) session.getAttribute("login");
@@ -35,8 +36,6 @@ public class AddNewStaffSecondStepAccountContent implements Command {
                 + "\nrole-" + role
                 + "\ngender-" + gender);
         try {
-           con = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Rusleo1984");
             System.out.println("con ==> " + con);
             String update = "UPDATE " + role +
                     " SET name='" + nameSet + "', surname='" + surnameSet + "', age=" +

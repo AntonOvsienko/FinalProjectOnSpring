@@ -32,8 +32,6 @@ public class LoginCommand implements Command {
         int keyLogin = 0;
         PreparedStatement ps;
         try {
-            con = DriverManager.getConnection
-                    ("jdbc:mysql://localhost:3306/mydb", "root", "Rusleo1984");
             System.out.println("con ==> " + con);
             ps = con.prepareStatement("SELECT * FROM login_password WHERE login=? " +
                     "AND password=?");

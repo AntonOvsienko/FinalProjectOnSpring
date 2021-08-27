@@ -1,6 +1,6 @@
 package com.ua.web;
 
-import com.ua.DBManager;
+import com.ua.ConnectionPool;
 import com.ua.command.*;
 
 import javax.servlet.ServletException;
@@ -35,7 +35,7 @@ public class Controller extends HttpServlet {
 
         // (3) do command
         try {
-            address = command.execute(req, resp, DBManager.getInstance().getConnection());
+            address = command.execute(req, resp, ConnectionPool.getInstance().getConnection());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
