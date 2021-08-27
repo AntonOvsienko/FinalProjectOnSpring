@@ -218,7 +218,8 @@ public class DBManager {
         ps.setInt(1, rs.getInt("id"));
         ResultSet resultSet = ps.executeQuery();
         resultSet.next();
-        users.setNameSurname(resultSet.getString("name_surname"));
+        users.setName(resultSet.getString("name"));
+        users.setSurname(resultSet.getString("surname"));
         users.setId(resultSet.getInt("id"));
         ps.close();
         resultSet.close();

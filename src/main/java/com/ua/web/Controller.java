@@ -10,9 +10,19 @@ import java.io.IOException;
 public class Controller extends HttpServlet {
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// (0) session setup
+
+		HttpSession session = req.getSession();
+		System.out.println("session==>" + session);
+		session.setMaxInactiveInterval(30);
+
 		// (1) get command name
-		String commandName = req.getParameter("command");
+
+		if (req.getParameter("command") != null) {
+			session.setAttribute("command", req.getParameter("command"));
+		}
+		String commandName = (String) session.getAttribute("command");
 		System.out.println("commandName ==> " + commandName);
 		
 		// (2) get command
@@ -33,8 +43,15 @@ public class Controller extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String address = req.getParameter("address");
+		System.out.println("address ==> " + address);
+
+		HttpSession session = req.getSession();
+		System.out.println("session ==> " + session);
+		session.setMaxInactiveInterval(30);
+
+		req.getRequestDispatcher(address).forward(req, resp);
 	}
 
 }

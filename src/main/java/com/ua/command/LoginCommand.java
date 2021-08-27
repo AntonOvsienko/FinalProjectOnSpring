@@ -2,6 +2,7 @@ package com.ua.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,11 +15,21 @@ public class LoginCommand implements Command {
         // get login, password
         // obtain from DB user by login
         // check password
-        String address="error.jsp";
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        HttpSession session = req.getSession();
+        System.out.println("session ==> " + session);
+
+        String address = "error.jsp";
+
+        if (req.getParameter("login") != null) {
+            session.setAttribute("login", req.getParameter("login"));
+        }
+        if (req.getParameter("password") != null) {
+            session.setAttribute("password", req.getParameter("password"));
+        }
+        String login = (String) session.getAttribute("login");
+        String password = (String) session.getAttribute("password");
         String role;
-        String name;
+        int keyLogin = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager
@@ -30,18 +41,44 @@ public class LoginCommand implements Command {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                role=rs.getString("role");
-                if (role.equals("administrator")){
-                address="users/admin.jsp";
-                } else if (role.equals("doctor")){
-                    address="users/doctor.jsp";
-                }else if (role.equals("patient")){
-                    address="users/patient.jsp";}
+                role = rs.getString("role");
+                session.setAttribute("role", role);
+                keyLogin = rs.getInt("id");
+                session.setAttribute("keyLogin", keyLogin);
+                String url = "SELECT * FROM " + role + " WHERE login_password_id=" + keyLogin;
+                System.out.println(url);
+                Statement st = con.createStatement();
+                ResultSet rs2 = st.executeQuery(url);
+                if (role.equals("administrator")) {
+                    address = "users/admin.jsp";
+                } else if (role.equals("doctor")) {
+                    address = "users/doctor.jsp";
+                } else if (role.equals("patient")) {
+                    address = "users/patient.jsp";
+                } else if (role.equals("nurse")) {
+                    address = "users/nurse.jsp";
+                }
+                while (rs2.next()) {
+                    if (rs2.getString("name") != null) {
+                        session.setAttribute("name", rs2.getString("name"));
+                    }
+                    if (rs2.getString("surname") != null) {
+                        session.setAttribute("surname", rs2.getString("surname"));
+                    }
+                    if (rs2.getString("passport") != null) {
+                        session.setAttribute("passport", rs2.getString("passport"));
+                    }
+                    if (rs2.getString("age") != null) {
+                        session.setAttribute("age", rs2.getInt("age"));
+                    }
+                    if (rs2.getString("gender") != null) {
+                        session.setAttribute("gender", rs2.getString("gender"));
+                    }
+                }
             }
         } catch (SQLException | ClassNotFoundException throwables) {
-            log.log(Level.WARNING, "", throwables.getMessage());
+            log.log(Level.SEVERE, "", throwables.getMessage());
         }
-
         return address;
     }
 }

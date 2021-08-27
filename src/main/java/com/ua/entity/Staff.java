@@ -9,8 +9,21 @@ public abstract class Staff {
     private String login;
     private String password;
     private String role;
-    private String nameSurname;
+    private String name;
+    private String surname;
 
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getSurname() {
+        return surname;
+    }
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
     public String getLogin() {
         return login;
     }
@@ -28,12 +41,6 @@ public abstract class Staff {
     }
     public void setRole(String role) {
         this.role = role;
-    }
-    public String getNameSurname() {
-        return nameSurname;
-    }
-    public void setNameSurname(String nameSurname) {
-        this.nameSurname = nameSurname;
     }
     public int getId() {
         return id;
@@ -63,7 +70,8 @@ public abstract class Staff {
     @Override
     public String toString() {
         return "login - " + login
-                + "\nnameSurname - " + nameSurname
+                + "\nname - " + name
+                + "\nsurname - " + surname
                 + "\nrole - " + role;
     }
 

@@ -14,6 +14,7 @@ public class CommandContainer {
 		commands.put("listUsers", new ListUsersCommand());
 		commands.put("newStaff", new AddNewStaffFirstStepCreateLoginCommand());
 		commands.put("updateStaff", new AddNewStaffSecondStepAccountContent());
+		commands.put("exit", new FinishSessionComand());
 		// ...
 	}
 

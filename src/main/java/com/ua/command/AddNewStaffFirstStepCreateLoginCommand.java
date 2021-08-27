@@ -2,6 +2,7 @@ package com.ua.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,9 @@ public class AddNewStaffFirstStepCreateLoginCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession session = req.getSession();
+        System.out.println("session==>" + session);
+        session.setMaxInactiveInterval(30);
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String passwordRepeat = req.getParameter("password_repeat");
@@ -54,6 +58,6 @@ public class AddNewStaffFirstStepCreateLoginCommand implements Command {
             log.log(Level.WARNING, "", throwables.getMessage());
         }
 
-        return "controller?command=listUsers";
+        return "controller?command=updateStaff";
     }
 }

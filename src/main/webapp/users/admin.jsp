@@ -15,7 +15,7 @@
 
 <h1>Hello Admin</h1>
 <p><input type="submit" onclick="showForm()" value="Создать логин"></p>
-<form id="auth" action="controller" method="get" hidden>
+<form id="auth" action="controller" method="post" hidden>
     <input name="command" value="newStaff" hidden>
     <p><label>Логин: <input name="login" value="admin" required></label></p>
     <p><label>Пароль: <input name="password" type="password" value="12345" required></label></p>
