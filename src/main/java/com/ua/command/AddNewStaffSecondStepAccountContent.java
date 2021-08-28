@@ -46,8 +46,14 @@ public class AddNewStaffSecondStepAccountContent implements Command {
             newLogin.executeUpdate(update);
         } catch (SQLException throwables) {
             log.log(Level.WARNING, "", throwables.getMessage());
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
-        return "users/doctor.jsp";
+        return "users/admin.jsp";
     }
 
     @Override

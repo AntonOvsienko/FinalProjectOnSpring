@@ -47,15 +47,20 @@ public class AddNewStaffFirstStepCreateLoginCommand implements Command {
             int id=0;
             while (rs2.next()) {
                 id = rs2.getInt("id");
+                session.setAttribute("keyLogin",id);
             }
             System.out.println(id);
             newStaff2.setInt(1, id);
             newStaff2.executeUpdate();
+            session.setAttribute("keyLogin",id);
+            session.setAttribute("login",login);
+            session.setAttribute("password",password);
+            session.setAttribute("role",role);
         } catch (SQLException throwables) {
             log.log(Level.WARNING, "", throwables.getMessage());
         }
 
-        return "controller?command=updateStaff";
+        return "users/updateAccount.jsp";
     }
 
     @Override

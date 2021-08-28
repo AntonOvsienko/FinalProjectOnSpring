@@ -29,7 +29,7 @@
     <p>Номер паспорта: <input name="passport" type="text" required><span></span> - поле обязательно</p>
     <p>Имя: <input type="text" name="name" required><span></span> - поле обязательно</p>
     <p>Фамилия: <input type="text" name="surname" required><span> - поле обязательно</span></p>
-    <p>Возраст: <input type="number" name="age" size="2"><span></span></p>
+    <p>Возраст: <input type="number" name="age" size="5"><span></span></p>
     <p><b>Ваш пол?</b></p>
     <p><input name="gender" type="radio" value="men">M
         <input name="gender" type="radio" value="women">Ж</p>
