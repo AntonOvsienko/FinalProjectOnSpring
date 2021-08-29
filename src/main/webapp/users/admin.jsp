@@ -29,7 +29,7 @@
     <p align="center"><input type="submit" value="Создать"></p>
     <hr align="center" width="400" size="2" color="#ff0000" />
 </form>
-<form id="auth2" action="controller" method="get">
+<form action="controller" method="get">
     <input name="command" value="exit" hidden>
     <p align="center"><input type="submit" value="Закончить сессию"></p>
 </form>

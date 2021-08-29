@@ -22,18 +22,29 @@
     <%--            margin-right: -3px;--%>
     <%--        }--%>
     <%--    </style>--%>
+    <script>
+
+    </script>
 </head>
 <body>
 <form action="controller" method="post">
     <input name="command" value="updateStaff" hidden>
-    <p>Номер паспорта: <input name="passport" type="text" required><span></span> - поле обязательно</p>
-    <p>Имя: <input type="text" name="name" required><span></span> - поле обязательно</p>
-    <p>Фамилия: <input type="text" name="surname" required><span> - поле обязательно</span></p>
-    <p>Возраст: <input type="number" name="age" size="5"><span></span></p>
-    <p><b>Ваш пол?</b></p>
-    <p><input name="gender" type="radio" value="men">M
+    <p align="center">Номер паспорта: <input name="passport" type="text" required><span></span> - поле обязательно</p>
+    <p align="center">Имя: <input type="text" name="name" required><span></span> - поле обязательно</p>
+    <p align="center">Фамилия: <input type="text" name="surname" required><span> - поле обязательно</span></p>
+    <p align="center">Возраст: <input type="number" name="age" size="5"><span></span></p>
+    <p align="center"><b>Ваш пол?</b></p>
+    <p align="center"><input name="gender" type="radio" value="men">M
         <input name="gender" type="radio" value="women">Ж</p>
-    <p><input type="submit" value="Обновить"></p>
+    <c:if test="${role == 'doctor'}">
+    <p align="center"><label>Направление:<select name="department">
+        <option value="pediatric">Pediatric</option>
+        <option value="surgeon">Surgeon</option>
+        <option value="therapist">Therapist</option>
+        <option value="traumatologist">Traumatologist</option>
+    </select></label></p>
+    </c:if>
+    <p align="center"><input type="submit" value="Обновить"></p>
 </form>
 </body>
 </html>
