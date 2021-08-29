@@ -32,6 +32,8 @@ public class AddNewStaffSecondStepAccountContent implements Command {
             department = req.getParameter("department");
         }
 
+        department=req.getParameter("department");
+
         System.out.println("age-" + ageSet
                 + "\nlogin-" + login
                 + "\npassword-" + password
@@ -41,25 +43,17 @@ public class AddNewStaffSecondStepAccountContent implements Command {
                 + "\nrole-" + role
                 + "\ngender-" + gender);
         try {
-            int idDep = 0;
-            String update = "";
-            String findDepratmentId = "SELECT * FROM department WHERE " + department;
-            Statement dep = con.createStatement();
-            ResultSet rsDep = dep.executeQuery(findDepratmentId);
-            while (rsDep.next()) {
-                idDep = rsDep.getInt("id");
-            }
-            System.out.println("con ==> " + con);
+            String update;
             if (role.equals("doctor")) {
                 update = "UPDATE " + role + " SET name='" + nameSet + "', surname='" +
                         surnameSet + "', age=" + ageSet + ", passport='" + passportSet +
-                        "', gender='" + gender + "'" + ", department='" + idDep + "'" +
-                        "WHERE login_password_id=" + keyLogin;
+                        "', gender='" + gender + "'" + ", department='" + department + "'" +
+                        " WHERE login_password_id=" + keyLogin;
             } else {
                 update = "UPDATE " + role + " SET name='" + nameSet + "', surname='" +
                         surnameSet + "', age=" + ageSet + ", passport='" + passportSet +
                         "', gender='" + gender + "'" +
-                        "WHERE login_password_id=" + keyLogin;
+                        " WHERE login_password_id=" + keyLogin;
             }
             System.out.println(update);
             Statement newLogin = con.createStatement();

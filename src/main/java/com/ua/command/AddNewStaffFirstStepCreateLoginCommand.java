@@ -19,6 +19,11 @@ public class AddNewStaffFirstStepCreateLoginCommand implements Command {
         String password = req.getParameter("password");
         String passwordRepeat = req.getParameter("password_repeat");
         String role = req.getParameter("role");
+
+        session.setAttribute("login", login);
+        session.setAttribute("password", password);
+        session.setAttribute("role", role);
+
         if (!password.equals(passwordRepeat)) {
             return "errorMessage/errorRepeatPassword.jsp";
         }
@@ -44,18 +49,15 @@ public class AddNewStaffFirstStepCreateLoginCommand implements Command {
                     "SELECT * FROM login_password WHERE login=?");
             returnId.setString(1, login);
             ResultSet rs2 = returnId.executeQuery();
-            int id=0;
+            int id = 0;
             while (rs2.next()) {
                 id = rs2.getInt("id");
-                session.setAttribute("keyLogin",id);
+                session.setAttribute("keyLogin", id);
             }
-            System.out.println(id);
+            System.out.println("id => " + id);
             newStaff2.setInt(1, id);
             newStaff2.executeUpdate();
-            session.setAttribute("keyLogin",id);
-            session.setAttribute("login",login);
-            session.setAttribute("password",password);
-            session.setAttribute("role",role);
+            session.setAttribute("keyLogin", id);
         } catch (SQLException throwables) {
             log.log(Level.WARNING, "", throwables.getMessage());
         }
