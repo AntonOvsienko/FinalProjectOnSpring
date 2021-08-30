@@ -12,6 +12,7 @@ public class Doctor extends Staff{
     private String role;
     private String name;
     private String surname;
+    private String department;
     private List<Patient> patients;
 
     public List<Patient> getPatients() {

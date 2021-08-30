@@ -36,12 +36,12 @@
     <p align="center"><b>Ваш пол?</b></p>
     <p align="center"><input name="gender" type="radio" value="men">M
         <input name="gender" type="radio" value="women">Ж</p>
-    <c:if test="${role == 'doctor'}">
+    <c:if test="${role} == 'doctor'">
     <p align="center"><label>Направление:<select name="department">
-        <option value="pediatric">Pediatric</option>
-        <option value="surgeon">Surgeon</option>
-        <option value="therapist">Therapist</option>
-        <option value="traumatologist">Traumatologist</option>
+        <option value="Pediatric">Pediatric</option>
+        <option value="Surgeon">Surgeon</option>
+        <option value="Therapist">Therapist</option>
+        <option value="Traumatologist">Traumatologist</option>
     </select></label></p>
     </c:if>
     <p align="center"><input type="submit" value="Обновить"></p>

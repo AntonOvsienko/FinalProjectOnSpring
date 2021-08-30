@@ -14,7 +14,7 @@
     <input name="address" value="users/updateAccount.jsp" hidden>
     <p><input type="submit" value="Обновить профиль"></p>
 </form>
-<form id="auth2" action="controller" method="get">
+<form id="auth2" action="controller" method="post">
     <input name="command" value="exit" hidden>
     <p><input type="submit" value="Закончить сессию"></p>
 </form>
