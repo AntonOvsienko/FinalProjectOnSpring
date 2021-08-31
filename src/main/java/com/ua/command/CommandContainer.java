@@ -12,8 +12,9 @@ public class CommandContainer {
 		
 		commands.put("login", new LoginCommand());
 		commands.put("listUsers", new ListUsersCommand());
-		commands.put("newStaff", new AddNewStaffFirstStepCreateLoginCommand());
-		commands.put("updateStaff", new AddNewStaffSecondStepAccountContent());
+		commands.put("addNewPatient", new AddNewPatientCommand());
+		commands.put("checkNewLogin", new CheckNewLoginCommand());
+		commands.put("createNewLogin", new AddNewLoginCommand());
 		commands.put("exit", new FinishSessionComand());
 		commands.put("viewStaff", new ListGenerationDoctorCommand());
 		// ...

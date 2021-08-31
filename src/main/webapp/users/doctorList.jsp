@@ -60,51 +60,41 @@
     </style>
 </head>
 <body>
-<%--    <c:forEach items="${doctorsByName}" var="entry">--%>
-<%--            <td>${entry.getLogin()}</td>--%>
-<%--            <br>--%>
-<%--            <td>${entry.getName()}</td>--%>
-<%--            <br>--%>
-<%--            <td>${entry.getSurname()}</td>--%>
-<%--            <br>--%>
-<%--            <td>${entry.getPassport()}</td>--%>
-<%--            <br>--%>
-<%--            <hr align="center" width="400" size="2" color="#ff0000"/>--%>
-<%--    </c:forEach>--%>
 <div class="tab">
-    <%--    <c:forEach items="${doctorsByName}" var="entry">--%>
-    <%--        <button class="tablinks" onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}</button>--%>
-    <%--    </c:forEach>--%>
         <p><select size="12" multiple>
             <optgroup label="Pediatric">
                 <c:forEach items="${doctorsByName}" var="entry">
-                    <c:if test="${entry.getDepartment() eq 'Pediatric' }">
+                    <c:if test="${entry.getDepartment() == 'Pediatric' }">
                         <option class="tablinks"
-                                onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}</option>
+                                onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
+                                ${entry.getSurname()}</option>
                     </c:if>
                 </c:forEach>
             </optgroup>
             <optgroup label="Surgeon">
                 <c:forEach items="${doctorsByName}" var="entry">
-                    <c:if test="${entry.getDepartment() eq 'Surgeon' }">
+                    <c:if test="${entry.getDepartment() == 'Surgeon' }">
                         <option class="tablinks"
-                                onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}</option>
+                                onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
+                                ${entry.getSurname()}</option>
                     </c:if>
                 </c:forEach>
             </optgroup>
             <optgroup label="Therapist">
                 <c:forEach items="${doctorsByName}" var="entry">
-                    <c:if test="${entry.getDepartment() eq 'Therapist' }">
+                    <c:if test="${entry.getDepartment() == 'Therapist' }">
                         <option class="tablinks"
-                                onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}</option>
+                                onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
+                                ${entry.getSurname()}</option>
                     </c:if>
                 </c:forEach>
             </optgroup>
             <optgroup label="Traumatologist">
                 <c:forEach items="${doctorsByName}" var="entry">
-                    <c:if test="${entry.getDepartment() eq 'Traumatologist' }">
+                    <c:if test="${entry.getDepartment() == 'Traumatologist' }">
                         <option class="tablinks"
-                                onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}</option>
+                                onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
+                                ${entry.getSurname()}</option>
                     </c:if>
                 </c:forEach>
             </optgroup>
@@ -112,19 +102,13 @@
 </div>
 <c:forEach items="${doctorsByName}" var="entry">
     <div id="${entry.getLogin()}" class="tabcontent" hidden>
-        <p class="login">Login:${entry.getLogin()}</p>
-        <p>Passport:${entry.getPassport()}</p>
-        <p>Name:${entry.getName()}</p>
-        <p>Surname:${entry.getSurname()}</p>
-        <p>Department:${entry.getDepartment()}</p>
+        <p class="login">Login : ${entry.getLogin()}</p>
+        <p>Passport : ${entry.getPassport()}</p>
+        <p>Name : ${entry.getName()}</p>
+        <p>Surname : ${entry.getSurname()}</p>
+        <p>Phone : ${entry.getTelephone()}</p>
+        <p>Department : ${entry.getDepartment()}</p>
     </div>
 </c:forEach>
-<%--<div class="tab">--%>
-<%--    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>--%>
-<%--    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>--%>
-<%--    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>--%>
-<%--</div>--%>
-
-
 </body>
 </html>

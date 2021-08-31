@@ -1,15 +1,19 @@
 package com.ua.web;
 
 import com.ua.ConnectionPool;
-import com.ua.command.*;
+import com.ua.command.Command;
+import com.ua.command.CommandContainer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/controller")
-public class Controller extends HttpServlet {
+@WebServlet("/prg_controller")
+public class PRGController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,9 +43,10 @@ public class Controller extends HttpServlet {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         // (4) go to address
-        req.getRequestDispatcher(address).forward(req, resp);
+        String path = req.getContextPath() + "/" + address;
+        System.out.println(path);
+        resp.sendRedirect(path);
     }
 
     @Override

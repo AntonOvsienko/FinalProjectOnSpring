@@ -10,6 +10,7 @@ import java.sql.*;
 
 public class ConnectionPool {
     private static ConnectionPool instance;
+    private DataSource ds;
 
     public static synchronized ConnectionPool getInstance() {
         if (instance == null) {
@@ -27,10 +28,6 @@ public class ConnectionPool {
             throw new IllegalStateException("Cannot init ConnectionPool", ex);
         }
     }
-
-    /////////////////////////////////
-
-    private DataSource ds;
 
     public Connection getConnection() throws SQLException {
         return ds.getConnection();

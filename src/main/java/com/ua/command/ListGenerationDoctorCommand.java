@@ -44,7 +44,6 @@ public class ListGenerationDoctorCommand implements Command {
 //            doctorsSortByNumberPatient.sort(Comparator.comparingInt(o -> o.getPatients().size()));
 
             session.setAttribute("doctorsByName", doctorsSortByName);
-            session.setAttribute("doctorsByCategory", doctorsSortByCategory);
             session.setAttribute("doctorsByNumberPatient", doctorsSortByNumberPatient);
 
         } catch (Exception ex) {
@@ -71,11 +70,8 @@ public class ListGenerationDoctorCommand implements Command {
             doctor.setSurname(rs.getString("surname"));
         }
 
-        if (rs.getInt("age") != 0) {
-            doctor.setAge(rs.getInt("age"));
-        }
-        if (rs.getString("gender") != null) {
-            doctor.setGender(rs.getString("gender"));
+        if (rs.getString("telephone") != null) {
+            doctor.setTelephone(rs.getString("telephone"));
         }
         if (rs.getString("department") != null) {
             doctor.setDepartment(rs.getString("department"));

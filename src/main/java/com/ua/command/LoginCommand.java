@@ -21,13 +21,13 @@ public class LoginCommand implements Command {
         String address = "error.jsp";
 
         if (req.getParameter("login") != null) {
-            session.setAttribute("login", req.getParameter("login"));
+            session.setAttribute("globalLogin", req.getParameter("login"));
         }
         if (req.getParameter("password") != null) {
-            session.setAttribute("password", req.getParameter("password"));
+            session.setAttribute("globalPassword", req.getParameter("password"));
         }
-        String login = (String) session.getAttribute("login");
-        String password = (String) session.getAttribute("password");
+        String login = (String) session.getAttribute("globalLogin");
+        String password = (String) session.getAttribute("globalPassword");
         String role;
         int keyLogin = 0;
         PreparedStatement ps;
@@ -40,7 +40,7 @@ public class LoginCommand implements Command {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 role = rs.getString("role");
-                session.setAttribute("role", role);
+                session.setAttribute("globalRole", role);
                 keyLogin = rs.getInt("id");
                 session.setAttribute("keyLogin", keyLogin);
                 String url = "SELECT * FROM " + role + " WHERE login_password_id=" + keyLogin;
@@ -66,11 +66,8 @@ public class LoginCommand implements Command {
                     if (rs2.getString("passport") != null) {
                         session.setAttribute("passport", rs2.getString("passport"));
                     }
-                    if (rs2.getString("age") != null) {
-                        session.setAttribute("age", rs2.getInt("age"));
-                    }
-                    if (rs2.getString("gender") != null) {
-                        session.setAttribute("gender", rs2.getString("gender"));
+                    if (rs2.getString("telephone") != null) {
+                        session.setAttribute("telephone", rs2.getString("telephone"));
                     }
                 }
             }
