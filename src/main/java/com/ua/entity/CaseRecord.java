@@ -3,6 +3,7 @@ package com.ua.entity;
 import java.util.List;
 
 public class CaseRecord {
+    private int id;
     private int id_doctor;
     private String initialDiagnosis;
     private String finalDiagnosis;
@@ -13,6 +14,14 @@ public class CaseRecord {
         boolean complete;
         String type;
         String text;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId_doctor() {

@@ -22,15 +22,15 @@
 
 <h1 align="center">Hello Admin</h1>
 <%--<p align="center" id="createLogin"><input type="submit" onclick="showForm()" value="Создать логин"></p>--%>
-<form id="createLogin" action="controller" method="get">
+<form id="createLogin" action="/controller" method="get">
     <input name="command" value="checkNewLogin" hidden>
     <p align="center"><input type="submit" value="Добавить сотрудника"></p>
 </form>
-<form id="viewLogin" action="controller" method="post">
+<form id="viewLogin" action="/controller" method="post">
     <input name="command" value="viewStaff" hidden>
     <p align="center"><input type="submit" value="Посмотреть сотрудников"></p>
 </form>
-<form id="viewLogin" action="controller" method="get">
+<form id="viewLogin" action="/controller" method="get">
     <input name="command" value="addNewPatient" hidden>
     <p align="center"><input type="submit" value="Добавить пациентов"></p>
 </form>

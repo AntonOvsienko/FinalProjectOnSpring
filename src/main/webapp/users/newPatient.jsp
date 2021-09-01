@@ -12,10 +12,11 @@
 </head>
 <body>
 <form action="/prg_controller" method="post">
-    <input name="command" value="addNewPatient">
+    <input name="command" value="addNewPatient" hidden>
     <p align="center">Номер паспорта: <input name="passport" type="text" required><span></span> - поле обязательно</p>
     <p align="center">Имя: <input type="text" name="name" required><span></span> - поле обязательно</p>
     <p align="center">Фамилия: <input type="text" name="surname" required><span> - поле обязательно</span></p>
+    <p align="center">Дата рождения:<input type="date" name="date"/></p>
     <p align="center">Контактный номер: <input type="text" name="telephone" required><span> - поле обязательно</span></p>
     <p align="center"><input type="submit" value="Создать"></p>
 </form>

@@ -1,6 +1,7 @@
 package com.ua.command;
 
 import com.ua.entity.Doctor;
+import com.ua.entity.Patient;
 import com.ua.entity.Staff;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.ua.Utils.createElement.newElement;
+
 public class ListGenerationDoctorCommand implements Command {
 
     @Override
@@ -21,17 +24,13 @@ public class ListGenerationDoctorCommand implements Command {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
 
-        session.removeAttribute("doctorsByName");
-        session.removeAttribute("doctorsByCategory");
-        session.removeAttribute("doctorsByNumberPatient");
-
         try {
             System.out.println("con ==> " + con);
             ResultSet rs = con.createStatement()
                     .executeQuery("SELECT * FROM doctor");
             List<Doctor> doctors = new ArrayList<>();
             while (rs.next()) {
-                Doctor doctor = newDoctor(rs, con);
+                Doctor doctor = (Doctor) newElement(rs, con,"doctor");
                 doctors.add(doctor);
             }
             List<Doctor> doctorsSortByName = new ArrayList<>(doctors);
@@ -58,46 +57,6 @@ public class ListGenerationDoctorCommand implements Command {
         }
         System.out.println("users/doctorList.jsp");
         return "users/doctorList.jsp";
-    }
-
-    public static Doctor newDoctor(ResultSet rs, Connection con) throws SQLException {
-        Doctor doctor = new Doctor();
-        doctor.setId(rs.getInt("id"));
-        if (rs.getString("name") != null) {
-            doctor.setName(rs.getString("name"));
-        }
-        if (rs.getString("surname") != null) {
-            doctor.setSurname(rs.getString("surname"));
-        }
-
-        if (rs.getString("telephone") != null) {
-            doctor.setTelephone(rs.getString("telephone"));
-        }
-        if (rs.getString("department") != null) {
-            doctor.setDepartment(rs.getString("department"));
-        }
-        if (rs.getString("passport") != null) {
-            doctor.setPassport(rs.getString("passport"));
-        }
-
-        int login_password_id=rs.getInt("login_password_id");
-        System.out.println(login_password_id);
-        String search="SELECT * FROM login_password WHERE id=?";
-        PreparedStatement ps= con.prepareStatement(search);
-        ps.setInt(1,login_password_id);
-        ResultSet rs2=ps.executeQuery();
-        while (rs2.next()){
-            if (rs2.getString("role") != null) {
-                doctor.setRole(rs2.getString("role"));
-            }
-            if (rs2.getString("login") != null) {
-                doctor.setLogin(rs2.getString("login"));
-            }
-            if (rs2.getString("password") != null) {
-                doctor.setPassword(rs2.getString("password"));
-            }
-        }
-        return doctor;
     }
 
     @Override

@@ -4,15 +4,38 @@ import java.util.List;
 
 public class Patient extends Staff{
     private int id;
-    private int age;
-    private String gender;
+    private String telephone;
     private String passport;
-    private String login;
-    private String password;
-    private String role;
     private String name;
     private String surname;
+    private int dayBorn;
+    private int monthBorn;
+    private int yearBorn;
     private List<CaseRecord> caseRecords;
+
+    public int getDayBorn() {
+        return dayBorn;
+    }
+
+    public void setDayBorn(int dayBorn) {
+        this.dayBorn = dayBorn;
+    }
+
+    public int getMonthBorn() {
+        return monthBorn;
+    }
+
+    public void setMonthBorn(int monthBorn) {
+        this.monthBorn = monthBorn;
+    }
+
+    public int getYearBorn() {
+        return yearBorn;
+    }
+
+    public void setYearBorn(int yearBorn) {
+        this.yearBorn = yearBorn;
+    }
 
     public List<CaseRecord> getCaseRecords() {
         return caseRecords;
