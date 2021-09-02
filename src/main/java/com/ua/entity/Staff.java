@@ -87,6 +87,7 @@ public abstract class Staff {
     @Override
     public String toString() {
         return "login - " + login
+                + "\nid - " + id
                 + "\nname - " + name
                 + "\nsurname - " + surname
                 + "\nrole - " + role

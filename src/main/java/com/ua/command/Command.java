@@ -9,6 +9,6 @@ public interface Command {
 	
 	String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException;
 
-	String execute(HttpServletRequest req, HttpServletResponse resp);
+	String execute(HttpServletRequest req, HttpServletResponse resp) throws SQLException;
 
 }

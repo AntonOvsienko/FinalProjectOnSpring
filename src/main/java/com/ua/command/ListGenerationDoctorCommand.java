@@ -1,5 +1,6 @@
 package com.ua.command;
 
+import com.ua.ConnectionPool;
 import com.ua.entity.Doctor;
 import com.ua.entity.Patient;
 import com.ua.entity.Staff;
@@ -34,7 +35,7 @@ public class ListGenerationDoctorCommand implements Command {
                 doctors.add(doctor);
             }
             List<Doctor> doctorsSortByName = new ArrayList<>(doctors);
-            List<Doctor> doctorsSortByCategory = new ArrayList<>(doctors);
+            List<Doctor> doctorsSortByCategory = new ArrayList<>(doctorsSortByName);
             List<Doctor> doctorsSortByNumberPatient = new ArrayList<>(doctors);
             System.out.println(doctorsSortByName);
 
@@ -42,6 +43,8 @@ public class ListGenerationDoctorCommand implements Command {
             doctorsSortByCategory.sort(Comparator.comparing(Staff::getDepartment));
 //            doctorsSortByNumberPatient.sort(Comparator.comparingInt(o -> o.getPatients().size()));
 
+            session.setAttribute("doctors", doctors);
+            session.setAttribute("doctorsByCategory", doctorsSortByCategory);
             session.setAttribute("doctorsByName", doctorsSortByName);
             session.setAttribute("doctorsByNumberPatient", doctorsSortByNumberPatient);
 
@@ -61,6 +64,12 @@ public class ListGenerationDoctorCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        return null;
+        Connection con= null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return execute(req,resp,con);
     }
 }

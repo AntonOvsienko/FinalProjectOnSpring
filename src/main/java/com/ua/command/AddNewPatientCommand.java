@@ -66,7 +66,7 @@ public class AddNewPatientCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        return "users/admin.jsp";
+        return "users/newLogin.jsp";
     }
 
     @Override

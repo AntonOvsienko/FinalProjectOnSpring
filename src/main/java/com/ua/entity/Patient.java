@@ -1,8 +1,9 @@
 package com.ua.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Patient extends Staff{
+public class Patient extends Staff {
     private int id;
     private String telephone;
     private String passport;
@@ -11,7 +12,7 @@ public class Patient extends Staff{
     private int dayBorn;
     private int monthBorn;
     private int yearBorn;
-    private List<CaseRecord> caseRecords;
+    private List<CaseRecord> caseRecords = new ArrayList<>();
 
     public int getDayBorn() {
         return dayBorn;

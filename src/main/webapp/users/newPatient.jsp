@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/prg_controller" method="post">
+<form action="/controller" method="post">
     <input name="command" value="addNewPatient" hidden>
     <p align="center">Номер паспорта: <input name="passport" type="text" required><span></span> - поле обязательно</p>
     <p align="center">Имя: <input type="text" name="name" required><span></span> - поле обязательно</p>

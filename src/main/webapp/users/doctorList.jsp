@@ -4,7 +4,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<html>
 <head>
     <script>
         function openCity(evt, login) {
@@ -26,7 +25,7 @@
     </script>
     <style>
         * {
-            box-sizing: border-box
+            box-sizing: border-box;
         }
 
         body {
@@ -36,6 +35,10 @@
         /* Style the tab */
         .tab {
             float: left;
+        }
+
+        .button {
+            clear: both;
         }
 
         /* Style the buttons inside the tab */
@@ -50,6 +53,7 @@
         /* Style the tab content */
         .tabcontent {
             padding: 0px 10px;
+            size: 20px;
             float: left;
         }
 
@@ -60,10 +64,11 @@
     </style>
 </head>
 <body>
-<div class="tab">
-        <p><select size="12" multiple>
+<c:if test="${check == 'on'}">
+    <div class="tab">
+        <p><select size="15" multiple>
             <optgroup label="Pediatric">
-                <c:forEach items="${doctorsByName}" var="entry">
+                <c:forEach items="${doctors}" var="entry">
                     <c:if test="${entry.getDepartment() == 'Pediatric' }">
                         <option class="tablinks"
                                 onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
@@ -72,7 +77,7 @@
                 </c:forEach>
             </optgroup>
             <optgroup label="Surgeon">
-                <c:forEach items="${doctorsByName}" var="entry">
+                <c:forEach items="${doctors}" var="entry">
                     <c:if test="${entry.getDepartment() == 'Surgeon' }">
                         <option class="tablinks"
                                 onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
@@ -81,7 +86,7 @@
                 </c:forEach>
             </optgroup>
             <optgroup label="Therapist">
-                <c:forEach items="${doctorsByName}" var="entry">
+                <c:forEach items="${doctors}" var="entry">
                     <c:if test="${entry.getDepartment() == 'Therapist' }">
                         <option class="tablinks"
                                 onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
@@ -90,7 +95,7 @@
                 </c:forEach>
             </optgroup>
             <optgroup label="Traumatologist">
-                <c:forEach items="${doctorsByName}" var="entry">
+                <c:forEach items="${doctors}" var="entry">
                     <c:if test="${entry.getDepartment() == 'Traumatologist' }">
                         <option class="tablinks"
                                 onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
@@ -99,8 +104,20 @@
                 </c:forEach>
             </optgroup>
         </select></p>
-</div>
-<c:forEach items="${doctorsByName}" var="entry">
+    </div>
+</c:if>
+<c:if test="${check != 'on'}">
+    <div class="tab">
+        <p><select size="15" multiple>
+            <c:forEach items="${doctors}" var="entry">
+                <option class="tablinks"
+                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
+                        ${entry.getSurname()}</option>
+            </c:forEach>
+        </select></p>
+    </div>
+</c:if>
+<c:forEach items="${doctors}" var="entry">
     <div id="${entry.getLogin()}" class="tabcontent" hidden>
         <p class="login">Login : ${entry.getLogin()}</p>
         <p>Passport : ${entry.getPassport()}</p>
@@ -110,5 +127,51 @@
         <p>Department : ${entry.getDepartment()}</p>
     </div>
 </c:forEach>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+<div class="button">
+
+    <p align="left">
+    <form id="sort" action="/controller" method="get">
+        <c:if test="${check!='on'}">
+            <label><input type="checkbox" name="check" value="on">Разбить по категориям</label><br>
+        </c:if>
+        <c:if test="${check=='on'}">
+            <label><input type="checkbox" name="check" value="on" checked>Разбить по категориям</label><br>
+        </c:if>
+        <c:if test="${sort=='sortByName'|| sort==null}">
+            <label><input type="radio" name="sort" value="sortByName" checked>Сортировать по имени</label><br>
+            <label><input type="radio" name="sort" value="sortByCount">Сортировать по кол-ву пациентов</label><br>
+        </c:if>
+        <c:if test="${sort=='sortByCount'}">
+            <label><input type="radio" name="sort" value="sortByName">Сортировать по имени</label><br>
+            <label><input type="radio" name="sort" value="sortByCount" checked>Сортировать по кол-ву
+                пациентов</label><br>
+        </c:if>
+        <input type="submit" value="Сортировка">
+        <input name="command" value="sortDoctorList" hidden>
+    </form>
+    </p>
+    <form action="/controller" method="post">
+        <input name="command" value="deleteDoctor" hidden>
+        <p><select size="2" name="select">
+            <c:forEach items="${doctors}" var="entry">
+                <option value="${entry.getId()}">${entry.getName()}
+                        ${entry.getSurname()}</option>
+            </c:forEach>
+        </select></p>
+        <input type="submit" value="Удалить">
+    </form>
+</div>
 </body>
 </html>

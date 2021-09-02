@@ -1,5 +1,6 @@
 package com.ua.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Doctor extends Staff{
@@ -13,7 +14,7 @@ public class Doctor extends Staff{
     private String name;
     private String surname;
     private String department;
-    private List<Patient> patients;
+    private List<Patient> patients=new ArrayList<>();
 
     public List<Patient> getPatients() {
         return patients;

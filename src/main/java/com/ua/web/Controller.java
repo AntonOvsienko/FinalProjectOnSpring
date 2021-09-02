@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
@@ -41,7 +42,7 @@ public class Controller extends HttpServlet {
         }
 
         // (4) go to address
-        req.getRequestDispatcher(address).forward(req, resp);
+        resp.sendRedirect(address);
     }
 
     @Override
@@ -60,7 +61,11 @@ public class Controller extends HttpServlet {
         Command command = CommandContainer.getCommand(commandName);
         System.out.println("command ==> " + command);
 
-        address = command.execute(req, resp);
+        try {
+            address = command.execute(req, resp);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         System.out.println("address ==> " + address);
         req.getRequestDispatcher(address).forward(req, resp);
     }

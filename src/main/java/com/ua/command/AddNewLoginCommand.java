@@ -14,6 +14,7 @@ public class AddNewLoginCommand implements Command {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
         session.setMaxInactiveInterval(30);
+        session.setAttribute("successfully",null);
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String passwordRepeat = req.getParameter("password_repeat");
@@ -88,6 +89,8 @@ public class AddNewLoginCommand implements Command {
                 e.printStackTrace();
             }
             throwables.printStackTrace();
+            session.setAttribute("error", "Ошибка ввода");
+            return "users/newLogin.jsp";
         } finally {
             try {
                 con.setAutoCommit(true);
@@ -96,7 +99,10 @@ public class AddNewLoginCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        return "users/admin.jsp";
+        session.setAttribute("checkLogin",null);
+        session.setAttribute("successfully","Логин создан");
+        session.setAttribute("error", null);
+        return "users/newLogin.jsp";
     }
 
     @Override

@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-<form id="auth" action="/prg_controller" method="post">
+<form id="auth" action="/controller" method="post">
     <c:if test="${checkLogin == 'true'}">
         <hr align="center" width="400" size="2" color="#00ff00"/>
     </c:if>
@@ -46,9 +46,11 @@
     <c:if test="${checkLogin == 'true'}">
         <hr align="center" width="400" size="2" color="#00ff00"/>
     </c:if>
-    <c:if test="${checkLogin != 'true'}">
-        <p align="center"><input type="submit" value="Проверить"></p>
-    </c:if>
+    <p align="center">
+        <c:if test="${checkLogin != 'true'}">
+        <input type="submit" value="Проверить">
+        </c:if>
+    </p>
     <c:if test="${checkLogin == 'false'}">
         <h4 name="error" align="center" color="#ff0000" c>Login is already taken</h4>
         <hr align="center" width="400" size="2" color="#ff0000"/>
@@ -78,5 +80,18 @@
         <p align="center"><input type="submit" value="Создать"></p>
     </form>
 </c:if>
+<c:if test="${error != null}">
+    <h4 name="error" align="center" color="#ff0000" c>${error}</h4>
+</c:if>
+<c:if test="${successfully != null}">
+    <h4 name="error" align="center" color="#ff0000" c>${successfully}</h4>
+</c:if>
+<form id="auth" action="/controller" method="get">
+    <p align="center">
+    <input name="command" value="redirect" hidden>
+    <input name="address" value="users/admin.jsp" hidden>
+    <input type="submit" value="Назад">
+    </p>
+</form>
 </body>
 </html>
