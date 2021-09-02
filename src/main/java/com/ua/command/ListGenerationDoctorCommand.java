@@ -2,14 +2,12 @@ package com.ua.command;
 
 import com.ua.ConnectionPool;
 import com.ua.entity.Doctor;
-import com.ua.entity.Patient;
 import com.ua.entity.Staff;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ public class ListGenerationDoctorCommand implements Command {
                     .executeQuery("SELECT * FROM doctor");
             List<Doctor> doctors = new ArrayList<>();
             while (rs.next()) {
-                Doctor doctor = (Doctor) newElement(rs, con,"doctor");
+                Doctor doctor = (Doctor) newElement(rs, con, "doctor");
                 doctors.add(doctor);
             }
             List<Doctor> doctorsSortByName = new ArrayList<>(doctors);
@@ -59,17 +57,17 @@ public class ListGenerationDoctorCommand implements Command {
             }
         }
         System.out.println("users/doctorList.jsp");
-        return "users/doctorList.jsp";
+        return "controller?command=viewPatient";
     }
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        Connection con= null;
+        Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return execute(req,resp,con);
+        return execute(req, resp, con);
     }
 }

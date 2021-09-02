@@ -1,13 +1,12 @@
 package com.ua.command;
 
+import com.ua.ConnectionPool;
 import com.ua.entity.Patient;
 import com.ua.entity.Staff;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -60,8 +59,9 @@ public class ListGenerationPatientCommand implements Command {
                 return 0;
             });
 
+            session.setAttribute("patients", patients);
             session.setAttribute("patientsByName", patientsSortByName);
-            session.setAttribute("patientsByNumberPatient", patientsSortByBirthday);
+            session.setAttribute("patientsByBirthday", patientsSortByBirthday);
 
         } catch (
                 Exception ex) {
@@ -80,6 +80,12 @@ public class ListGenerationPatientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        return null;
+        Connection con= null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return execute(req,resp,con);
     }
 }

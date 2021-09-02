@@ -17,6 +17,7 @@ public class CommandContainer {
 		commands.put("createNewLogin", new AddNewLoginCommand());
 		commands.put("exit", new FinishSessionComand());
 		commands.put("viewStaff", new ListGenerationDoctorCommand());
+		commands.put("viewPatient", new ListGenerationPatientCommand());
 		commands.put("redirect", new RedirectCommand());
 		commands.put("sortDoctorList", new SortDoctorListCommand());
 		commands.put("deleteDoctor", new DeleteDoctorWithListCommand());

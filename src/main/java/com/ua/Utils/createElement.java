@@ -16,13 +16,19 @@ public class createElement {
         Staff user=null;
         if (role.equals("doctor")){
             user = new Doctor();
+            if (rs.getString("department") != null) {
+                user.setDepartment(rs.getString("department"));
+            }
+            getlogin_password(rs, con, user);
         }
         if (role.equals("patient")){
             user = new Patient();
         }
         if (role.equals("nurse")){
             user = new Nurse();
+            getlogin_password(rs, con, user);
         }
+
         user.setId(rs.getInt("id"));
         if (rs.getString("name") != null) {
             user.setName(rs.getString("name"));
@@ -33,12 +39,14 @@ public class createElement {
         if (rs.getString("telephone") != null) {
             user.setTelephone(rs.getString("telephone"));
         }
-        if (rs.getString("department") != null) {
-            user.setDepartment(rs.getString("department"));
-        }
         if (rs.getString("passport") != null) {
             user.setPassport(rs.getString("passport"));
         }
+
+        return user;
+    }
+
+    public static void getlogin_password(ResultSet rs, Connection con, Staff user) throws SQLException {
         if (rs.getString("login_password_id") != null) {
             int login_password_id = rs.getInt("login_password_id");
             System.out.println(login_password_id);
@@ -58,6 +66,5 @@ public class createElement {
                 }
             }
         }
-        return user;
     }
 }
