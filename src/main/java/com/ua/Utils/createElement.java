@@ -2,14 +2,13 @@ package com.ua.Utils;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 
-import com.ua.entity.Doctor;
-import com.ua.entity.Nurse;
-import com.ua.entity.Patient;
-import com.ua.entity.Staff;
+import com.ua.entity.*;
 
 import java.sql.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +28,7 @@ public class createElement {
             user = new Patient();
             getStandartFields(rs, user);
             getAge(rs, (Patient) user);
-            getDiagnosesList(rs,user,con);
+            getDiagnosesList(rs, (Patient) user, con);
         }
         if (role.equals("nurse")) {
             user = new Nurse();
@@ -40,15 +39,37 @@ public class createElement {
         return user;
     }
 
-    private static void getDiagnosesList(ResultSet rs, Staff user, Connection con) {
-        Statement st=null;
+    private static void getDiagnosesList(ResultSet rs, Patient user, Connection con) {
+        Statement st = null;
         ResultSet rs2;
         try {
-            int id=rs.getInt("id");
-            String caseId="SELECT * FROM patient_has_case_record WHERE patient_id=" + id;
-
+            int patient_id = rs.getInt("id");
+            List<Integer> id = new ArrayList<>();
+            String caseId = "SELECT * FROM patient_has_case_records WHERE patient_id=" + patient_id;
+            st = con.createStatement();
+            rs2 = st.executeQuery(caseId);
+            while (rs2.next()) {
+                id.add(rs2.getInt("case_record_id"));
+            }
+            System.out.println(id);
+            for (int i = 0; i < id.size(); i++) {
+                String diagnosesId = "SELECT * FROM case_record WHERE id=" + id.get(i);
+                st = con.createStatement();
+                rs2 = st.executeQuery(diagnosesId);
+                while (rs2.next()) {
+                    CaseRecord caseString = new CaseRecord(rs2.getString("initial_diagnosis"));
+                    user.getCaseRecords().add(caseString);
+                }
+            }
+            System.out.println(user.getCaseRecords());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
@@ -76,16 +97,24 @@ public class createElement {
     private static void getStandartFields(ResultSet rs, Staff user) throws SQLException {
         user.setId(rs.getInt("id"));
         if (rs.getString("name") != null) {
+            System.out.println(rs.getString("name"));
             user.setName(rs.getString("name"));
+            System.out.println(user.getName());
         }
         if (rs.getString("surname") != null) {
+            System.out.println(rs.getString("surname"));
             user.setSurname(rs.getString("surname"));
+            System.out.println(user.getSurname());
         }
         if (rs.getString("telephone") != null) {
+            System.out.println(rs.getString("telephone"));
             user.setTelephone(rs.getString("telephone"));
+            System.out.println(user.getTelephone());
         }
         if (rs.getString("passport") != null) {
+            System.out.println(rs.getString("passport"));
             user.setPassport(rs.getString("passport"));
+            System.out.println(user.getPassport());
         }
     }
 

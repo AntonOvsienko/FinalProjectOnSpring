@@ -54,4 +54,17 @@ public class Patient extends Staff {
     public void setCaseRecords(List<CaseRecord> caseRecords) {
         this.caseRecords = caseRecords;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "\nid=" + id +
+                "\n, telephone='" + telephone + '\'' +
+                "\n, passport='" + passport + '\'' +
+                "\n, name='" + name + '\'' +
+                "\n, surname='" + surname + '\'' +
+                "\n, years=" + years +
+                "\n, caseRecords=" + caseRecords +
+                '}' + "\n";
+    }
 }

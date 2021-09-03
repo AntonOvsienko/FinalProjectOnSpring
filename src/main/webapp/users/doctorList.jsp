@@ -226,19 +226,19 @@
             <p><select name="selectDoctor">
                 <c:forEach items="${doctors}" var="entry">
                     <option value="${entry.getId()}">${entry.getName()}
-                            ${entry.getSurname()} - ${entry.getdepartment()}</option>
+                            ${entry.getSurname()} - ${entry.getDepartment()}</option>
                 </c:forEach>
             </select>
                 -->
-                <select name="selectPatient">
-                    <c:forEach items="${patients}" var="entry">
-                        <input name="patientId" value="${entry.getId()}" hidden>
-                        <c:forEach items="${entry.getCaseRecords()}" var="diagnose">
-                            <option value="${diagnose.getId()}">${entry.getName()}
-                                    ${entry.getSurname()} - ${diagnose.getInitialDiagnosis()}</option>
-                        </c:forEach>
-                    </c:forEach>
-                </select></p>
+<%--                <select name="selectPatient">--%>
+<%--                    <c:forEach items="${patients}" var="entry">--%>
+<%--                        <input name="patientId" value="${entry.getId()}" hidden>--%>
+<%--                        <c:forEach items="${entry.getCaseRecords()}" var="diagnose">--%>
+<%--                            <option value="${diagnose.getId()}">${entry.getName()}--%>
+<%--                                    ${entry.getSurname()} - ${diagnose.getInitialDiagnosis()}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </c:forEach>--%>
+<%--                </select></p>--%>
             <input type="submit" value="Назначить">
         </form>
     </div>

@@ -9,6 +9,10 @@ public class CaseRecord {
     private String finalDiagnosis;
     private List<DoctorAppointment> doctorAppointmentList;
 
+    public CaseRecord (String initialDiagnosis){
+        this.initialDiagnosis=initialDiagnosis;
+    }
+
     private class DoctorAppointment {
         int id;
         boolean complete;
@@ -54,5 +58,12 @@ public class CaseRecord {
 
     public void setDoctorAppointmentList(List<DoctorAppointment> doctorAppointmentList) {
         this.doctorAppointmentList = doctorAppointmentList;
+    }
+
+    @Override
+    public String toString() {
+        return "CaseRecord{" +
+                "initialDiagnosis='" + initialDiagnosis + '\'' +
+                '}';
     }
 }
