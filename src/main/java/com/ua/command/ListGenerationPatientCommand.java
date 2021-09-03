@@ -38,22 +38,22 @@ public class ListGenerationPatientCommand implements Command {
 
             patientsSortByName.sort(Comparator.comparing(Staff::getName));
             patientsSortByBirthday.sort((o1, o2) -> {
-                if (o1.getYearBorn() > o2.getDayBorn()) {
-                    return 1;
-                }
                 if (o1.getYearBorn() < o2.getYearBorn()) {
-                    return -1;
-                }
-                if (o1.getMonthBorn() > o2.getMonthBorn()) {
                     return 1;
+                }
+                if (o1.getYearBorn() > o2.getYearBorn()) {
+                    return -1;
                 }
                 if (o1.getMonthBorn() < o2.getMonthBorn()) {
-                    return -1;
-                }
-                if (o1.getDayBorn() > o2.getDayBorn()) {
                     return 1;
                 }
+                if (o1.getMonthBorn() > o2.getMonthBorn()) {
+                    return -1;
+                }
                 if (o1.getDayBorn() < o2.getDayBorn()) {
+                    return 1;
+                }
+                if (o1.getDayBorn() > o2.getDayBorn()) {
                     return -1;
                 }
                 return 0;

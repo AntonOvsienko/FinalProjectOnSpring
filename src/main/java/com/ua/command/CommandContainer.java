@@ -20,8 +20,10 @@ public class CommandContainer {
 		commands.put("viewPatient", new ListGenerationPatientCommand());
 		commands.put("redirect", new RedirectCommand());
 		commands.put("sortDoctorList", new SortDoctorListCommand());
+		commands.put("sortPatientList", new SortPatientListCommand());
 		commands.put("deleteDoctor", new DeleteDoctorWithListCommand());
-		// ...
+        commands.put("doctorToPatient", new AppointDoctorToPatientCommand());
+
 	}
 
 	public static Command getCommand(String commandName) {

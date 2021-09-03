@@ -19,6 +19,7 @@
             document.getElementById(login).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
     </script>
@@ -29,6 +30,7 @@
             top: 0;
             width: 50%;
         }
+
         #right {
             position: absolute;
             right: 0;
@@ -77,39 +79,40 @@
 </head>
 <body>
 <div id="left">
+    <h3>Врачи</h3>
     <c:if test="${check == 'on'}">
         <div class="tab">
             <p><select size="15" multiple>
-                <optgroup label="Pediatric">
+                <optgroup label="Педиатр">
                     <c:forEach items="${doctors}" var="entry">
-                        <c:if test="${entry.getDepartment() == 'Pediatric' }">
+                        <c:if test="${entry.getDepartment() == 'Педиатр' }">
                             <option class="tablinks"
                                     onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
                                     ${entry.getSurname()}</option>
                         </c:if>
                     </c:forEach>
                 </optgroup>
-                <optgroup label="Surgeon">
+                <optgroup label="Хирург">
                     <c:forEach items="${doctors}" var="entry">
-                        <c:if test="${entry.getDepartment() == 'Surgeon' }">
+                        <c:if test="${entry.getDepartment() == 'Хирург' }">
                             <option class="tablinks"
                                     onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
                                     ${entry.getSurname()}</option>
                         </c:if>
                     </c:forEach>
                 </optgroup>
-                <optgroup label="Therapist">
+                <optgroup label="Терапевт">
                     <c:forEach items="${doctors}" var="entry">
-                        <c:if test="${entry.getDepartment() == 'Therapist' }">
+                        <c:if test="${entry.getDepartment() == 'Терапевт' }">
                             <option class="tablinks"
                                     onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
                                     ${entry.getSurname()}</option>
                         </c:if>
                     </c:forEach>
                 </optgroup>
-                <optgroup label="Traumatologist">
+                <optgroup label="Травматолог">
                     <c:forEach items="${doctors}" var="entry">
-                        <c:if test="${entry.getDepartment() == 'Traumatologist' }">
+                        <c:if test="${entry.getDepartment() == 'Травматолог' }">
                             <option class="tablinks"
                                     onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
                                     ${entry.getSurname()}</option>
@@ -160,23 +163,30 @@
                     пациентов</label><br>
             </c:if>
             <input type="submit" value="Сортировка">
+            <input name="patients" value="${patients}" hidden>
+            <input name="patientsByName" value="${patientsSortByName}" hidden>
+            <input name="patientsByBirthday" value="${patientsSortByBirthday}" hidden>
             <input name="command" value="sortDoctorList" hidden>
         </form>
         </p>
         <form action="/controller" method="post">
             <input name="command" value="deleteDoctor" hidden>
-            <p><select size="2" name="select">
+            <p><select name="select">
                 <c:forEach items="${doctors}" var="entry">
                     <option value="${entry.getId()}">${entry.getName()}
                             ${entry.getSurname()}</option>
                 </c:forEach>
             </select></p>
             <input type="submit" value="Удалить">
+            <input name="patients" value="${patients}" hidden>
+            <input name="patientsByName" value="${patientsSortByName}" hidden>
+            <input name="patientsByBirthday" value="${patientsSortByBirthday}" hidden>
         </form>
     </div>
 </div>
 
 <div id="right">
+    <h3>Пациенты</h3>
     <div class="tab">
         <p><select size="15" multiple>
             <c:forEach items="${patients}" var="entry">
@@ -189,11 +199,49 @@
     <c:forEach items="${patients}" var="entry">
         <div id="${entry.getId()}" class="tabcontent" hidden>
             <p>Passport : ${entry.getPassport()}</p>
+            <p>Birthday : ${entry.getDayBorn()}-${entry.getMonthBorn()}-${entry.getYearBorn()}</p>
+            <p>Age : ${entry.getYears()}</p>
             <p>Name : ${entry.getName()}</p>
             <p>Surname : ${entry.getSurname()}</p>
             <p>Phone : ${entry.getTelephone()}</p>
         </div>
     </c:forEach>
+    <div class="button">
+        <p align="left">
+        <form>
+            <input name="command" value="sortPatientList" hidden>
+            <c:if test="${sort2=='sortByName'|| sort2==null}">
+                <label><input type="radio" name="sort2" value="sortByName" checked>Сортировать по имени</label><br>
+                <label><input type="radio" name="sort2" value="sortByBirthday">Сортировать по возрасту</label><br>
+            </c:if>
+            <c:if test="${sort2=='sortByBirthday'}">
+                <label><input type="radio" name="sort2" value="sortByName">Сортировать по имени</label><br>
+                <label><input type="radio" name="sort2" value="sortByBirthday" checked>Сортировать по возрасту</label><br>
+            </c:if>
+        <input type="submit" value="Сортировка">
+        </form>
+        <form class="button" action="/controller" method="post">
+            <p>Назначить врача пациенту</p>
+            <input name="command" value="doctorToPatient" hidden>
+            <p><select name="selectDoctor">
+                <c:forEach items="${doctors}" var="entry">
+                    <option value="${entry.getId()}">${entry.getName()}
+                            ${entry.getSurname()} - ${entry.getdepartment()}</option>
+                </c:forEach>
+            </select>
+                -->
+                <select name="selectPatient">
+                    <c:forEach items="${patients}" var="entry">
+                        <input name="patientId" value="${entry.getId()}" hidden>
+                        <c:forEach items="${entry.getCaseRecords()}" var="diagnose">
+                            <option value="${diagnose.getId()}">${entry.getName()}
+                                    ${entry.getSurname()} - ${diagnose.getInitialDiagnosis()}</option>
+                        </c:forEach>
+                    </c:forEach>
+                </select></p>
+            <input type="submit" value="Назначить">
+        </form>
+    </div>
 </div>
 </body>
 </html>

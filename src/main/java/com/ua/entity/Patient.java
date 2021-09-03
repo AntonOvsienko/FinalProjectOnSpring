@@ -9,10 +9,19 @@ public class Patient extends Staff {
     private String passport;
     private String name;
     private String surname;
+    private long years;
     private int dayBorn;
     private int monthBorn;
     private int yearBorn;
     private List<CaseRecord> caseRecords = new ArrayList<>();
+
+    public long getYears() {
+        return years;
+    }
+
+    public void setYears(long years) {
+        this.years = years;
+    }
 
     public int getDayBorn() {
         return dayBorn;
