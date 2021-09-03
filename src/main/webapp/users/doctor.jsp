@@ -7,8 +7,6 @@
     Name:${name}<br>
     Surname:${surname}<br>
     Passport:${passport}<br>
-    Age:${age}<br>
-    Gender:${gender}<br>
 </c:>
 
 <form id="auth" action="/controller" method="get">

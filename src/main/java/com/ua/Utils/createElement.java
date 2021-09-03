@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.ua.ConnectionPool;
 import com.ua.entity.*;
 
 import java.sql.*;
@@ -14,26 +15,37 @@ import java.util.regex.Pattern;
 
 public class createElement {
 
-    public static Staff newElement(ResultSet rs, Connection con, String role) throws SQLException {
+    public static Staff newElement(ResultSet rs, Connection con, String role) {
         Staff user = null;
-        if (role.equals("doctor")) {
-            user = new Doctor();
-            if (rs.getString("department") != null) {
-                user.setDepartment(rs.getString("department"));
+        try {
+            if (role.equals("doctor")) {
+                user = new Doctor();
+                if (rs.getString("department") != null) {
+                    user.setDepartment(rs.getString("department"));
+                }
+                getStandartFields(rs, user);
+                getlogin_password(rs, ConnectionPool.getInstance().getConnection(), user);
             }
-            getStandartFields(rs, user);
-            getlogin_password(rs, con, user);
-        }
-        if (role.equals("patient")) {
-            user = new Patient();
-            getStandartFields(rs, user);
-            getAge(rs, (Patient) user);
-            getDiagnosesList(rs, (Patient) user, con);
-        }
-        if (role.equals("nurse")) {
-            user = new Nurse();
-            getlogin_password(rs, con, user);
-            getStandartFields(rs, user);
+            if (role.equals("patient")) {
+                user = new Patient();
+                getAge(rs, (Patient) user);
+                getDiagnosesList(rs, (Patient) user, ConnectionPool.getInstance().getConnection());
+                getStandartFields(rs, user);
+
+            }
+            if (role.equals("nurse")) {
+                user = new Nurse();
+                getlogin_password(rs, ConnectionPool.getInstance().getConnection(), user);
+                getStandartFields(rs, user);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
         return user;
@@ -75,7 +87,7 @@ public class createElement {
 
     private static void getAge(ResultSet rs, Patient user) {
         try {
-            String date = rs.getDate("birthdate").toString();
+            String date = rs.getDate("birthday").toString();
             String dateParser = "([0-9]+)-([0-9]+)-([0-9]+)";
             Pattern pattern = Pattern.compile(dateParser);
             Matcher matcher = pattern.matcher(date);
@@ -94,48 +106,59 @@ public class createElement {
         }
     }
 
-    private static void getStandartFields(ResultSet rs, Staff user) throws SQLException {
-        user.setId(rs.getInt("id"));
-        if (rs.getString("name") != null) {
-            System.out.println(rs.getString("name"));
-            user.setName(rs.getString("name"));
-            System.out.println(user.getName());
-        }
-        if (rs.getString("surname") != null) {
-            System.out.println(rs.getString("surname"));
-            user.setSurname(rs.getString("surname"));
-            System.out.println(user.getSurname());
-        }
-        if (rs.getString("telephone") != null) {
-            System.out.println(rs.getString("telephone"));
-            user.setTelephone(rs.getString("telephone"));
-            System.out.println(user.getTelephone());
-        }
-        if (rs.getString("passport") != null) {
-            System.out.println(rs.getString("passport"));
-            user.setPassport(rs.getString("passport"));
-            System.out.println(user.getPassport());
+    private static void getStandartFields(ResultSet rs, Staff staff) {
+        try {
+            staff.setId(rs.getInt("id"));
+
+            if (rs.getString("name") != null) {
+                staff.setName(rs.getString("name"));
+                System.out.println(staff.getName());
+            }
+            if (rs.getString("surname") != null) {
+                staff.setSurname(rs.getString("surname"));
+                System.out.println(staff.getSurname());
+            }
+            if (rs.getString("telephone") != null) {
+                staff.setTelephone(rs.getString("telephone"));
+                System.out.println(staff.getTelephone());
+            }
+            if (rs.getString("passport") != null) {
+                staff.setPassport(rs.getString("passport"));
+                System.out.println(staff.getPassport());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
-    public static void getlogin_password(ResultSet rs, Connection con, Staff user) throws SQLException {
-        if (rs.getString("login_password_id") != null) {
-            int login_password_id = rs.getInt("login_password_id");
-            System.out.println(login_password_id);
-            String search = "SELECT * FROM login_password WHERE id=?";
-            PreparedStatement ps = con.prepareStatement(search);
-            ps.setInt(1, login_password_id);
-            ResultSet rs2 = ps.executeQuery();
-            while (rs2.next()) {
-                if (rs2.getString("role") != null) {
-                    user.setRole(rs2.getString("role"));
+    public static void getlogin_password(ResultSet rs, Connection con, Staff user) {
+        try {
+            if (rs.getString("login_password_id") != null) {
+                int login_password_id = rs.getInt("login_password_id");
+                System.out.println(login_password_id);
+                String search = "SELECT * FROM login_password WHERE id=?";
+                PreparedStatement ps = con.prepareStatement(search);
+                ps.setInt(1, login_password_id);
+                ResultSet rs2 = ps.executeQuery();
+                while (rs2.next()) {
+                    if (rs2.getString("role") != null) {
+                        user.setRole(rs2.getString("role"));
+                    }
+                    if (rs2.getString("login") != null) {
+                        user.setLogin(rs2.getString("login"));
+                    }
+                    if (rs2.getString("password") != null) {
+                        user.setPassword(rs2.getString("password"));
+                    }
                 }
-                if (rs2.getString("login") != null) {
-                    user.setLogin(rs2.getString("login"));
-                }
-                if (rs2.getString("password") != null) {
-                    user.setPassword(rs2.getString("password"));
-                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
         }
     }

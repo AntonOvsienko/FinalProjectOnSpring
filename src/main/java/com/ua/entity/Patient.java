@@ -1,9 +1,10 @@
 package com.ua.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Patient extends Staff {
+public class Patient extends Staff implements Serializable {
     private int id;
     private String telephone;
     private String passport;
@@ -58,7 +59,7 @@ public class Patient extends Staff {
     @Override
     public String toString() {
         return "Patient{" +
-                "\nid=" + id +
+                "id=" + id +
                 "\n, telephone='" + telephone + '\'' +
                 "\n, passport='" + passport + '\'' +
                 "\n, name='" + name + '\'' +

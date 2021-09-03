@@ -29,7 +29,7 @@ public class ListGenerationDoctorCommand implements Command {
                     .executeQuery("SELECT * FROM doctor");
             List<Doctor> doctors = new ArrayList<>();
             while (rs.next()) {
-                Doctor doctor = (Doctor) newElement(rs, con, "doctor");
+                Doctor doctor = (Doctor) newElement(rs, ConnectionPool.getInstance().getConnection(), "doctor");
                 doctors.add(doctor);
             }
             List<Doctor> doctorsSortByName = new ArrayList<>(doctors);

@@ -1,6 +1,8 @@
 package com.ua.entity;
 
-public class Nurse extends Staff{
+import java.io.Serializable;
+
+public class Nurse extends Staff implements Serializable {
     private int id;
     private int age;
     private String gender;

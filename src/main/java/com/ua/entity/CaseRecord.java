@@ -1,8 +1,9 @@
 package com.ua.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CaseRecord {
+public class CaseRecord implements Serializable {
     private int id;
     private int id_doctor;
     private String initialDiagnosis;
@@ -17,7 +18,7 @@ public class CaseRecord {
         int id;
         boolean complete;
         String type;
-        String text;
+        String description;
     }
 
     public int getId() {

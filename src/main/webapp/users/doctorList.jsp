@@ -26,7 +26,7 @@
     <style>
         #left {
             position: absolute;
-            left: 0;
+            left: 20px;
             top: 0;
             width: 50%;
         }
@@ -163,9 +163,6 @@
                     пациентов</label><br>
             </c:if>
             <input type="submit" value="Сортировка">
-            <input name="patients" value="${patients}" hidden>
-            <input name="patientsByName" value="${patientsSortByName}" hidden>
-            <input name="patientsByBirthday" value="${patientsSortByBirthday}" hidden>
             <input name="command" value="sortDoctorList" hidden>
         </form>
         </p>
@@ -178,9 +175,6 @@
                 </c:forEach>
             </select></p>
             <input type="submit" value="Удалить">
-            <input name="patients" value="${patients}" hidden>
-            <input name="patientsByName" value="${patientsSortByName}" hidden>
-            <input name="patientsByBirthday" value="${patientsSortByBirthday}" hidden>
         </form>
     </div>
 </div>
@@ -230,15 +224,14 @@
                 </c:forEach>
             </select>
                 -->
-<%--                <select name="selectPatient">--%>
-<%--                    <c:forEach items="${patients}" var="entry">--%>
-<%--                        <input name="patientId" value="${entry.getId()}" hidden>--%>
-<%--                        <c:forEach items="${entry.getCaseRecords()}" var="diagnose">--%>
-<%--                            <option value="${diagnose.getId()}">${entry.getName()}--%>
-<%--                                    ${entry.getSurname()} - ${diagnose.getInitialDiagnosis()}</option>--%>
-<%--                        </c:forEach>--%>
-<%--                    </c:forEach>--%>
-<%--                </select></p>--%>
+                <select name="selectPatient">
+                    <c:forEach items="${patients}" var="entry">
+                        <c:forEach items="${entry.getCaseRecords()}" var="diagnose">
+                            <option value="${diagnose.getId()}">${entry.getName()}
+                                    ${entry.getSurname()} - ${diagnose.getInitialDiagnosis()}</option>
+                        </c:forEach>
+                    </c:forEach>
+                </select></p>
             <input type="submit" value="Назначить">
         </form>
     </div>

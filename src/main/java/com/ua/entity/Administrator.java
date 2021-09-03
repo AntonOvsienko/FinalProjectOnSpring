@@ -1,6 +1,8 @@
 package com.ua.entity;
 
-public class Administrator extends Staff {
+import java.io.Serializable;
+
+public class Administrator extends Staff implements Serializable {
     private int id;
     private String login;
 

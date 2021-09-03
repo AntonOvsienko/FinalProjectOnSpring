@@ -23,7 +23,6 @@ public class CommandContainer {
 		commands.put("sortPatientList", new SortPatientListCommand());
 		commands.put("deleteDoctor", new DeleteDoctorWithListCommand());
         commands.put("doctorToPatient", new AppointDoctorToPatientCommand());
-
 	}
 
 	public static Command getCommand(String commandName) {

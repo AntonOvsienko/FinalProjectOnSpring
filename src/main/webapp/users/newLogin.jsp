@@ -71,10 +71,10 @@
         <p align="center">Телефон: <input type="text" name="telephone"><span></span></p>
         <c:if test="${role == 'doctor'}">
             <p align="center"><label>Направление:<select name="department">
-                <option value="Pediatric">Pediatric</option>
-                <option value="Surgeon">Surgeon</option>
-                <option value="Therapist">Therapist</option>
-                <option value="Traumatologist">Traumatologist</option>
+                <option value="Педиатр">Педиатр</option>
+                <option value="Хирург">Хирург</option>
+                <option value="Терапевт">Терапевт</option>
+                <option value="Травматолог">Травматолог</option>
             </select></label></p>
         </c:if>
         <p align="center"><input type="submit" value="Создать"></p>

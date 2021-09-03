@@ -1,5 +1,7 @@
 package com.ua.command;
 
+import com.ua.ConnectionPool;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
@@ -15,7 +17,7 @@ public class AddNewPatientCommand implements Command {
         Statement st = null;
         try {
             con.setAutoCommit(false);
-            addAnketData(req, con);
+            addAnketData(req, ConnectionPool.getInstance().getConnection());
             String lastPatientId = "SELECT MAX(id) FROM patient";
             st = con.createStatement();
             ResultSet rs = st.executeQuery(lastPatientId);
@@ -24,9 +26,9 @@ public class AddNewPatientCommand implements Command {
                 patientId = rs.getInt(1);
             }
             System.out.println("patientId => " + patientId);
-            List<String>massivDiagnoses = createDiagnisList(req);
+            List<String> massivDiagnoses = createDiagnisList(req);
             for (int i = 0; i < massivDiagnoses.size(); i++) {
-                addDiagnoses(con, st, patientId, massivDiagnoses.get(i));
+                addDiagnoses(ConnectionPool.getInstance().getConnection(), patientId, massivDiagnoses.get(i));
             }
             con.commit();
         } catch (SQLException throwables) {
@@ -43,7 +45,7 @@ public class AddNewPatientCommand implements Command {
     }
 
     private List<String> createDiagnisList(HttpServletRequest req) {
-        List<String> list =new ArrayList<>();
+        List<String> list = new ArrayList<>();
         String initDiagnosis1 = req.getParameter("diagnosis1");
         list.add(initDiagnosis1);
         String initDiagnosis2 = null;
@@ -74,14 +76,17 @@ public class AddNewPatientCommand implements Command {
         return list;
     }
 
-    private void addDiagnoses(Connection con, Statement st, int patientId, String diagnosis) throws SQLException {
+    private void addDiagnoses(Connection con, int patientId, String diagnosis) throws SQLException {
         String initDiagnosis = diagnosis;
         PreparedStatement ps;
+        Statement st = null;
         ResultSet rs;
         String case_record = "INSERT INTO case_record (initial_diagnosis) VALUES ('" + initDiagnosis + "')";
+        System.out.println(case_record);
         ps = con.prepareStatement(case_record);
         ps.executeUpdate();
         String lastCaseId = "SELECT MAX(id) FROM case_record";
+        st = con.createStatement();
         rs = st.executeQuery(lastCaseId);
         int caseId = 0;
         while (rs.next()) {
@@ -90,6 +95,7 @@ public class AddNewPatientCommand implements Command {
         System.out.println("caseId => " + caseId);
         String patientCase = "INSERT INTO patient_has_case_records " +
                 "(patient_id,case_record_id) VALUES (?,?)";
+        System.out.println(patientCase);
         ps = con.prepareStatement(patientCase);
         ps.setInt(1, patientId);
         ps.setInt(2, caseId);
@@ -108,7 +114,7 @@ public class AddNewPatientCommand implements Command {
                 + "\npassport-" + passportSet
                 + "\ndataBirthday-" + dataBirthdaySet
                 + "\ntelephone-" + telephoneSet);
-        String patient = "INSERT INTO patient (name,surname,passport,telephone,birthdate)" +
+        String patient = "INSERT INTO patient (name,surname,passport,telephone,birthday)" +
                 " VALUES (?,?,?,?,?)";
         ps = con.prepareStatement(patient);
         ps.setString(1, nameSet);
