@@ -1,5 +1,8 @@
 package com.ua.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Staff {
 
     private int id;
@@ -11,6 +14,7 @@ public abstract class Staff {
     private String name;
     private String surname;
     private String department;
+    private List<CaseRecord> caseRecords =new ArrayList<>();
 
     public String getTelephone() {
         return telephone;
@@ -82,6 +86,14 @@ public abstract class Staff {
 
     public void setPassport(String passport) {
         this.passport = passport;
+    }
+
+    public List<CaseRecord> getCaseRecords() {
+        return caseRecords;
+    }
+
+    public void setCaseRecords(List<CaseRecord> patients) {
+        this.caseRecords = patients;
     }
 
     @Override

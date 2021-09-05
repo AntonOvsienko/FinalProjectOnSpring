@@ -16,8 +16,37 @@ public class Patient extends Staff implements Serializable {
     private int yearBorn;
     private List<CaseRecord> caseRecords = new ArrayList<>();
 
+    public Patient(){
+
+    }
+
+    public Patient(String name,String surname){
+        this.name=name;
+        this.surname=surname;
+    }
+
     public long getYears() {
         return years;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getSurname() {
+        return surname;
+    }
+
+    @Override
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public void setYears(long years) {
@@ -46,14 +75,6 @@ public class Patient extends Staff implements Serializable {
 
     public void setYearBorn(int yearBorn) {
         this.yearBorn = yearBorn;
-    }
-
-    public List<CaseRecord> getCaseRecords() {
-        return caseRecords;
-    }
-
-    public void setCaseRecords(List<CaseRecord> caseRecords) {
-        this.caseRecords = caseRecords;
     }
 
     @Override

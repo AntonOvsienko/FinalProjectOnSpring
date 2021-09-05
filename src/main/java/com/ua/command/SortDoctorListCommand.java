@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class SortDoctorListCommand implements Command {
     @Override

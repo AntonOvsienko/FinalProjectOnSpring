@@ -29,7 +29,7 @@ public class ListGenerationPatientCommand implements Command {
             List<Patient> patients = new ArrayList<>();
             while (rs.next()) {
                 System.out.println("~~~~~~~~~~~~");
-                Patient patient = (Patient) newElement(rs, ConnectionPool.getInstance().getConnection(), "patient");
+                Patient patient = (Patient) newElement(rs, "patient");
                 patients.add(patient);
             }
             List<Patient> patientsSortByName = new ArrayList<>(patients);

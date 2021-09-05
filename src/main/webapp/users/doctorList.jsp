@@ -24,6 +24,8 @@
         document.getElementById("defaultOpen").click();
     </script>
     <style>
+        .MyMarginLeft {margin-left: 30px; }
+
         #left {
             position: absolute;
             left: 20px;
@@ -66,8 +68,10 @@
 
         /* Style the tab content */
         .tabcontent {
+            font-size: 15px;
+            line-height: 10px;
             padding: 0px 10px;
-            size: 20px;
+            size: 10px;
             float: left;
         }
 
@@ -135,14 +139,21 @@
     </c:if>
     <c:forEach items="${doctors}" var="entry">
         <div id="${entry.getLogin()}" class="tabcontent" hidden>
+            <output>
             <p class="login">Login : ${entry.getLogin()}</p>
             <p>Passport : ${entry.getPassport()}</p>
             <p>Name : ${entry.getName()}</p>
             <p>Surname : ${entry.getSurname()}</p>
             <p>Phone : ${entry.getTelephone()}</p>
             <p>Department : ${entry.getDepartment()}</p>
+            <p>Patient case :</p>
+            <c:forEach items="${entry.getCaseRecords()}" var="card">
+                <p class="MyMarginLeft">${card.getPatient().getName()} ${card.getPatient().getSurname()}(${card.getInitialDiagnosis()})</p>
+            </c:forEach>
+            </output>
         </div>
     </c:forEach>
+
     <br>
     <div class="button">
         <p align="left">
@@ -198,6 +209,9 @@
             <p>Name : ${entry.getName()}</p>
             <p>Surname : ${entry.getSurname()}</p>
             <p>Phone : ${entry.getTelephone()}</p>
+            <c:forEach items="${entry.getCaseRecords()}" var="card">
+                <p class="MyMarginLeft">${card.getDoctor().getName()} ${card.getDoctor().getSurname()}(${card.getInitialDiagnosis()})</p>
+            </c:forEach>
         </div>
     </c:forEach>
     <div class="button">

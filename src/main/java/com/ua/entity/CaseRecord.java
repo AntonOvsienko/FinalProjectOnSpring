@@ -5,13 +5,22 @@ import java.util.List;
 
 public class CaseRecord implements Serializable {
     private int id;
-    private int id_doctor;
+    Doctor doctor;
+    Patient patient;
     private String initialDiagnosis;
     private String finalDiagnosis;
     private List<DoctorAppointment> doctorAppointmentList;
 
-    public CaseRecord (String initialDiagnosis){
+    public CaseRecord (int id,String initialDiagnosis){
         this.initialDiagnosis=initialDiagnosis;
+        this.id=id;
+    }
+
+    public CaseRecord (int id,Doctor doctor,Patient patient,String initialDiagnosis){
+        this.initialDiagnosis=initialDiagnosis;
+        this.id=id;
+        this.doctor=doctor;
+        this.patient=patient;
     }
 
     private class DoctorAppointment {
@@ -27,14 +36,6 @@ public class CaseRecord implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getId_doctor() {
-        return id_doctor;
-    }
-
-    public void setId_doctor(int id_doctor) {
-        this.id_doctor = id_doctor;
     }
 
     public String getInitialDiagnosis() {
@@ -61,10 +62,30 @@ public class CaseRecord implements Serializable {
         this.doctorAppointmentList = doctorAppointmentList;
     }
 
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
     @Override
     public String toString() {
         return "CaseRecord{" +
-                "initialDiagnosis='" + initialDiagnosis + '\'' +
+                "id=" + id +
+                ", doctor=" + doctor +
+                ", patient=" + patient +
+                ", initialDiagnosis='" + initialDiagnosis + '\'' +
+                ", finalDiagnosis='" + finalDiagnosis + '\'' +
                 '}';
     }
 }
