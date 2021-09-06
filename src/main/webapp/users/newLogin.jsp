@@ -114,9 +114,9 @@
         <p align="center">Номер паспорта: <input name="passport" placeholder="AH0000000"
                                                  pattern="[А-Яа-яЁё]{2,2}\d{7,7}" type="text" required></p>
         <p align="center">Имя: <input type="text" name="name" placeholder="Вася или Vasya"
-                                      pattern="([А-Яа-яЁё]+\s[А-Яа-яЁё]+)|([A-Za-z]+\s[A-Za-z]+)" required></p>
+                                      pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>
         <p align="center">Фамилия: <input type="text" name="surname" placeholder="Левчий или Levchiy"
-                                          pattern="([А-Яа-яЁё]+\s[А-Яа-яЁё]+)|([A-Za-z]+\s[A-Za-z]+)" required></p>
+                                          pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>
         <p align="center">Телефон: <input id="online_phone" name="phone" type="tel" maxlength="50"
                                           autofocus="autofocus" value="+3(___)___-__-__"
                                           pattern="\+3\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"

@@ -158,11 +158,15 @@
             </div>
         </c:forEach>
         <div class="button">
-            <input type="submit" value="Удалить">
+            <input type="submit" value="Удалить сотрудника">
         </div>
     </form>
     <div class="button">
         <p align="left">
+        <form id="createLogin" action="/controller" method="get">
+            <input name="command" value="checkNewLogin" hidden>
+            <input type="submit" value="Добавить сотрудника">
+        </form>
         <form id="sort" action="/controller" method="get">
             <c:if test="${check!='on'}">
                 <label><input type="checkbox" name="check" value="on">Разбить по категориям</label><br>
@@ -184,13 +188,13 @@
         </form>
         </p>
     </div>
+    <p align="left">
     <form id="auth" action="/controller" method="get">
-        <p align="left">
-            <input name="command" value="redirect" hidden>
-            <input name="address" value="users/admin.jsp" hidden>
-            <input type="submit" value="Назад">
-        </p>
+        <input name="command" value="redirect" hidden>
+        <input name="address" value="users/admin.jsp" hidden>
+        <input type="submit" value="Назад">
     </form>
+    </p>
 </div>
 
 <div id="right">
@@ -223,6 +227,10 @@
             </c:forEach>
         </div>
     </c:forEach>
+    <form class="button" action="/controller" method="get">
+        <input name="command" value="addNewPatient" hidden>
+        <p align="left"><input type="submit" value="Добавить пациентов"></p>
+    </form>
     <div class="button">
         <p align="left">
         <form>
@@ -262,5 +270,9 @@
         </form>
     </div>
 </div>
+<form action="/controller" method="get">
+    <input name="command" value="exit" hidden>
+    <p align="center"><input type="submit" value="Закончить сессию"></p>
+</form>
 </body>
 </html>

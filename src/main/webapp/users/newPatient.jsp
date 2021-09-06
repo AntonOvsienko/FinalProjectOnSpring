@@ -66,9 +66,9 @@
     <p align="center">Номер паспорта: <input name="passport" placeholder="AH0000000"
                                              pattern="[А-Яа-яЁё]{2,2}\d{7,7}" type="text" required><span></span></p>
     <p align="center">Имя: <input type="text" name="name" placeholder="Вася или Vasya"
-                                  pattern="([А-Яа-яЁё]+\s[А-Яа-яЁё]+)|([A-Za-z]+\s[A-Za-z]+)" required><span></span></p>
+                                  pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required><span></span></p>
     <p align="center">Фамилия: <input type="text" name="surname" placeholder="Левчий или Levchiy"
-                                      pattern="([А-Яа-яЁё]+\s[А-Яа-яЁё]+)|([A-Za-z]+\s[A-Za-z]+)" required><span></span></p>
+                                      pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required><span></span></p>
     <p align="center">Дата рождения:<input type="date" name="date"/></p>
     <p align="center">Контактный номер: <input id="online_phone" name="phone" type="tel" maxlength="50"
                                                autofocus="autofocus" value="+3(___)___-__-__"
@@ -83,6 +83,11 @@
     <p id="diagnosis6" align="center" hidden>Первичный диагноз <input type="text" name="diagnosis6"><span></span></p>
     <p  align="center"><input type="button" value="Добавить поле диагноза" onclick="showForm()"></p>
     <p  align="center"><input type="submit" value="Создать"></p>
+    <p align="center">
+        <input name="command" value="redirect" hidden>
+        <input name="address" value="users/doctorList.jsp" hidden>
+        <input type="submit" value="Назад">
+    </p>
 </form>
 </body>
 </html>
