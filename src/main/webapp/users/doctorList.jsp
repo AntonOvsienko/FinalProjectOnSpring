@@ -189,12 +189,12 @@
         </p>
     </div>
     <p align="left">
-    <form id="auth" action="/controller" method="get">
-        <input name="command" value="redirect" hidden>
-        <input name="address" value="users/admin.jsp" hidden>
-        <input type="submit" value="Назад">
+    <form action="/controller" method="get">
+        <input name="command" value="exit" hidden>
+        <p align="left"><input type="submit" value="Закончить сессию"></p>
     </form>
     </p>
+
 </div>
 
 <div id="right">
@@ -270,9 +270,5 @@
         </form>
     </div>
 </div>
-<form action="/controller" method="get">
-    <input name="command" value="exit" hidden>
-    <p align="center"><input type="submit" value="Закончить сессию"></p>
-</form>
 </body>
 </html>
