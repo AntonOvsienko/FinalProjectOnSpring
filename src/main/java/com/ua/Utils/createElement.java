@@ -30,7 +30,6 @@ public class createElement {
                 user = new Patient();
                 getAge(rs, (Patient) user);
                 getStandartFields(rs, user);
-//                getDiagnosesList(user.getId(), (Patient) user, ConnectionPool.getInstance().getConnection());
                 getCaseRecordPatient(ConnectionPool.getInstance().getConnection(), user, user.getId());
             }
             if (role.equals("nurse")) {
@@ -63,30 +62,30 @@ public class createElement {
                 id = rs1.getInt("id");
                 doctor_id = rs1.getInt("doctor_id");
                 path = "SELECT * FROM doctor WHERE id=" + doctor_id;
-                System.out.println(path);
-                Doctor doctor = null;
+                Doctor doctor = new Doctor();
                 st = connection.createStatement();
                 rs2 = st.executeQuery(path);
                 while (rs2.next()) {
-                    String name = rs2.getString("name");
-                    String surname = rs2.getString("surname");
-                    String department = rs2.getString("department");
-                    doctor = new Doctor(name, surname, department);
+                    String name = rs2.getString(2);
+                    String surname = rs2.getString(3);
+                    String department = rs2.getString(5);
+                    doctor.setName(name);
+                    doctor.setSurname(surname);
+                    doctor.setDepartment(department);
                 }
                 path = "SELECT * FROM patient WHERE id=" + patient_id;
-                System.out.println(path);
-                Patient patient = null;
+                Patient patient = new Patient();
                 st = connection.createStatement();
                 rs2 = st.executeQuery(path);
                 while (rs2.next()) {
                     String name = rs2.getString("name");
                     String surname = rs2.getString("surname");
-                    patient = new Patient(name, surname);
+                    patient.setName(name);
+                    patient.setSurname(surname);
                 }
                 case_record_id = rs1.getInt("case_record_id");
                 String initialDiagnosis = "";
                 String path2 = "SELECT * FROM case_record WHERE id=" + case_record_id;
-                System.out.println(path2);
                 st = connection.createStatement();
                 rs2 = st.executeQuery(path2);
                 while (rs2.next()) {
@@ -113,7 +112,6 @@ public class createElement {
         List<CaseRecord> caseRecords = new ArrayList<>();
         try {
             String path = "SELECT * FROM patient_has_case_records WHERE doctor_id=" + doctorId;
-            System.out.println(path);
             st = connection.createStatement();
             rs1 = st.executeQuery(path);
             int id = 0;
@@ -144,7 +142,6 @@ public class createElement {
                 case_record_id = rs1.getInt("case_record_id");
                 String initialDiagnosis = "";
                 String path2 = "SELECT * FROM case_record WHERE id=" + case_record_id;
-                System.out.println(path2);
                 st = connection.createStatement();
                 rs2 = st.executeQuery(path2);
                 while (rs2.next()) {
@@ -165,39 +162,6 @@ public class createElement {
         }
     }
 
-//    private static void getDiagnosesList(int patient_id, Patient user, Connection con) {
-//        Statement st = null;
-//        ResultSet rs2;
-//        try {
-//            List<Integer> id = new ArrayList<>();
-//            String caseId = "SELECT * FROM patient_has_case_records WHERE patient_id=" + patient_id;
-//            st = con.createStatement();
-//            rs2 = st.executeQuery(caseId);
-//            while (rs2.next()) {
-//                id.add(rs2.getInt("case_record_id"));
-//            }
-//            System.out.println(id);
-//            for (int i = 0; i < id.size(); i++) {
-//                String diagnosesId = "SELECT * FROM case_record WHERE id=" + id.get(i);
-//                st = con.createStatement();
-//                rs2 = st.executeQuery(diagnosesId);
-//                while (rs2.next()) {
-//                    CaseRecord caseString = new CaseRecord(rs2.getInt("id"), rs2.getString("initial_diagnosis"));
-//                    user.getCaseRecords().add(caseString);
-//                }
-//            }
-//            System.out.println(user.getCaseRecords());
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        } finally {
-//            try {
-//                con.close();
-//            } catch (SQLException throwables) {
-//                throwables.printStackTrace();
-//            }
-//        }
-//    }
-
     private static void getAge(ResultSet rs, Patient user) {
         try {
             String date = rs.getDate("birthday").toString();
@@ -213,7 +177,6 @@ public class createElement {
             LocalDate end = LocalDate.now();
             long years = ChronoUnit.YEARS.between(start, end);
             user.setYears(years);
-            System.out.println("age = " + years);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -244,7 +207,6 @@ public class createElement {
         try {
             if (rs.getString("login_password_id") != null) {
                 int login_password_id = rs.getInt("login_password_id");
-                System.out.println(login_password_id);
                 String search = "SELECT * FROM login_password WHERE id=?";
                 PreparedStatement ps = con.prepareStatement(search);
                 ps.setInt(1, login_password_id);

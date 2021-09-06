@@ -35,11 +35,10 @@ public class ListGenerationDoctorCommand implements Command {
             List<Doctor> doctorsSortByName = new ArrayList<>(doctors);
             List<Doctor> doctorsSortByCategory = new ArrayList<>(doctorsSortByName);
             List<Doctor> doctorsSortByNumberPatient = new ArrayList<>(doctors);
-            System.out.println(doctorsSortByName);
 
             doctorsSortByName.sort(Comparator.comparing(Staff::getName));
             doctorsSortByCategory.sort(Comparator.comparing(Staff::getDepartment));
-//            doctorsSortByNumberPatient.sort(Comparator.comparingInt(o -> o.getPatients().size()));
+            doctorsSortByNumberPatient.sort(Comparator.comparingInt(o -> o.getCaseRecords().size()));
 
             session.setAttribute("doctors", doctors);
             session.setAttribute("doctorsByCategory", doctorsSortByCategory);

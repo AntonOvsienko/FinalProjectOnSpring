@@ -34,7 +34,6 @@ public class ListGenerationPatientCommand implements Command {
             }
             List<Patient> patientsSortByName = new ArrayList<>(patients);
             List<Patient> patientsSortByBirthday = new ArrayList<>(patients);
-            System.out.println(patientsSortByName);
 
             patientsSortByName.sort(Comparator.comparing(Staff::getName));
             patientsSortByBirthday.sort((o1, o2) -> {
