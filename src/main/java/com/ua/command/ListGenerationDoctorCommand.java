@@ -2,6 +2,7 @@ package com.ua.command;
 
 import com.ua.ConnectionPool;
 import com.ua.entity.Doctor;
+import com.ua.entity.Patient;
 import com.ua.entity.Staff;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +56,6 @@ public class ListGenerationDoctorCommand implements Command {
                 return "errorMessage/error.jsp";
             }
         }
-        System.out.println("users/doctorList.jsp");
         return "controller?command=viewPatient";
     }
 

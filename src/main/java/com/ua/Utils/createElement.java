@@ -42,6 +42,7 @@ public class createElement {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        System.out.println(user);
         return user;
     }
 
@@ -60,21 +61,23 @@ public class createElement {
             int case_record_id = 0;
             while (rs1.next()) {
                 id = rs1.getInt("id");
-                doctor_id = rs1.getInt("doctor_id");
-                path = "SELECT * FROM doctor WHERE id=" + doctor_id;
-                Doctor doctor = new Doctor();
-                st = connection.createStatement();
-                rs2 = st.executeQuery(path);
-                while (rs2.next()) {
-                    String name = rs2.getString(2);
-                    String surname = rs2.getString(3);
-                    String department = rs2.getString(5);
-                    doctor.setName(name);
-                    doctor.setSurname(surname);
-                    doctor.setDepartment(department);
+                Staff doctor = new Doctor();
+                if (rs1.getInt("doctor_id") != 0) {
+                    doctor_id = rs1.getInt("doctor_id");
+                    path = "SELECT * FROM doctor WHERE id=" + doctor_id;
+                    st = connection.createStatement();
+                    rs2 = st.executeQuery(path);
+                    while (rs2.next()) {
+                        String name = rs2.getString(2);
+                        String surname = rs2.getString(3);
+                        String department = rs2.getString(5);
+                        doctor.setName(name);
+                        doctor.setSurname(surname);
+                        doctor.setDepartment(department);
+                    }
                 }
                 path = "SELECT * FROM patient WHERE id=" + patient_id;
-                Patient patient = new Patient();
+                Staff patient = new Patient();
                 st = connection.createStatement();
                 rs2 = st.executeQuery(path);
                 while (rs2.next()) {
@@ -121,23 +124,23 @@ public class createElement {
                 id = rs1.getInt("id");
                 patient_id = rs1.getInt("patient_id");
                 path = "SELECT * FROM patient WHERE id=" + patient_id;
-                Patient patient = null;
+                Staff patient = new Patient();
                 st = connection.createStatement();
                 rs2 = st.executeQuery(path);
                 while (rs2.next()) {
                     String name = rs2.getString("name");
                     String surname = rs2.getString("surname");
-                    patient = new Patient(name, surname);
+                    patient = new Patient(patient_id, name, surname);
                 }
                 path = "SELECT * FROM doctor WHERE id=" + doctorId;
-                Doctor doctor = null;
+                Staff doctor = new Doctor();
                 st = connection.createStatement();
                 rs2 = st.executeQuery(path);
                 while (rs2.next()) {
                     String name = rs2.getString("name");
                     String surname = rs2.getString("surname");
                     String department = rs2.getString("department");
-                    doctor = new Doctor(name, surname, department);
+                    doctor = new Doctor(doctorId, name, surname, department);
                 }
                 case_record_id = rs1.getInt("case_record_id");
                 String initialDiagnosis = "";

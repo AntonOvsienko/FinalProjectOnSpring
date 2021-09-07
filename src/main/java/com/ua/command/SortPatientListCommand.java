@@ -25,6 +25,6 @@ public class SortPatientListCommand implements Command {
             session.setAttribute("patients", session.getAttribute("patientsByBirthday"));
         }
 
-        return "users/doctorList.jsp";
+        return (String)session.getAttribute("finalAddress");
     }
 }

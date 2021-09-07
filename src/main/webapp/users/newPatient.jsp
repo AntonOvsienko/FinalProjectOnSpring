@@ -71,7 +71,7 @@
                                       pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required><span></span></p>
     <p align="center">Дата рождения:<input type="date" name="date"/></p>
     <p align="center">Контактный номер: <input id="online_phone" name="phone" type="tel" maxlength="50"
-                                               autofocus="autofocus" value="+3(___)___-__-__"
+                                               autofocus="autofocus" value="+3(__)___-__-__"
                                                pattern="\+3\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"
                                                placeholder="+3(___)___-__-__"
                                                name="telephone"></p>
@@ -83,11 +83,12 @@
     <p id="diagnosis6" align="center" hidden>Первичный диагноз <input type="text" name="diagnosis6"><span></span></p>
     <p  align="center"><input type="button" value="Добавить поле диагноза" onclick="showForm()"></p>
     <p  align="center"><input type="submit" value="Создать"></p>
-    <p align="center">
-        <input name="command" value="redirect" hidden>
-        <input name="address" value="users/doctorList.jsp" hidden>
-        <input type="submit" value="Назад">
-    </p>
+
 </form>
+<form><p align="center">
+    <input name="command" value="redirect" hidden>
+    <input name="address" value="users/doctorList.jsp" hidden>
+    <input type="submit" value="Назад">
+</p></form>
 </body>
 </html>

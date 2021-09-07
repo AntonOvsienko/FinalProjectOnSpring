@@ -1,5 +1,7 @@
 package com.ua.command;
 
+import com.ua.ConnectionPool;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,11 +50,11 @@ public class LoginCommand implements Command {
                 Statement st = con.createStatement();
                 ResultSet rs2 = st.executeQuery(url);
                 if (role.equals("administrator")) {
-                    address = "users/admin.jsp";
+                    session.setAttribute("finalAddress","users/doctorList.jsp");
+                    address = "controller?command=viewStaff";
                 } else if (role.equals("doctor")) {
-                    address = "users/doctor.jsp";
-                } else if (role.equals("patient")) {
-                    address = "users/patient.jsp";
+                    session.setAttribute("finalAddress","users/doctor.jsp");
+                    address = "controller?command=viewStaff";
                 } else if (role.equals("nurse")) {
                     address = "users/nurse.jsp";
                 }

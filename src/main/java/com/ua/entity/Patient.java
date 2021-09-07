@@ -20,7 +20,8 @@ public class Patient extends Staff implements Serializable {
 
     }
 
-    public Patient(String name,String surname){
+    public Patient(int id,String name,String surname){
+        this.id=id;
         this.name=name;
         this.surname=surname;
     }
@@ -76,6 +77,50 @@ public class Patient extends Staff implements Serializable {
     public void setYearBorn(int yearBorn) {
         this.yearBorn = yearBorn;
     }
+
+
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getTelephone() {
+        return telephone;
+    }
+
+    @Override
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    @Override
+    public String getPassport() {
+        return passport;
+    }
+
+    @Override
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
+
+    @Override
+    public List<CaseRecord> getCaseRecords() {
+        return caseRecords;
+    }
+
+    @Override
+    public void setCaseRecords(List<CaseRecord> caseRecords) {
+        this.caseRecords = caseRecords;
+    }
+
+
 
     @Override
     public String toString() {

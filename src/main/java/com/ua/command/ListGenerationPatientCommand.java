@@ -18,7 +18,7 @@ import static com.ua.Utils.createElement.newElement;
 public class ListGenerationPatientCommand implements Command {
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con){
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
 
@@ -61,9 +61,9 @@ public class ListGenerationPatientCommand implements Command {
             session.setAttribute("patients", patients);
             session.setAttribute("patientsByName", patientsSortByName);
             session.setAttribute("patientsByBirthday", patientsSortByBirthday);
-
-        } catch (
-                Exception ex) {
+            String path=con.getMetaData().getURL();
+            System.out.println(path);
+        } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
             try {
@@ -73,8 +73,7 @@ public class ListGenerationPatientCommand implements Command {
                 return "errorMessage/error.jsp";
             }
         }
-        System.out.println("users/doctorList.jsp");
-        return "users/doctorList.jsp";
+        return (String) session.getAttribute("finalAddress");
     }
 
     @Override
