@@ -2,9 +2,17 @@ package com.ua.entity;
 
 public class DoctorAppointment {
     int id;
-    boolean complete;
+    String complete;
     String type;
     String description;
+
+    public String getComplete() {
+        return complete;
+    }
+
+    public void setComplete(String complete) {
+        this.complete = complete;
+    }
 
     public int getId() {
         return id;
@@ -12,14 +20,6 @@ public class DoctorAppointment {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public boolean isComplete() {
-        return complete;
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
     }
 
     public String getType() {

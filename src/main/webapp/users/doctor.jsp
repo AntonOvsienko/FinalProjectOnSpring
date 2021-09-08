@@ -7,15 +7,19 @@
             border: 1px solid grey;
             width: 600px;
             text-align: left;
+            border-collapse: collapse;
         }
+
         th.cell {
             padding-left: 8px;
             padding-top: 5px;
             padding-bottom: 5px;
         }
-        th{
+
+        th {
             border: 1px solid grey;
         }
+
         td {
             border: 1px solid grey;
         }
@@ -50,12 +54,17 @@
     <p>
     <div class="tab">
         <table>
-            <tr><th align="center">id</th><th class="cell">Пациент</th><th class="cell">Диагноз</th>
-                <th class="cell">Назначение врача</th></tr>
+            <tr>
+                <th align="center">id</th>
+                <th class="cell">Пациент</th>
+                <th class="cell">Диагноз</th>
+                <th class="cell">Назначение врача</th>
+            </tr>
             <c:forEach items="${doctors}" var="doctor">
                 <c:if test="${doctor.getLogin() == globalLogin}">
                     <c:forEach items="${doctor.getCaseRecords()}" var="entry" varStatus="i">
-                        <tr><th align="center">${i.count}</th>
+                        <tr>
+                            <th align="center">${i.count}</th>
                             <th class="cell">${entry.getPatient().getName()} ${entry.getPatient().getSurname()}</th>
                             <th class="cell">${entry.getInitialDiagnosis()}</th>
                             <th><input type="submit" value="Перейти"></th>

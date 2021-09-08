@@ -28,7 +28,6 @@ public class ListGenerationPatientCommand implements Command {
                     .executeQuery("SELECT * FROM patient");
             List<Patient> patients = new ArrayList<>();
             while (rs.next()) {
-                System.out.println("~~~~~~~~~~~~");
                 Patient patient = (Patient) newElement(rs, "patient");
                 patients.add(patient);
             }
