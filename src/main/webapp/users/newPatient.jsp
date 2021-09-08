@@ -11,48 +11,49 @@
     <title>Title</title>
     <script type="text/javascript">
         function showForm() {
-            if (document.getElementById("diagnosis2").hidden == true){
+            if (document.getElementById("diagnosis2").hidden == true) {
                 document.getElementById("diagnosis2").hidden = false;
-            } else if (document.getElementById("diagnosis3").hidden == true){
+            } else if (document.getElementById("diagnosis3").hidden == true) {
                 document.getElementById("diagnosis3").hidden = false;
-            } else if (document.getElementById("diagnosis4").hidden == true){
+            } else if (document.getElementById("diagnosis4").hidden == true) {
                 document.getElementById("diagnosis4").hidden = false;
-            } else if (document.getElementById("diagnosis5").hidden == true){
+            } else if (document.getElementById("diagnosis5").hidden == true) {
                 document.getElementById("diagnosis5").hidden = false;
-            } else if (document.getElementById("diagnosis6").hidden == true){
+            } else if (document.getElementById("diagnosis6").hidden == true) {
                 document.getElementById("diagnosis6").hidden = false;
             }
         }
 
-            function setCursorPosition(pos, e) {
+        function setCursorPosition(pos, e) {
             e.focus();
             if (e.setSelectionRange) e.setSelectionRange(pos, pos);
             else if (e.createTextRange) {
-            var range = e.createTextRange();
-            range.collapse(true);
-            range.moveEnd("character", pos);
-            range.moveStart("character", pos);
-            range.select()
-        }
+                var range = e.createTextRange();
+                range.collapse(true);
+                range.moveEnd("character", pos);
+                range.moveStart("character", pos);
+                range.select()
+            }
+
         }
 
-            function mask(e) {
+        function mask(e) {
             //console.log('mask',e);
             var matrix = this.placeholder,// .defaultValue
-            i = 0,
-            def = matrix.replace(/\D/g, ""),
-            val = this.value.replace(/\D/g, "");
+                i = 0,
+                def = matrix.replace(/\D/g, ""),
+                val = this.value.replace(/\D/g, "");
             def.length >= val.length && (val = def);
             matrix = matrix.replace(/[_\d]/g, function (a) {
-            return val.charAt(i++) || "_"
-        });
+                return val.charAt(i++) || "_"
+            });
             this.value = matrix;
             i = matrix.lastIndexOf(val.substr(-1));
             i < matrix.length && matrix != this.placeholder ? i++ : i = matrix.indexOf("_");
             setCursorPosition(i, this)
         }
 
-            window.addEventListener("DOMContentLoaded", function () {
+        window.addEventListener("DOMContentLoaded", function () {
             var input = document.querySelector("#online_phone");
             input.addEventListener("input", mask, false);
             input.focus();
@@ -81,9 +82,8 @@
     <p id="diagnosis4" align="center" hidden>Первичный диагноз <input type="text" name="diagnosis4"><span></span></p>
     <p id="diagnosis5" align="center" hidden>Первичный диагноз <input type="text" name="diagnosis5"><span></span></p>
     <p id="diagnosis6" align="center" hidden>Первичный диагноз <input type="text" name="diagnosis6"><span></span></p>
-    <p  align="center"><input type="button" value="Добавить поле диагноза" onclick="showForm()"></p>
-    <p  align="center"><input type="submit" value="Создать"></p>
-
+    <p align="center"><input type="button" value="Добавить поле диагноза" onclick="showForm()"></p>
+    <p align="center"><input type="submit" value="Создать"></p>
 </form>
 <form><p align="center">
     <input name="command" value="redirect" hidden>

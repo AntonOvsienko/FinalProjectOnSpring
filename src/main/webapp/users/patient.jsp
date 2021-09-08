@@ -79,7 +79,6 @@
     </script>
 </head>
 <body>
-
 <h1 align="center">Hello Patient</h1>
 <%--<form action="/controller" method="post">--%>
 <%--    <input name="command" value="updateStaff" hidden>--%>
@@ -112,10 +111,12 @@
                     <td class="table1">${entry.getType()}</td>
                     <td class="table1">${entry.getDescription()}</td>
                     <td class="table1">
-                    <input type=${entry} name="idAppointment">
-
+                        <input type="checkbox"
+                               name="appointmentDelete"
+                               value="${entry.getId()}">
                     </td>
                 </tr>
+
             </c:if>
         </c:forEach>
     </form>
