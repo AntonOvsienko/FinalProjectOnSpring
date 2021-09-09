@@ -5,6 +5,15 @@ public class DoctorAppointment {
     String complete;
     String type;
     String description;
+    String nameStaffComplete;
+
+    public String getNameStaffComplete() {
+        return nameStaffComplete;
+    }
+
+    public void setNameStaffComplete(String nameStaffComplete) {
+        this.nameStaffComplete = nameStaffComplete;
+    }
 
     public String getComplete() {
         return complete;

@@ -25,6 +25,9 @@ public class CommandContainer {
         commands.put("doctorToPatient", new AppointDoctorToPatientCommand());
 		commands.put("doctorAppointment", new DoctorAppointmentListCommand());
 		commands.put("addAppointment", new AddAppointmentCommand());
+		commands.put("deleteAppointment", new DeleteAppointmentCommand());
+		commands.put("confirmAppointment", new ConfirmAppointmentCommand());
+
 
 
 	}

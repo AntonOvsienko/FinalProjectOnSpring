@@ -83,8 +83,8 @@
                     <input name="password_repeat" type="password" required></label></p>
                 <p align="center"><label>Должность:<select name="role">
                     <option disabled>Select position</option>
-                    <option value="doctor">doctor</option>
-                    <option value="nurse">nurse</option>
+                    <option value="doctor">Доктор</option>
+                    <option value="nurse">Медсестра</option>
                 </select></label></p>
             </table>
         </c:otherwise>

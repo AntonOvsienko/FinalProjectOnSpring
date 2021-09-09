@@ -3,6 +3,7 @@
 <html>
 <head>
     <style>
+
         table {
             font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
             font-size: 14px;
@@ -90,14 +91,14 @@
 <%--    <p align="center"><input type="submit" value="Создать"></p>--%>
 <%--</form>--%>
 <p align="center">Текущие процедуры</p>
-<table align="center">
-    <tr class="table1">
-        <th class="table1" align="center" width="5%">id</th>
-        <th class="table1" width="20%">Назначение</th>
-        <th class="table1" width="60%">Подробности</th>
-        <th class="table1">Выполнено</th>
-    </tr>
-    <form action="/controller" method="post">
+<form action="/controller" method="post" class="form">
+    <table align="center">
+        <tr class="table1">
+            <th class="table1" align="center" width="5%">id</th>
+            <th class="table1" width="20%">Назначение</th>
+            <th class="table1" width="50%">Подробности</th>
+            <th class="table1">Выполнено</th>
+        </tr>
         <c:forEach items="${appointmentList}" var="entry" varStatus="i">
             <input type="hidden" name="id" value="${entry.getId()}"/>
             <c:if test="${entry == null}">
@@ -106,21 +107,50 @@
                 </tr>
             </c:if>
             <c:if test="${entry != null}">
-                <tr class="table1">
-                    <td class="table1" align="center">${i.count}</td>
-                    <td class="table1">${entry.getType()}</td>
-                    <td class="table1">${entry.getDescription()}</td>
-                    <td class="table1">
-                        <input type="checkbox"
-                               name="appointmentDelete"
-                               value="${entry.getId()}">
-                    </td>
-                </tr>
-
+                <c:if test="${entry.getComplete() != 'true'}">
+                    <tr class="table1">
+                        <td class="table1" align="center">${i.count}</td>
+                        <td class="table1">${entry.getType()}</td>
+                        <td class="table1">${entry.getDescription()}</td>
+                        <td class="table1">
+                            <input type="checkbox"
+                                   name="appointment"
+                                   value="${entry.getId()}">
+                        </td>
+                    </tr>
+                </c:if>
+                <c:if test="${entry.getComplete() == 'true'}">
+                    <div class="toggle-button">
+                        <tr id="auth2" class="table1">
+                            <td class="table1" align="center">${i.count}</td>
+                            <td class="table1"><s>${entry.getType()}</s></td>
+                            <td class="table1"><s>${entry.getDescription()}</s></td>
+                            <td class="table1">
+                                    ${entry.getNameStaffComplete()}
+                            </td>
+                        </tr>
+                    </div>
+                </c:if>
             </c:if>
         </c:forEach>
-    </form>
-</table>
+
+    </table>
+    <p align="center">
+        <button type="submit" name="command" value="deleteAppointment"
+                onclick='return confirm("Вы уверены что хотите удалить назначения?")'>
+            Удалить
+        </button>
+        <button type="submit" name="command" value="confirmAppointment"
+                onclick='return confirm("Подтвердить выполнение")'>
+            Выполнить
+        </button>
+        <button type="submit" name="command" value="confirmAppointment"
+                onclick='return confirm("Подтвердить выполнение")'>
+            Выполнить
+        </button>
+    </p>
+</form>
+
 <p align="center"><input type="button" value="Добавить процедур" onclick="showForm2()"></p>
 <form id="auth" action="/controller" method="post" hidden>
     <table class="table2" align="center">

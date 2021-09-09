@@ -13,7 +13,6 @@ public class AddNewLoginCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
-        session.setMaxInactiveInterval(30);
         session.setAttribute("successfully",null);
         String login = req.getParameter("login");
         String password = req.getParameter("password");

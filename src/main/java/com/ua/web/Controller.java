@@ -50,7 +50,7 @@ public class Controller extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
-        session.setMaxInactiveInterval(30);
+        session.setMaxInactiveInterval(-1);
         String address = "errorMessage/error.jsp";
         if (req.getParameter("command") != null) {
             session.setAttribute("command", req.getParameter("command"));

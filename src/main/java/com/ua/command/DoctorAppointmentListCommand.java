@@ -69,6 +69,7 @@ public class DoctorAppointmentListCommand implements Command {
                     da.setType(rs2.getString("type"));
                     da.setDescription(rs2.getString("description"));
                     da.setComplete(rs2.getString("complete"));
+                    da.setNameStaffComplete(rs2.getString("name_staff_complete"));
                     doctorAppointmentList.add(da);
                 }
             }
@@ -90,7 +91,6 @@ public class DoctorAppointmentListCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
-
         return execute(req, resp, ConnectionPool.getInstance().getConnection());
     }
 }

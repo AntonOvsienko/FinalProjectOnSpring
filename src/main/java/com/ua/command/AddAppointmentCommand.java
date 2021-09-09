@@ -10,7 +10,6 @@ public class AddAppointmentCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
-        session.setMaxInactiveInterval(30);
         int caseRecordId = (int) session.getAttribute("caseRecordId");
         PreparedStatement ps;
         ResultSet rs;
@@ -83,13 +82,13 @@ public class AddAppointmentCommand implements Command {
                 throwables.printStackTrace();
             }
         }
+        System.out.println(URL);
         return URL;
     }
 
     private void addInTable(HttpServletRequest req, Connection con, String select, String description) throws SQLException {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
-        session.setMaxInactiveInterval(30);
         int patient_has_case_records_id = Integer.parseInt(req.getParameter("caseRecordId"));
         String path;
         Statement st;
