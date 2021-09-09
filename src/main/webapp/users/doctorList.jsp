@@ -6,7 +6,10 @@
 
 <head>
     <script>
+        document.getElementById("defaultOpen").click();
+
         function openCity(evt, login) {
+
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
@@ -20,26 +23,23 @@
             evt.currentTarget.className += " active";
         }
 
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
+        function openCity2(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent2");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks2");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
     </script>
     <style>
         .MyMarginLeft {
             margin-left: 30px;
-        }
-
-        #left {
-            position: absolute;
-            left: 20px;
-            top: 0;
-            width: 50%;
-        }
-
-        #right {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 50%;
         }
 
         * {
@@ -50,11 +50,38 @@
             font-family: 'Open Sans', Arial, sans-serif;
             font-size: 1em;
             background: #ebebeb;
+
         }
 
         /* Style the tab */
         .tab {
             float: left;
+        }
+
+        input[type=submit], button[type=submit] {
+            margin-top: 20px;
+            padding: 5px 5px;
+            display: block;
+            width: 100%;
+            line-height: 2em;
+            background: rgba(114, 212, 202, 1);
+            border-radius: 5px;
+            border: 0;
+            cursor: pointer;
+            border-top: 1px solid #B2ECE6;
+            box-shadow: 0 0 0 1px #46A294, 0 2px 2px #808389;
+            color: #FFFFFF;
+            font-size: 1.5em;
+            text-shadow: 0 1px 2px #21756A;
+        }
+
+        input[type=submit]:hover, button[type=submit]:hover {
+            background: linear-gradient(to bottom, rgba(107, 198, 186, 1) 0%, rgba(57, 175, 154, 1) 100%);
+        }
+
+        input[type=submit]:active, button[type=submit]:active {
+            box-shadow: inset 0 0 5px #000;
+            background: linear-gradient(to bottom, rgba(57, 175, 154, 1) 0%, rgba(107, 198, 186, 1) 100%);
         }
 
         .button {
@@ -83,11 +110,52 @@
             opacity: 50%;
         }
 
+        .tab2 {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab2 button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab2 button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab2 button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent2 {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
     </style>
 </head>
 <body>
-<div id="left">
-    <h3>Врачи</h3>
+
+<div class="tab2">
+    <button class="tablinks2" onclick="openCity2(event, 'London')" id="defaultOpen">Врачи</button>
+    <button class="tablinks2" onclick="openCity2(event, 'Tokyo')">Медсёстры</button>
+    <button class="tablinks2" onclick="openCity2(event, 'Paris')">Пациенты</button>
+</div>
+
+<div id="London" class="tabcontent2">
     <form action="/controller" method="post">
         <input name="command" value="deleteDoctor" hidden>
         <c:if test="${check == 'on'}">
@@ -160,15 +228,18 @@
             </div>
         </c:forEach>
         <div class="button">
-            <input type="submit" value="Удалить сотрудника">
+            <table>
+                <tr>
+                    <td><input type="submit" value="Удалить сотрудника" width="100%"></td>
+                    <td>
+                        <button type="submit" name="command" value="checkNewLogin" width="100%">Добавить сотрудника</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </form>
     <div class="button">
         <p align="left">
-        <form id="createLogin" action="/controller" method="get">
-            <input name="command" value="checkNewLogin" hidden>
-            <input type="submit" value="Добавить сотрудника">
-        </form>
         <form id="sort" action="/controller" method="get">
             <c:if test="${check!='on'}">
                 <label><input type="checkbox" name="check" value="on">Разбить по категориям</label><br>
@@ -191,16 +262,15 @@
         </p>
     </div>
     <p align="left">
-    <form action="/controller" method="get">
-        <input name="command" value="exit" hidden>
-        <p align="left"><input type="submit" value="Закончить сессию"></p>
+        <form action="/controller" method="get">
+            <input name="command" value="exit" hidden>
+    <p align="left"><input type="submit" value="Закончить сессию"></p>
     </form>
     </p>
 
 </div>
 
-<div id="right">
-    <h3>Пациенты</h3>
+<div id="Paris" class="tabcontent2">
     <div class="tab">
         <p><select size="15" multiple>
             <c:forEach items="${patients}" var="entry">
@@ -272,5 +342,11 @@
         </form>
     </div>
 </div>
+
+<script>
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>
 </body>
 </html>
