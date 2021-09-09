@@ -11,9 +11,7 @@ public class CaseRecord implements Serializable {
     private String finalDiagnosis;
     private List<DoctorAppointment> doctorAppointmentList;
 
-    public CaseRecord(int id, String initialDiagnosis) {
-        this.initialDiagnosis = initialDiagnosis;
-        this.id = id;
+    public CaseRecord() {
     }
 
     public CaseRecord(int id, Staff doctor, Staff patient, String initialDiagnosis) {

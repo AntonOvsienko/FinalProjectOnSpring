@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
 
-public class ConfirmAppointmentCommand implements Command {
+public class ConfirmDoctorAppointmentCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
         HttpSession session = req.getSession();

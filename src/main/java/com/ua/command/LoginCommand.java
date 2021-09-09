@@ -56,7 +56,8 @@ public class LoginCommand implements Command {
                     session.setAttribute("finalAddress","users/doctor.jsp");
                     address = "controller?command=viewStaff";
                 } else if (role.equals("nurse")) {
-                    address = "users/nurse.jsp";
+                    session.setAttribute("finalAddress","users/nurse.jsp");
+                    address = "controller?command=viewNurse";
                 }
                 while (rs2.next()) {
                     if (rs2.getString("name") != null) {

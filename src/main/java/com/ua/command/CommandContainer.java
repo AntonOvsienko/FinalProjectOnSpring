@@ -11,12 +11,12 @@ public class CommandContainer {
 		commands = new HashMap<>();
 		
 		commands.put("login", new LoginCommand());
-		commands.put("listUsers", new ListUsersCommand());
 		commands.put("addNewPatient", new AddNewPatientCommand());
 		commands.put("checkNewLogin", new CheckNewLoginCommand());
 		commands.put("createNewLogin", new AddNewLoginCommand());
 		commands.put("exit", new FinishSessionComand());
 		commands.put("viewStaff", new ListGenerationDoctorCommand());
+		commands.put("viewNurse", new ListGenerationNurseCommand());
 		commands.put("viewPatient", new ListGenerationPatientCommand());
 		commands.put("redirect", new RedirectCommand());
 		commands.put("sortDoctorList", new SortDoctorListCommand());
@@ -26,7 +26,8 @@ public class CommandContainer {
 		commands.put("doctorAppointment", new DoctorAppointmentListCommand());
 		commands.put("addAppointment", new AddAppointmentCommand());
 		commands.put("deleteAppointment", new DeleteAppointmentCommand());
-		commands.put("confirmAppointment", new ConfirmAppointmentCommand());
+		commands.put("confirmAppointment", new ConfirmDoctorAppointmentCommand());
+		commands.put("confirmNurseAppointment", new ConfirmNurseAppointmentCommand());
 
 
 

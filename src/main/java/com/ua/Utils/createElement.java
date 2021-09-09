@@ -34,10 +34,8 @@ public class createElement {
             }
             if (role.equals("nurse")) {
                 user = new Nurse();
-
                 getLoginPassword(rs, ConnectionPool.getInstance().getConnection(), user);
                 getStandartFields(rs, user);
-
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

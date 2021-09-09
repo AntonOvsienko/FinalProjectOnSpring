@@ -39,7 +39,6 @@ public class DoctorAppointmentListCommand implements Command {
                 caseRecordId = (int) session.getAttribute("caseRecordId");
             }
             String path = "SELECT * FROM patient_has_case_records WHERE id=" + caseRecordId;
-            System.out.println("caseRecordId => " + caseRecordId);
             ps = con.prepareStatement(path);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -51,14 +50,12 @@ public class DoctorAppointmentListCommand implements Command {
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
                     doctor = (Doctor) newElement(rs2, "doctor");
-                    System.out.println(doctor);
                 }
                 path = "SELECT * FROM patient WHERE id=" + idPatient;
                 ps = con.prepareStatement(path);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
                     patient = (Patient) newElement(rs2, "patient");
-                    System.out.println(patient);
                 }
                 path = "SELECT * FROM doctor_appointment WHERE case_record_id=" + idCaseRecord;
                 ps = con.prepareStatement(path);
