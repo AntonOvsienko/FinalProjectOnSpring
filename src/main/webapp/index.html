@@ -5,12 +5,12 @@
     <style>
 
         body{
-            padding: 50px 0px;
+            padding: 50px 100px;
             font-family:'Open Sans', Arial, sans-serif;
             font-size: 1em;
-            background: url(facebook_292751.jpg);
-            background-size: 100%;
-            opacity: 70%;
+            background: url(garold.jpg);
+            background-size: cover;
+
             /*background: #4E535B;*/
         }
         h2{
@@ -161,16 +161,17 @@
 <div class="login">
     <h1>Добро пожаловать</h1>
     <p>Введите логин и пароль</p>
-    <form action="login">
+    <form action="controller" method="post">
+        <input name="command" value="login" hidden>
         <div class="input">
             <div class="blockinput">
-                <i class="icon-envelope-alt"></i><input type="mail" placeholder="Login">
+                <i class="icon-envelope-alt"></i><input name="login" placeholder="Login">
             </div>
             <div class="blockinput">
-                <i class="icon-unlock"></i><input type="password" placeholder="Password">
+                <i class="icon-unlock"></i><input name="password" type="password" placeholder="Password">
             </div>
         </div>
-        <button>Login</button>
+        <button type="submit">Login</button>
     </form>
 </div>
 </body>

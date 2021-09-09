@@ -6,6 +6,14 @@
 
 <html>
 <head>
+    <style>
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            font-size: 1em;
+            background: #ebebeb;
+            /*background-size: 100%;*/
+        }
+    </style>
     <script>
 
         function showForm() {

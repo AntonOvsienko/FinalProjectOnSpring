@@ -47,7 +47,9 @@
         }
 
         body {
-            font-family: "Lato", sans-serif;
+            font-family: 'Open Sans', Arial, sans-serif;
+            font-size: 1em;
+            background: #ebebeb;
         }
 
         /* Style the tab */
