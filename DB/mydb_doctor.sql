@@ -35,7 +35,7 @@ CREATE TABLE `doctor` (
   UNIQUE KEY `login_password_id_UNIQUE` (`login_password_id`),
   UNIQUE KEY `passport№_UNIQUE` (`passport`),
   KEY `fk_Administartor_login_password_idx` (`login_password_id`),
-  CONSTRAINT `fk_Administartor_login_password0` FOREIGN KEY (`login_password_id`) REFERENCES `login_password` (`id`) ON DELETE CASCADE
+  CONSTRAINT `fk_Administartor_login_password0` FOREIGN KEY (`login_password_id`) REFERENCES `login_password` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=382 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-06 14:58:24
+-- Dump completed on 2021-09-10 12:51:11

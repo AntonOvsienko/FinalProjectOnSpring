@@ -23,15 +23,17 @@ DROP TABLE IF EXISTS `doctor_appointment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `doctor_appointment` (
-  `case_record_id` int NOT NULL,
   `id` int NOT NULL AUTO_INCREMENT,
+  `case_record_id` int NOT NULL,
   `type` varchar(45) DEFAULT NULL,
   `description` varchar(45) DEFAULT NULL,
-  `complete` varchar(45) DEFAULT 'FALSE',
+  `complete` varchar(45) DEFAULT NULL,
+  `name_staff_complete` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_doctor_appointment_case_record1_idx` (`case_record_id`),
-  CONSTRAINT `fk_doctor_appointment_case_record1` FOREIGN KEY (`case_record_id`) REFERENCES `case_record` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `fk_id_case_records_idx` (`case_record_id`),
+  CONSTRAINT `fk_id_case_records` FOREIGN KEY (`case_record_id`) REFERENCES `case_record` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +42,7 @@ CREATE TABLE `doctor_appointment` (
 
 LOCK TABLES `doctor_appointment` WRITE;
 /*!40000 ALTER TABLE `doctor_appointment` DISABLE KEYS */;
+INSERT INTO `doctor_appointment` VALUES (23,12,'Приём лекарств','Обезбаливающее','true','Вася Петров(доктор)'),(24,12,'Операция','На головном мозгу','true','Вася Петров(доктор)'),(41,12,'Операция','','true','Вася Петров(доктор)'),(43,12,'Приём лекарств','','true','Вася Петров(доктор)'),(45,12,'Приём лекарств','','true','Вася Петров(доктор)'),(46,12,'Подготовка к операции','','true','(медсестра)'),(48,12,'Приём лекарств','','true','Аманда Янг(медсестра)'),(52,12,'Приём лекарств','','true','Аманда Янг(медсестра)'),(53,12,'Операция','',NULL,NULL);
 /*!40000 ALTER TABLE `doctor_appointment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-06 14:58:23
+-- Dump completed on 2021-09-10 12:51:10

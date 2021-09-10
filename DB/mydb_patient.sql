@@ -32,7 +32,7 @@ CREATE TABLE `patient` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `_id_UNIQUE` (`id`),
   UNIQUE KEY `passport№_UNIQUE` (`passport`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `patient` (
 
 LOCK TABLES `patient` WRITE;
 /*!40000 ALTER TABLE `patient` DISABLE KEYS */;
-INSERT INTO `patient` VALUES (14,'Олег','AH12039357','Петров','380509462124','1990-10-08'),(16,'Антон','AH12039456','Доценко','380504462123','1985-01-25'),(17,'Николай','AH12089456','Петров','380509462128','2000-03-15'),(18,'Всеволод','AH12289456','Кузнецов','380504462123','1978-08-16'),(23,'Игорь','AH12639457','Николаев','380504462123','2005-01-03'),(24,'Николя','AE12089456','Тесла','380509462128','1973-01-03'),(25,'Вася','AH12053557','Егоров','380509462123','2011-12-28');
+INSERT INTO `patient` VALUES (14,'Олег','AH12039357','Петров','380509462124','1990-10-08'),(16,'Антон','AH12039456','Доценко','380504462123','1985-01-25'),(17,'Николай','AH12089456','Петров','380509462128','2000-03-15'),(18,'Всеволод','AH12289456','Кузнецов','380504462123','1978-08-16'),(23,'Игорь','AH12639457','Николаев','380504462123','2005-01-03'),(24,'Николя','AE12089456','Тесла','380509462128','1973-01-03'),(25,'Вася','AH12053557','Егоров','380509462123','2011-12-28'),(26,'Вася','АН1240591','Амосов',NULL,'2007-08-15'),(27,'Антон','АН1248591','Янг',NULL,'2004-07-01');
 /*!40000 ALTER TABLE `patient` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-06 14:58:22
+-- Dump completed on 2021-09-10 12:51:10

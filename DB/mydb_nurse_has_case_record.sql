@@ -28,8 +28,8 @@ CREATE TABLE `nurse_has_case_record` (
   PRIMARY KEY (`nurse_id`,`case_record_id`),
   KEY `fk_nurse_has_case-record_case-record1_idx` (`case_record_id`),
   KEY `fk_nurse_has_case-record_nurse1_idx` (`nurse_id`),
-  CONSTRAINT `fk_nurse_has_case-record_case-record1` FOREIGN KEY (`case_record_id`) REFERENCES `case_record` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_nurse_has_case-record_nurse1` FOREIGN KEY (`nurse_id`) REFERENCES `nurse` (`id`) ON DELETE CASCADE
+  CONSTRAINT `fk_nurse_has_case-record_case-record1` FOREIGN KEY (`case_record_id`) REFERENCES `case_record` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_nurse_has_case-record_nurse1` FOREIGN KEY (`nurse_id`) REFERENCES `nurse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-06 14:58:24
+-- Dump completed on 2021-09-10 12:51:11
