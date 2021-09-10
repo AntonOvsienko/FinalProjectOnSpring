@@ -39,6 +39,7 @@ public class DoctorAppointmentListCommand implements Command {
                 caseRecordId = (int) session.getAttribute("caseRecordId");
             }
             String path = "SELECT * FROM patient_has_case_records WHERE id=" + caseRecordId;
+            System.out.println(path);
             ps = con.prepareStatement(path);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -67,6 +68,7 @@ public class DoctorAppointmentListCommand implements Command {
                     da.setDescription(rs2.getString("description"));
                     da.setComplete(rs2.getString("complete"));
                     da.setNameStaffComplete(rs2.getString("name_staff_complete"));
+                    System.out.println(da);
                     doctorAppointmentList.add(da);
                 }
             }

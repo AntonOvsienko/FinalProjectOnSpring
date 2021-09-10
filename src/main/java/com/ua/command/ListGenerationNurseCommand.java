@@ -39,7 +39,6 @@ public class ListGenerationNurseCommand implements Command {
                 int caseRecordId = rs.getInt("case_record_id");
                 int doctorId = rs.getInt("doctor_id");
                 path = "SELECT * FROM doctor WHERE id=" + doctorId;
-                System.out.println(path);
                 ps = con.prepareStatement(path);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
@@ -67,7 +66,8 @@ public class ListGenerationNurseCommand implements Command {
                         doctorAppointmentList.add(da);
                     }
                 }
-                path = "SELECT * FROM case_record WHERE id=" + rs.getInt("id");
+                path = "SELECT * FROM case_record WHERE id=" + caseRecordId;
+                System.out.println(path);
                 ps = con.prepareStatement(path);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
@@ -80,6 +80,7 @@ public class ListGenerationNurseCommand implements Command {
                 nurseCaseRecord.add(caseRecord);
             }
             session.setAttribute("appointmentList", nurseCaseRecord);
+            System.out.println(session.getAttribute("appointmentList"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return "errorMessage/error.jsp";
@@ -90,32 +91,6 @@ public class ListGenerationNurseCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-//        try {
-//            String path = "SELECT * FROM doctor_appointment";
-//            ps = con.prepareStatement(path);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                DoctorAppointment da = new DoctorAppointment();
-//                da.setId(rs.getInt("id"));
-//                da.setType(rs.getString("type"));
-//                da.setDescription(rs.getString("description"));
-//                da.setComplete(rs.getString("complete"));
-//                da.setNameStaffComplete(rs.getString("name_staff_complete"));
-//                if (da.getType().equals("Приём лекарств") | da.getType().equals("Подготовка к операции")) {
-//                    nurseAppointmentList.add(da);
-//                }
-//            }
-//            session.setAttribute("appointmentList", nurseAppointmentList);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//            return "errorMessage/error.jsp";
-//        } finally {
-//            try {
-//                con.close();
-//            } catch (SQLException throwables) {
-//                throwables.printStackTrace();
-//            }
-//        }
         return (String) session.getAttribute("finalAddress");
     }
 

@@ -20,7 +20,7 @@ public class LoginCommand implements Command {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
 
-        String address = "error.jsp";
+        String address = "errorMessage/error.jsp";
 
         if (req.getParameter("login") != null) {
             session.setAttribute("globalLogin", req.getParameter("login"));

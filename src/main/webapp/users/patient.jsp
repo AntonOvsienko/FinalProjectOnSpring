@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <style>
@@ -144,10 +145,18 @@
                 onclick='return confirm("Подтвердить выполнение")'>
             Выполнить
         </button>
+        <fmt:parseNumber var="count" type="number" value="0"/>
+        <c:forEach items="${appointmentList}" var="appointment" varStatus="i">
+            <c:if test="${appointment.getComplete() == 'true'}">
+                    <fmt:parseNumber var="count" type="number" value="${count+1}"/>
+            </c:if>
+        </c:forEach>
+        <c:if test="${count == appointmentList.size()}">
         <button type="submit" name="command" value="confirmAppointment"
-                onclick='return confirm("Подтвердить выполнение")'>
-            Выполнить
+                onclick='return confirm("Выписать?")'>
+            Выписать
         </button>
+        </c:if>
     </p>
 </form>
 
@@ -240,7 +249,7 @@
             <td class="table2"><textarea name="description5" rows="1" cols="100"></textarea></td>
         </tr>
     </table>
-    <p align="center"><input type="button" value="Добавить процедур" onclick="showForm()"></p>
+    <p align="center"><input type="button" value="Добавить поле" onclick="showForm()"></p>
     <p align="center"><input type="submit" value="Готово"></p>
 </form>
 <p align="center">Выполнить процедуры</p>
