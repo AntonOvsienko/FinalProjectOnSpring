@@ -31,10 +31,10 @@ CREATE TABLE `patient_has_case_records` (
   KEY `fk_patient_has_case-records_doctor1_idx` (`doctor_id`),
   KEY `p_patient_idx` (`patient_id`) /*!80000 INVISIBLE */,
   KEY `fk_patient_has_case_records_case_record1_idx` (`case_record_id`),
-  CONSTRAINT `fk_patient_has_case-records_doctor1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_patient_has_case_records_case_record1` FOREIGN KEY (`case_record_id`) REFERENCES `case_record` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `p_patient_idx` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
+  CONSTRAINT `fk_patient_has_case-records_doctor1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_patient_has_case_records_case_record1` FOREIGN KEY (`case_record_id`) REFERENCES `case_record` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `p_patient_idx` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `patient_has_case_records` (
 
 LOCK TABLES `patient_has_case_records` WRITE;
 /*!40000 ALTER TABLE `patient_has_case_records` DISABLE KEYS */;
-INSERT INTO `patient_has_case_records` VALUES (5,23,12,359),(11,24,18,374),(12,24,19,377),(13,24,20,361),(17,25,24,NULL),(18,14,25,361),(19,16,26,NULL),(20,17,27,NULL),(21,18,28,359);
+INSERT INTO `patient_has_case_records` VALUES (5,23,12,359),(11,24,18,374),(12,24,19,377),(13,24,20,361),(17,25,24,NULL),(18,14,25,361),(19,16,26,NULL),(20,17,27,361),(21,18,28,359),(22,26,29,356),(23,26,30,NULL),(24,27,31,374);
 /*!40000 ALTER TABLE `patient_has_case_records` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-06 14:58:23
+-- Dump completed on 2021-09-10 12:51:12
