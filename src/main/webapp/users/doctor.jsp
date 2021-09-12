@@ -5,6 +5,49 @@
 <head>
     <style>
 
+        th.table1 {
+            font-weight: normal;
+            font-size: 13px;
+            color: #039;
+            border-right: 1px solid #0865c2;
+            border-top: 1px solid #0865c2;
+            border-left: 1px solid #0865c2;
+            border-bottom: 1px solid white;
+            padding: 20px;
+        }
+
+        td.table1 {
+            border-bottom: 1px solid #ccc;
+            color: #669;
+            padding: 9px 8px;
+            transition: .3s linear;
+        }
+
+        tr:hover td {
+            color: #6699ff;
+        }
+
+        table.table2 {
+            border: 1px solid #6cf;
+        }
+
+        th.table2 {
+            font-weight: normal;
+            font-size: 13px;
+            color: #039;
+            border-right: 1px solid #0865c2;
+            border-top: 1px solid #0865c2;
+            border-left: 1px solid #0865c2;
+            border-bottom: 1px solid white;
+            padding: 20px;
+        }
+
+        td.table2 {
+            color: #669;
+            border-right: 1px dashed #6cf;
+            padding: 10px 20px;
+        }
+
         body {
             font-family: 'Open Sans', Arial, sans-serif;
             font-size: 1em;
@@ -98,27 +141,6 @@
             });
         }
 
-        function showForm() {
-            if (document.getElementById("diagnosis2").hidden == true) {
-                document.getElementById("diagnosis2").hidden = false;
-            } else if (document.getElementById("diagnosis3").hidden == true) {
-                document.getElementById("diagnosis3").hidden = false;
-            } else if (document.getElementById("diagnosis4").hidden == true) {
-                document.getElementById("diagnosis4").hidden = false;
-            } else if (document.getElementById("diagnosis5").hidden == true) {
-                document.getElementById("diagnosis5").hidden = false;
-            } else if (document.getElementById("diagnosis6").hidden == true) {
-                document.getElementById("diagnosis6").hidden = false;
-            }
-        }
-
-        function showForm2() {
-            if (document.getElementById("auth").hidden == true) {
-                document.getElementById("auth").hidden = false;
-            } else {
-                document.getElementById("auth").hidden = true;
-            }
-        }
     </script>
 </head>
 <body>
@@ -142,16 +164,16 @@
                 Пациент: ${entry.getPatient().getName()}
                     ${entry.getPatient().getSurname()}
                 (${entry.getInitialDiagnosis()}) |
-                Врач: ${entry.getDoctor().getName()}
-                    ${entry.getDoctor().getSurname()} |
                 Процедур:${entry.getDoctorAppointmentList().size()}
-                <c:if test="${count != '0'}">/
+                <c:if test="${count != '0'}">
                     <span class="colortext">Выполненно:${count}</span>
+
                 </c:if>
             </button>
             <div class="panel" align="center">
-                <input type="hidden" name="id" value="${entry.getId()}"/>
+                <input type="hidden" name="id" value="${entry.id}"/>
                 <form action="/controller" method="post" class="form">
+                    <input name="caseRecordId" value="${entry.id}" hidden>
                     <table align="center">
                         <tr class="table">
                             <th class="table" align="center" width="5%">id</th>
@@ -195,16 +217,90 @@
                         </c:if>
                     </table>
                     <p align="center">
-                        <button type="submit" name="command" value="confirmNurseAppointment"
+                        <button type="submit" name="command" value="confirmAppointment"
                                 onclick='return confirm("Подтвердить выполнение")'>
                             Выполнить
                         </button>
                     </p>
                 </form>
+                <c:if test="${count == entry.getDoctorAppointmentList().size()}">
+                    <p align="center">
+                        <button type="submit" name="command" value="confirmAppointment"
+                                onclick='return confirm("Подтвердить выписку")'>
+                            Выписать
+                        </button>
+                    </p>
+                </c:if>
+                <form id="auth" action="/controller" method="post">
+                    <table class="table2" align="center">
+                        <input name="caseRecordId" value="${entry.id}" hidden>
+                        <input input name="command" value="addAppointment" hidden>
+                        <tr class="table2">
+                            <th class="table2" align="center" width="5%">id</th>
+                            <th class="table2" width="20%">Назначение</th>
+                            <th class="table2">Подробности</th>
+                        </tr>
+                        <tr>
+                            <td class="table2" align="center">1</td>
+                            <td class="table2">
+                                <select name="select1">
+                                    <option value="null" selected disabled>Выберите действие</option>
+                                    <option value="Приём лекарств">Приём лекарств</option>
+                                    <option value="Подготовка к операции">Подготовка к операции</option>
+                                    <option value="Операция">Операция</option>
+                                    <option value="Терапия">Терапия</option>
+                                </select>
+                            </td>
+                            <td class="table2"><textarea name="description1" rows="1" cols="100"></textarea></td>
+                        </tr>
+                        <tr class="table2" id="diagnosis2">
+                            <td class="table2" align="center">2</td>
+                            <td class="table2">
+                                <select name="select2">
+                                    <option value="null" selected disabled>Выберите действие</option>
+                                    <option value="Приём лекарств">Приём лекарств</option>
+                                    <option value="Подготовка к операции">Подготовка к операции</option>
+                                    <option value="Операция">Операция</option>
+                                    <option value="Терапия">Терапия</option>
+                                </select>
+                            </td>
+                            <td class="table2"><textarea name="description2" rows="1" cols="100"></textarea></td>
+                        </tr>
+                        <tr class="table2" id="diagnosis3">
+                            <td class="table2" align="center">3</td>
+                            <td class="table2">
+                                <select name="select3">
+                                    <option value="null" selected disabled>Выберите действие</option>
+                                    <option value="Приём лекарств">Приём лекарств</option>
+                                    <option value="Подготовка к операции">Подготовка к операции</option>
+                                    <option value="Операция">Операция</option>
+                                    <option value="Терапия">Терапия</option>
+                                </select>
+                            </td>
+                            <td class="table2"><textarea name="description3" rows="1" cols="100"></textarea></td>
+                        </tr>
+                        <tr class="table2" id="diagnosis4">
+                            <td class="table2" align="center">4</td>
+                            <td class="table2">
+                                <select name="select4">
+                                    <option value="null" selected disabled>Выберите действие</option>
+                                    <option value="Приём лекарств">Приём лекарств</option>
+                                    <option value="Подготовка к операции">Подготовка к операции</option>
+                                    <option value="Операция">Операция</option>
+                                    <option value="Терапия">Терапия</option>
+                                </select>
+                            </td>
+                            <td class="table2"><textarea name="description4" rows="1" cols="100"></textarea></td>
+                        </tr>
+                    </table>
+                    <p align="center"><input type="submit" value="Готово"></p>
+                </form>
+                <p align="center">Выполнить процедуры</p>
             </div>
         </c:if>
     </c:forEach>
 </div>
+
 <script>
     var acc = document.getElementsByClassName("accordion");
     var i;

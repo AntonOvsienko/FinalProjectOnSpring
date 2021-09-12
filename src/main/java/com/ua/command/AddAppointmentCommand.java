@@ -10,27 +10,26 @@ public class AddAppointmentCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
-        int caseRecordId = (int) session.getAttribute("caseRecordId");
+        int caseRecordId = Integer.parseInt(req.getParameter("caseRecordId"));
         PreparedStatement ps;
         ResultSet rs;
         String select;
         String description;
-        String  URL = "controller?command=doctorAppointment&caseRecordId=" + caseRecordId;
+        String URL = "controller?command=doctorAppointment&caseRecordId=" + caseRecordId;
 
         try {
             con.setAutoCommit(false);
             if (req.getParameter("select1") == null & req.getParameter("select2") == null &
-                    req.getParameter("select3") == null & req.getParameter("select4") == null &
-                    req.getParameter("select5") == null & req.getParameter("select6") == null){
+                    req.getParameter("select3") == null & req.getParameter("select4") == null) {
                 return URL;
             }
-                if (req.getParameter("select1") != null) {
-                    select = req.getParameter("select1");
-                    description = req.getParameter("description1");
-                    System.out.println("type => " + select);
-                    System.out.println("description => " + description);
-                    addInTable(req, con, select, description);
-                }
+            if (req.getParameter("select1") != null) {
+                select = req.getParameter("select1");
+                description = req.getParameter("description1");
+                System.out.println("type => " + select);
+                System.out.println("description => " + description);
+                addInTable(req, con, select, description);
+            }
             if (req.getParameter("select2") != null) {
                 select = req.getParameter("select2");
                 description = req.getParameter("description2");
@@ -50,20 +49,6 @@ public class AddAppointmentCommand implements Command {
                 description = req.getParameter("description4");
                 System.out.println("type4 => " + select);
                 System.out.println("description4 =>" + description);
-                addInTable(req, con, select, description);
-            }
-            if (req.getParameter("select5") != null) {
-                select = req.getParameter("select5");
-                description = req.getParameter("description5");
-                System.out.println("type5 => " + select);
-                System.out.println("description5 =>" + description);
-                addInTable(req, con, select, description);
-            }
-            if (req.getParameter("select6") != null) {
-                select = req.getParameter("select6");
-                description = req.getParameter("description6");
-                System.out.println("type6 => " + select);
-                System.out.println("description6 =>" + description);
                 addInTable(req, con, select, description);
             }
             con.commit();

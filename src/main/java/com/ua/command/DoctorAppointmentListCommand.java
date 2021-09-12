@@ -85,7 +85,7 @@ public class DoctorAppointmentListCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        return "users/patient.jsp";
+        return "controller?command=viewNurse";
     }
 
     @Override

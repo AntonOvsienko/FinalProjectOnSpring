@@ -108,82 +108,88 @@
     Passport:${passport}<br>
 </h3>
 <div align="center">
-    <c:forEach items="${appointmentList}" var="entry">
-        <fmt:parseNumber var="count" type="number" value="0"/>
-        <c:forEach items="${entry.getDoctorAppointmentList()}" var="appointment" varStatus="i">
-            <c:if test="${appointment.getComplete() == 'true'}">
-                <c:if test="${appointment.getType() == 'Приём лекарств'}">
-                    <fmt:parseNumber var="count" type="number" value="${count+1}"/>
+    <c:forEach items="${caseRecordList}" var="entry">
+        <c:if test="${entry.getDoctorAppointmentList().size() !=0 }">
+            <fmt:parseNumber var="count" type="number" value="0"/>
+            <c:forEach items="${entry.getDoctorAppointmentList()}" var="appointment" varStatus="i">
+                <c:if test="${appointment.getComplete() == 'true'}">
+                    <c:if test="${appointment.getType() == 'Приём лекарств'}">
+                        <fmt:parseNumber var="count" type="number" value="${count+1}"/>
+                    </c:if>
+                    <c:if test="${appointment.getType() == 'Подготовка к операции'}">
+                        <fmt:parseNumber var="count" type="number" value="${count+1}"/>
+                    </c:if>
                 </c:if>
-                <c:if test="${appointment.getType() == 'Подготовка к операции'}">
-                    <fmt:parseNumber var="count" type="number" value="${count+1}"/>
+            </c:forEach>
+            <button class="accordion">
+                Пациент: ${entry.getPatient().getName()}
+                    ${entry.getPatient().getSurname()}
+                (${entry.getInitialDiagnosis()}) |
+                Врач: ${entry.getDoctor().getName()}
+                    ${entry.getDoctor().getSurname()} |
+                Процедур:${entry.getDoctorAppointmentList().size()}
+                <c:if test="${count != '0'}">/
+                    <span class="colortext">Выполненно:${count}</span>
                 </c:if>
-            </c:if>
-        </c:forEach>
-        <button class="accordion">
-            Пациент: ${entry.getPatient().getName()}
-                ${entry.getPatient().getSurname()}
-            (${entry.getInitialDiagnosis()}) |
-            Врач: ${entry.getDoctor().getName()}
-                ${entry.getDoctor().getSurname()} |
-            Процедур:${entry.getDoctorAppointmentList().size()}
-            <c:if test="${count != '0'}">/
-                <span class="colortext">Выполненно:${count}</span>
-            </c:if>
-        </button>
-        <div class="panel" align="center">
-            <input type="hidden" name="id" value="${entry.getId()}"/>
-            <form action="/controller" method="post" class="form">
-                <table align="center">
-                    <tr class="table">
-                        <th class="table" align="center" width="5%">id</th>
-                        <th class="table" width="20%">Назначение</th>
-                        <th class="table" width="50%">Подробности</th>
-                        <th class="table">Выполнено</th>
-                    </tr>
-                    <c:forEach items="${entry.getDoctorAppointmentList()}" var="appointment" varStatus="i">
-                        <c:if test="${appointment != null}">
-                            <c:if test="${appointment.getComplete() != 'true'}">
-                                <tr class="table">
-                                    <td class="table" align="center">${i.count}</td>
-                                    <td class="table">${appointment.getType()}</td>
-                                    <td class="table">${appointment.getDescription()}</td>
-                                    <td class="table">
-                                        <input type="checkbox"
-                                               name="appointment"
-                                               value="${appointment.getId()}">
-                                    </td>
-                                </tr>
-                            </c:if>
-                            <c:if test="${appointment.getComplete() == 'true'}">
-                                <div class="toggle-button">
-                                    <tr id="auth2" class="table1">
+            </button>
+            <div class="panel" align="center">
+                <input type="hidden" name="id" value="${entry.getId()}"/>
+                <form action="/controller" method="post" class="form">
+                    <table align="center">
+                        <tr class="table">
+                            <th class="table" align="center" width="5%">id</th>
+                            <th class="table" width="20%">Назначение</th>
+                            <th class="table" width="50%">Подробности</th>
+                            <th class="table">Выполнено</th>
+                        </tr>
+                        <c:forEach items="${entry.getDoctorAppointmentList()}" var="appointment" varStatus="i">
+                            <c:if test="${appointment != null}">
+                                <c:if test="${appointment.getComplete() != 'true'}">
+                                    <tr class="table">
                                         <td class="table" align="center">${i.count}</td>
-                                        <td class="table"><s>${appointment.getType()}</s></td>
-                                        <td class="table"><s>${appointment.getDescription()}</s></td>
+                                        <td class="table">${appointment.getType()}</td>
+                                        <td class="table">${appointment.getDescription()}</td>
                                         <td class="table">
-                                                ${appointment.getNameStaffComplete()}
+                                            <c:if test="${appointment.getType() != 'Операция'}">
+                                                <c:if test="${appointment.getType() != 'Терапия'}">
+                                                    <input type="checkbox"
+                                                           name="appointment"
+                                                           value="${appointment.getId()}">
+                                                </c:if>
+                                            </c:if>
                                         </td>
                                     </tr>
-                                </div>
+                                </c:if>
+                                <c:if test="${appointment.getComplete() == 'true'}">
+                                    <div class="toggle-button">
+                                        <tr id="auth2" class="table1">
+                                            <td class="table" align="center">${i.count}</td>
+                                            <td class="table"><s>${appointment.getType()}</s></td>
+                                            <td class="table"><s>${appointment.getDescription()}</s></td>
+                                            <td class="table">
+                                                    ${appointment.getNameStaffComplete()}
+                                            </td>
+                                        </tr>
+                                    </div>
+                                </c:if>
                             </c:if>
+                        </c:forEach>
+                        <c:if test="${entry.getDoctorAppointmentList().size() == 0}">
+                            <tr class="table">
+                                <th class="table" colspan="4" class="table1" align="center">Нет назначений врача
+                                </th>
+                            </tr>
                         </c:if>
-                    </c:forEach>
-                    <c:if test="${entry.getDoctorAppointmentList().size() == 0}">
-                        <tr class="table">
-                            <th class="table" colspan="4" class="table1" align="center">Нет назначений врача
-                            </th>
-                        </tr>
-                    </c:if>
-                </table>
-                <p align="center">
-                    <button type="submit" name="command" value="confirmNurseAppointment"
-                            onclick='return confirm("Подтвердить выполнение")'>
-                        Выполнить
-                    </button>
-                </p>
-            </form>
-        </div>
+                    </table>
+                    <p align="center">
+                        <button type="submit" name="command" value="confirmNurseAppointment"
+                                onclick='return confirm("Подтвердить выполнение")'>
+                            Выполнить
+                        </button>
+                    </p>
+                </form>
+            </div>
+        </c:if>
     </c:forEach>
 </div>
 <script>

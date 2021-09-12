@@ -13,7 +13,7 @@ public class ConfirmDoctorAppointmentCommand implements Command {
         Statement st = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        int caseRecordId = (int) session.getAttribute("caseRecordId");
+        int caseRecordId = Integer.parseInt(req.getParameter("caseRecordId"));
         String URL = "controller?command=doctorAppointment&caseRecordId=" + caseRecordId;
         String[] checkbox = req.getParameterValues("appointment");
         try {
