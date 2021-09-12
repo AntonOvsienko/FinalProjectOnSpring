@@ -20,10 +20,12 @@ public class Patient extends Staff implements Serializable {
 
     }
 
-    public Patient(int id,String name,String surname){
+    public Patient(int id,String name,String surname,String passport,String telephone){
         this.id=id;
         this.name=name;
         this.surname=surname;
+        this.passport=passport;
+        this.telephone=telephone;
     }
 
     public long getYears() {
@@ -126,12 +128,12 @@ public class Patient extends Staff implements Serializable {
     public String toString() {
         return "Patient{" +
                 "id=" + id +
-                "\n, telephone='" + telephone + '\'' +
-                "\n, passport='" + passport + '\'' +
-                "\n, name='" + name + '\'' +
-                "\n, surname='" + surname + '\'' +
-                "\n, years=" + years +
-                "\n, caseRecords=" + caseRecords +
+                ", telephone='" + telephone + '\'' +
+                ", passport='" + passport + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", years=" + years +
+                ", caseRecords=" + caseRecords +
                 '}' + "\n";
     }
 }

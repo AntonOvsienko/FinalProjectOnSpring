@@ -82,15 +82,6 @@
 </head>
 <body>
 <h1 align="center">Hello Patient</h1>
-<%--<form action="/controller" method="post">--%>
-<%--    <input name="command" value="updateStaff" hidden>--%>
-<%--    <p align="center">Номер паспорта: <input name="passport" type="text" required><span></span> - поле обязательно</p>--%>
-<%--    <p align="center">Имя: <input type="text" name="name" required><span></span> - поле обязательно</p>--%>
-<%--    <p align="center">Фамилия: <input type="text" name="surname" required><span> - поле обязательно</span></p>--%>
-<%--    <p align="center">Дата рождения:<input type="date" id="date" name="date"/></p>--%>
-<%--    <p align="center">Контактный номер: <input type="text" name="telephone"><span></span></p>--%>
-<%--    <p align="center"><input type="submit" value="Создать"></p>--%>
-<%--</form>--%>
 <p align="center">Текущие процедуры</p>
 <form action="/controller" method="post" class="form">
     <table align="center">
@@ -134,7 +125,6 @@
                 </c:if>
             </c:if>
         </c:forEach>
-
     </table>
     <p align="center">
         <button type="submit" name="command" value="deleteAppointment"
@@ -146,7 +136,7 @@
             Выполнить
         </button>
         <fmt:parseNumber var="count" type="number" value="0"/>
-        <c:forEach items="${appointmentList}" var="appointment" varStatus="i">
+        <c:forEach items="${appointmentList}" var="appointment">
             <c:if test="${appointment.getComplete() == 'true'}">
                     <fmt:parseNumber var="count" type="number" value="${count+1}"/>
             </c:if>

@@ -15,16 +15,18 @@ public class Doctor extends Staff implements Serializable {
     private String surname;
     private String telephone;
     private String department;
-    private List<CaseRecord> caseRecords=new ArrayList<>();
+    private List<CaseRecord> caseRecords = new ArrayList<>();
 
-    public Doctor(){
+    public Doctor() {
     }
 
-    public Doctor(int id,String name,String surname,String department){
-        this.id=id;
-        this.name=name;
-        this.surname=surname;
-        this.department=department;
+    public Doctor(int id, String name, String surname, String department, String passport, String telephone) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.department = department;
+        this.passport = passport;
+        this.telephone = telephone;
     }
 
     @Override
@@ -138,6 +140,6 @@ public class Doctor extends Staff implements Serializable {
                 ", telephone='" + telephone + '\'' +
                 ", department='" + department + '\'' +
                 ", caseRecords=" + caseRecords +
-                '}';
+                '}' + "\n";
     }
 }

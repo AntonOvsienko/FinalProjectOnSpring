@@ -127,7 +127,9 @@ public class createElement {
                 while (rs2.next()) {
                     String name = rs2.getString("name");
                     String surname = rs2.getString("surname");
-                    patient = new Patient(patient_id, name, surname);
+                    String passport = rs2.getString("passport");
+                    String telephone = rs2.getString("telephone");
+                    patient = new Patient(patient_id, name, surname,passport,telephone);
                 }
                 path = "SELECT * FROM doctor WHERE id=" + doctorId;
                 Staff doctor = new Doctor();
@@ -137,7 +139,9 @@ public class createElement {
                     String name = rs2.getString("name");
                     String surname = rs2.getString("surname");
                     String department = rs2.getString("department");
-                    doctor = new Doctor(doctorId, name, surname, department);
+                    String passport = rs2.getString("passport");
+                    String telephone = rs2.getString("telephone");
+                    doctor = new Doctor(doctorId, name, surname, department,passport,telephone);
                 }
                 case_record_id = rs1.getInt("case_record_id");
                 String initialDiagnosis = "";
@@ -162,7 +166,7 @@ public class createElement {
         }
     }
 
-    private static void getAge(ResultSet rs, Patient user) {
+    public static void getAge(ResultSet rs, Patient user) {
         try {
             String date = rs.getDate("birthday").toString();
             String dateParser = "([0-9]+)-([0-9]+)-([0-9]+)";

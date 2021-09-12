@@ -121,10 +121,10 @@
             </c:if>
         </c:forEach>
         <button class="accordion">
-                Пациент: ${entry.getPatient().getName()}
+            Пациент: ${entry.getPatient().getName()}
                 ${entry.getPatient().getSurname()}
             (${entry.getInitialDiagnosis()}) |
-                Врач: ${entry.getDoctor().getName()}
+            Врач: ${entry.getDoctor().getName()}
                 ${entry.getDoctor().getSurname()} |
             Процедур:${entry.getDoctorAppointmentList().size()}
             <c:if test="${count != '0'}">/

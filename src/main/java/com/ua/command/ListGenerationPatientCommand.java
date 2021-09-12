@@ -72,7 +72,7 @@ public class ListGenerationPatientCommand implements Command {
                 return "errorMessage/error.jsp";
             }
         }
-        return (String) session.getAttribute("finalAddress");
+        return "controller?command=viewNurse";
     }
 
     @Override

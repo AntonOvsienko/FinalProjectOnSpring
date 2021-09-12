@@ -25,6 +25,7 @@ public class ListGenerationNurseCommand implements Command {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ResultSet rs2 = null;
+        ResultSet rs3 = null;
         List<CaseRecord> nurseCaseRecord = new ArrayList<>();
         try {
             String path = "SELECT * FROM patient_has_case_records";
@@ -42,15 +43,29 @@ public class ListGenerationNurseCommand implements Command {
                 ps = con.prepareStatement(path);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
+                    int login_password=rs2.getInt("login_password_id");
+                    doctor.setId(doctorId);
                     doctor.setName(rs2.getString("name"));
                     doctor.setSurname(rs2.getString("surname"));
+                    doctor.setDepartment(rs2.getString("department"));
+                    doctor.setPassport(rs2.getString("passport"));
+                    doctor.setTelephone(rs2.getString("telephone"));
+                    path = "SELECT * FROM login_password WHERE id=" + login_password;
+                    ps = con.prepareStatement(path);
+                    rs3 = ps.executeQuery();
+                    while (rs3.next()) {
+                        doctor.setLogin(rs3.getString("login"));
+                    }
                 }
                 path = "SELECT * FROM patient WHERE id=" + patientId;
                 ps = con.prepareStatement(path);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
+                    patient.setId(patientId);
                     patient.setName(rs2.getString("name"));
                     patient.setSurname(rs2.getString("surname"));
+                    patient.setPassport(rs2.getString("passport"));
+                    patient.setTelephone(rs2.getString("telephone"));
                 }
                 path = "SELECT * FROM doctor_appointment WHERE case_record_id=" + caseRecordId;
                 ps = con.prepareStatement(path);
@@ -62,9 +77,9 @@ public class ListGenerationNurseCommand implements Command {
                     da.setDescription(rs2.getString("description"));
                     da.setNameStaffComplete(rs2.getString("name_staff_complete"));
                     da.setComplete(rs2.getString("complete"));
-                    if (da.getType().equals("Приём лекарств") | da.getType().equals("Подготовка к операции")) {
+//                    if (da.getType().equals("Приём лекарств") | da.getType().equals("Подготовка к операции")) {
                         doctorAppointmentList.add(da);
-                    }
+//                    }
                 }
                 path = "SELECT * FROM case_record WHERE id=" + caseRecordId;
                 System.out.println(path);
@@ -79,8 +94,8 @@ public class ListGenerationNurseCommand implements Command {
                 caseRecord.setDoctorAppointmentList(doctorAppointmentList);
                 nurseCaseRecord.add(caseRecord);
             }
-            session.setAttribute("appointmentList", nurseCaseRecord);
-            System.out.println(session.getAttribute("appointmentList"));
+            session.setAttribute("caseRecordList", nurseCaseRecord);
+            System.out.println(session.getAttribute("caseRecordList"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return "errorMessage/error.jsp";

@@ -54,7 +54,7 @@ public class LoginCommand implements Command {
                     address = "controller?command=viewStaff";
                 } else if (role.equals("doctor")) {
                     session.setAttribute("finalAddress","users/doctor.jsp");
-                    address = "controller?command=viewStaff";
+                    address = "controller?command=viewNurse";
                 } else if (role.equals("nurse")) {
                     session.setAttribute("finalAddress","users/nurse.jsp");
                     address = "controller?command=viewNurse";
@@ -71,6 +71,9 @@ public class LoginCommand implements Command {
                     }
                     if (rs2.getString("telephone") != null) {
                         session.setAttribute("telephone", rs2.getString("telephone"));
+                    }
+                    if (rs2.getString("id") != null) {
+                        session.setAttribute("id", rs2.getInt("id"));
                     }
                 }
             }
