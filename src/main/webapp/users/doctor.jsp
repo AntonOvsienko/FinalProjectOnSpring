@@ -295,7 +295,6 @@
                     </table>
                     <p align="center"><input type="submit" value="Готово"></p>
                 </form>
-                <p align="center">Выполнить процедуры</p>
             </div>
         </c:if>
     </c:forEach>

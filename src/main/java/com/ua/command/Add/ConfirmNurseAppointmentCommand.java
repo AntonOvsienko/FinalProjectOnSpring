@@ -1,4 +1,6 @@
-package com.ua.command;
+package com.ua.command.Add;
+
+import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

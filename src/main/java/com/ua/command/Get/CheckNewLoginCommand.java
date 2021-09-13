@@ -1,4 +1,6 @@
-package com.ua.command;
+package com.ua.command.Get;
+
+import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,10 +23,6 @@ public class CheckNewLoginCommand implements Command {
         String password = req.getParameter("password");
         String passwordRepeat = req.getParameter("password_repeat");
         String role = req.getParameter("role");
-        System.out.println("login => " + login);
-        System.out.println("password => " + password);
-        System.out.println("password_repeat => " + passwordRepeat);
-        System.out.println("role => " + role);
 
         if (!password.equals(passwordRepeat)) {
             return "errorMessage/errorRepeatPassword.jsp";

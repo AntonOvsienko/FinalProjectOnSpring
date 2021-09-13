@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <html>
 <head>
     <style>
@@ -9,6 +10,10 @@
             font-family: 'Open Sans', Arial, sans-serif;
             font-size: 1em;
             background: #ebebeb;
+        }
+
+        div.p {
+            padding: 0 10%;
         }
 
         table {
@@ -100,25 +105,68 @@
     </script>
 </head>
 <body>
-<h1>Hello Nurse</h1>
 <h3>
     Login:${login}<br>
     Name:${name}<br>
     Surname:${surname}<br>
     Passport:${passport}<br>
 </h3>
+<div class="p">
+Page ${page} of ${pageCount}
+
+|
+
+<c:choose>
+    <c:when test="${page - 1 > 0}">
+        <a href="page?page=${page-1}&pageSize=${pageSize}">Previous</a>
+    </c:when>
+    <c:otherwise>
+        Previous
+    </c:otherwise>
+</c:choose>
+
+
+<c:forEach var="p" begin="${minPossiblePage}" end="${maxPossiblePage}">
+    <c:choose>
+        <c:when test="${page == p}">${p}</c:when>
+        <c:otherwise>
+            <a href="page?page=${p}&pageSize=${pageSize}">${p}</a>
+        </c:otherwise>
+    </c:choose>
+</c:forEach>
+
+<c:choose>
+    <c:when test="${page + 1 <= pageCount}">
+        <a href="page?page=${page+1}&pageSize=${pageSize}">Next</a>
+    </c:when>
+    <c:otherwise>
+        Next
+    </c:otherwise>
+</c:choose>
+|
+<form action="page" style='display:inline;'>
+    <select name="page">
+        <c:forEach begin="1" end="${pageCount}" var="p">
+            <option value="${p}" ${p == param.page ? 'selected' : ''}>${p}</option>
+        </c:forEach>
+    </select>
+    <input name="pageSize" value="${pageSize}" type="hidden"/>
+    <input type="submit" value="Go"/>
+</form>
+<form action="page" style='display:inline;'>
+    <input type="number" name="pageSize"
+           min="1" max="10"/>
+    <input name="page" value="${page}" type="hidden"/>
+    <input type="submit" value="count"/>
+</form>
+</div>
 <div align="center">
-    <c:forEach items="${caseRecordList}" var="entry">
-        <c:if test="${entry.getDoctorAppointmentList().size() !=0 }">
+    <c:forEach items="${caseRecordList}" var="entry" varStatus="i">
+        <c:if test="${i.count>(page-1)*pageSize && i.count<= page*pageSize}">
             <fmt:parseNumber var="count" type="number" value="0"/>
-            <c:forEach items="${entry.getDoctorAppointmentList()}" var="appointment" varStatus="i">
+            <c:forEach items="${entry.getDoctorAppointmentList()}" var="appointment">
                 <c:if test="${appointment.getComplete() == 'true'}">
-                    <c:if test="${appointment.getType() == 'Приём лекарств'}">
-                        <fmt:parseNumber var="count" type="number" value="${count+1}"/>
-                    </c:if>
-                    <c:if test="${appointment.getType() == 'Подготовка к операции'}">
-                        <fmt:parseNumber var="count" type="number" value="${count+1}"/>
-                    </c:if>
+                    <fmt:parseNumber var="count" type="number" value="${count+1}"/>
                 </c:if>
             </c:forEach>
             <button class="accordion">

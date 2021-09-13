@@ -1,6 +1,6 @@
-package com.ua.command;
+package com.ua.command.Get;
 
-import com.ua.ConnectionPool;
+import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +14,6 @@ public class LoginCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp,Connection con) {
-        // get login, password
-        // obtain from DB user by login
-        // check password
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
 
@@ -56,8 +53,9 @@ public class LoginCommand implements Command {
                     session.setAttribute("finalAddress","users/doctor.jsp");
                     address = "controller?command=viewNurse";
                 } else if (role.equals("nurse")) {
-                    session.setAttribute("finalAddress","users/nurse.jsp");
+                    session.setAttribute("finalAddress","page?page=1&pageSize=6");
                     address = "controller?command=viewNurse";
+
                 }
                 while (rs2.next()) {
                     if (rs2.getString("name") != null) {

@@ -1,5 +1,11 @@
 package com.ua.command;
 
+import com.ua.command.Add.*;
+import com.ua.command.Get.*;
+import com.ua.command.Update.AppointDoctorToPatientCommand;
+import com.ua.command.Update.DeleteAppointmentCommand;
+import com.ua.command.Update.DeleteDoctorWithListCommand;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +34,6 @@ public class CommandContainer {
 		commands.put("deleteAppointment", new DeleteAppointmentCommand());
 		commands.put("confirmAppointment", new ConfirmDoctorAppointmentCommand());
 		commands.put("confirmNurseAppointment", new ConfirmNurseAppointmentCommand());
-
-
 
 	}
 

@@ -10,7 +10,7 @@ import java.sql.*;
 
 public class ConnectionPool {
     private static ConnectionPool instance;
-    private DataSource ds;
+    private static DataSource ds;
 
     public static synchronized ConnectionPool getInstance() {
         if (instance == null) {
@@ -29,7 +29,7 @@ public class ConnectionPool {
         }
     }
 
-    public Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
 

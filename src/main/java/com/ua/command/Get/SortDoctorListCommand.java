@@ -1,5 +1,6 @@
-package com.ua.command;
+package com.ua.command.Get;
 
+import com.ua.command.Command;
 import com.ua.entity.Patient;
 
 import javax.servlet.http.HttpServletRequest;
