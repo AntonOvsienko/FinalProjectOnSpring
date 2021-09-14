@@ -1,4 +1,4 @@
-package com.ua.command.Add;
+package com.ua.command.add;
 
 import com.ua.command.Command;
 
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
 
-public class ConfirmNurseAppointmentCommand implements Command {
+public class ConfirmDoctorAppointmentCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
         HttpSession session = req.getSession();
@@ -15,13 +15,14 @@ public class ConfirmNurseAppointmentCommand implements Command {
         Statement st = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String URL = "controller?command=viewNurse";
+        int caseRecordId = Integer.parseInt(req.getParameter("caseRecordId"));
+        String URL = "controller?command=doctorAppointment&caseRecordId=" + caseRecordId;
         String[] checkbox = req.getParameterValues("appointment");
         try {
             con.setAutoCommit(false);
             StringBuilder nameSurname = new StringBuilder();
             int id = (int) session.getAttribute("keyLogin");
-            String findName = "SELECT * FROM nurse WHERE login_password_id=" + id;
+            String findName = "SELECT * FROM doctor WHERE login_password_id=" + id;
             st = con.createStatement();
             rs = st.executeQuery(findName);
             while (rs.next()) {

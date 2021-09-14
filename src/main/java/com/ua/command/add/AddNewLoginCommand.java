@@ -1,4 +1,4 @@
-package com.ua.command.Add;
+package com.ua.command.add;
 
 import com.ua.command.Command;
 

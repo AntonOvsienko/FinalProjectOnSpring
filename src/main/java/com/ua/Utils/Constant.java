@@ -1,8 +1,7 @@
 package com.ua.Utils;
 
-import com.ua.ConnectionPool;
+public class Constant{
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
+    public static final String URL_ADD_APPOINTMENT="controller?command=doctorAppointment&caseRecordId=";
+}
 

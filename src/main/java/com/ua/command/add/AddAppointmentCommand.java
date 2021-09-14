@@ -1,5 +1,6 @@
-package com.ua.command.Add;
+package com.ua.command.add;
 
+import com.ua.Utils.Constant;
 import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +14,9 @@ public class AddAppointmentCommand implements Command {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
         int caseRecordId = Integer.parseInt(req.getParameter("caseRecordId"));
-        PreparedStatement ps;
-        ResultSet rs;
         String select;
         String description;
-        String URL = "controller?command=doctorAppointment&caseRecordId=" + caseRecordId;
+        String URL = Constant.URL_ADD_APPOINTMENT + caseRecordId;
 
         try {
             con.setAutoCommit(false);
@@ -69,13 +68,13 @@ public class AddAppointmentCommand implements Command {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
         int patient_has_case_records_id = Integer.parseInt(req.getParameter("caseRecordId"));
+        int case_record_id = 0;
         String path;
         Statement st;
         PreparedStatement ps;
         path = "SELECT * FROM patient_has_case_records WHERE id=" + patient_has_case_records_id;
         st = con.createStatement();
         ResultSet rs = st.executeQuery(path);
-        int case_record_id = 0;
         while (rs.next()) {
             case_record_id = rs.getInt("case_record_id");
         }

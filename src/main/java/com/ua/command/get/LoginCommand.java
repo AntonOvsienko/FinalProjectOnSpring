@@ -1,4 +1,4 @@
-package com.ua.command.Get;
+package com.ua.command.get;
 
 import com.ua.command.Command;
 

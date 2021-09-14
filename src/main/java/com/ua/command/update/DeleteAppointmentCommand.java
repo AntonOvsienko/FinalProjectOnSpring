@@ -1,4 +1,4 @@
-package com.ua.command.Update;
+package com.ua.command.update;
 
 import com.ua.command.Command;
 

@@ -1,4 +1,4 @@
-package com.ua.command.Get;
+package com.ua.command.get;
 
 import com.ua.command.Command;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class SortPatientListCommand implements Command {
+public class SortDoctorListCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
         return null;
@@ -17,14 +17,21 @@ public class SortPatientListCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
-        String sort = req.getParameter("sort2");
-        session.setAttribute("sort2", sort);
+        String sort = req.getParameter("sort");
+        String check = req.getParameter("check");
+        if (check != null) {
+            session.setAttribute("check", "on");
+        } else {
+            session.setAttribute("check", null);
+        }
+        System.out.println("check =>" + check);
+        session.setAttribute("sort", sort);
         System.out.println("sort =>" + sort);
         if (sort.equals("sortByName")) {
-            session.setAttribute("patients", session.getAttribute("patientsByName"));
+            session.setAttribute("doctors", session.getAttribute("doctorsByName"));
         }
-        if (sort.equals("sortByBirthday")) {
-            session.setAttribute("patients", session.getAttribute("patientsByBirthday"));
+        if (sort.equals("sortByCount")) {
+            session.setAttribute("doctors", session.getAttribute("doctorsByNumberPatient"));
         }
 
         return (String)session.getAttribute("finalAddress");

@@ -1,10 +1,9 @@
-package com.ua.command.Update;
+package com.ua.command.update;
 
 import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.sql.*;
 
 public class AppointDoctorToPatientCommand implements Command {

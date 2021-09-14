@@ -1,10 +1,10 @@
 package com.ua.command;
 
-import com.ua.command.Add.*;
-import com.ua.command.Get.*;
-import com.ua.command.Update.AppointDoctorToPatientCommand;
-import com.ua.command.Update.DeleteAppointmentCommand;
-import com.ua.command.Update.DeleteDoctorWithListCommand;
+import com.ua.command.add.*;
+import com.ua.command.get.*;
+import com.ua.command.update.AppointDoctorToPatientCommand;
+import com.ua.command.update.DeleteAppointmentCommand;
+import com.ua.command.update.DeleteDoctorWithListCommand;
 
 import java.util.HashMap;
 import java.util.Map;
