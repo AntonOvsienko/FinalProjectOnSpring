@@ -130,6 +130,16 @@ public class Doctor extends Staff implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        Staff staff = (Staff) obj;
+        if (passport.equals(staff.getPassport())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Doctor{" +
                 "id=" + id +

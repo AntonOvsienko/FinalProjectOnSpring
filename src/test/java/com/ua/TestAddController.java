@@ -2,19 +2,19 @@ package com.ua;
 
 import com.ua.command.Command;
 import com.ua.command.CommandContainer;
-import org.junit.Before;
-import org.mockito.*;
+import org.junit.After;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-
-import static org.mockito.Mockito.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
+
+import static org.mockito.Mockito.mock;
 
 
 public class TestAddController {
@@ -24,16 +24,26 @@ public class TestAddController {
     private HttpSession httpSession;
     private PreparedStatement ps;
     private ResultSet rs;
+    private ResultSet rs1;
+    private ResultSet rs2;
     private Connection con;
     private Statement st;
-    private ResultSet rs2;
+    private Statement newLogin2;
+    private PreparedStatement newLogin;
+    private PreparedStatement newStaff2;
+    private PreparedStatement returnId;
 
     @Before
     public void init() {
         st = Mockito.mock(Statement.class);
+        newLogin2 = Mockito.mock(Statement.class);
         rs = Mockito.mock(ResultSet.class);
+        rs1 = Mockito.mock(ResultSet.class);
         rs2 = Mockito.mock(ResultSet.class);
         ps = Mockito.mock(PreparedStatement.class);
+        newLogin = Mockito.mock(PreparedStatement.class);
+        newStaff2 = Mockito.mock(PreparedStatement.class);
+        returnId = Mockito.mock(PreparedStatement.class);
         resp = Mockito.mock(HttpServletResponse.class);
         req = Mockito.mock(HttpServletRequest.class);
         httpSession = Mockito.mock(HttpSession.class);
@@ -43,16 +53,35 @@ public class TestAddController {
 
 
     @Test
-    public void еnterLoginAdminAndPasswordIsTrueShouldTrue() throws SQLException {
-        Mockito.when(req.getParameter("login"))
-                .thenReturn("admin");
-        Mockito.when(req.getParameter("password"))
-                .thenReturn("12345");
-        Mockito.when(ps.executeQuery())
-                .thenReturn(rs);
-        Mockito.when(con.prepareStatement("SELECT * FROM login_password WHERE login=? AND password=?"))
+    public void addAppointmentInCaseRecordPatientShouldTrue() throws SQLException {
+        Mockito.when(req.getParameter("caseRecordId"))
+                .thenReturn("15");
+        Mockito.when(req.getParameter("select1"))
+                .thenReturn("1");
+        Mockito.when(req.getParameter("select2"))
+                .thenReturn("2");
+        Mockito.when(req.getParameter("select3"))
+                .thenReturn("3");
+        Mockito.when(req.getParameter("select4"))
+                .thenReturn("4");
+        Mockito.when(req.getParameter("description1"))
+                .thenReturn("text1");
+        Mockito.when(req.getParameter("description2"))
+                .thenReturn("text2");
+        Mockito.when(req.getParameter("description3"))
+                .thenReturn("text3");
+        Mockito.when(req.getParameter("description4"))
+                .thenReturn("text4");
+        Mockito.when(con.createStatement())
+                .thenReturn(st);
+        Mockito.when(con.prepareStatement("INSERT INTO doctor_appointment (case_record_id,type,description,complete)" +
+                " VALUES (?,?,?,?)"))
                 .thenReturn(ps);
+        Mockito.when(st.executeQuery("SELECT * FROM patient_has_case_records WHERE id=15"))
+                .thenReturn(rs);
         Mockito.when(rs.next()).thenReturn(true).thenReturn(false);
+        Mockito.when(rs.getInt("case_record_id")).thenReturn(40);
+
         Mockito.when(rs.getString("role")).thenReturn("administrator");
         Mockito.when(rs.getInt("id")).thenReturn(1);
         Mockito.when(con.createStatement()).thenReturn(st);
@@ -67,154 +96,113 @@ public class TestAddController {
             utilMock.when(ConnectionPool::getConnection)
                     .thenReturn(con);
 
-            Command command = CommandContainer.getCommand("login");
+            Command command = CommandContainer.getCommand("addAppointment");
             String address = command.execute(req, resp, con);
-            Assert.assertEquals(address, "controller?command=viewStaff");
+            Assert.assertEquals(address, "controller?command=doctorAppointment&caseRecordId=15");
         }
     }
 
     @Test
-    public void еnterLoginAdminAndPasswordIsFalseShouldTrue() throws SQLException {
+    public void addNewLoginInDataBaseIsDoctorShouldTrue() throws SQLException {
         Mockito.when(req.getParameter("login"))
                 .thenReturn("admin");
         Mockito.when(req.getParameter("password"))
-                .thenReturn("10");
-        Mockito.when(ps.executeQuery())
-                .thenReturn(rs);
-        Mockito.when(con.prepareStatement("SELECT * FROM login_password WHERE login=? AND password=?"))
-                .thenReturn(ps);
-        Mockito.when(rs.next()).thenReturn(false);
-        try (MockedStatic<ConnectionPool> utilMock = Mockito.mockStatic(ConnectionPool.class)) {
-            utilMock.when(ConnectionPool::getConnection)
-                    .thenReturn(con);
-
-            Command command = CommandContainer.getCommand("login");
-            String address = command.execute(req, resp, con);
-            Assert.assertEquals(address, "errorMessage/error.jsp");
-        }
-    }
-
-    @Test
-    public void еnterLoginDoctorAndPasswordIsTrueShouldTrue() throws SQLException {
-        Mockito.when(req.getParameter("login"))
-                .thenReturn("doctor1");
-        Mockito.when(req.getParameter("password"))
-                .thenReturn("12345");
-        Mockito.when(ps.executeQuery())
-                .thenReturn(rs);
-        Mockito.when(con.prepareStatement("SELECT * FROM login_password WHERE login=? AND password=?"))
-                .thenReturn(ps);
-        Mockito.when(rs.next()).thenReturn(true).thenReturn(false);
-        Mockito.when(rs.getString("role")).thenReturn("doctor");
-        Mockito.when(rs.getInt("id")).thenReturn(26);
-        Mockito.when(con.createStatement()).thenReturn(st);
-        Mockito.when(st.executeQuery("SELECT * FROM doctor WHERE login_password_id=26")).thenReturn(rs2);
-        try (MockedStatic<ConnectionPool> utilMock = Mockito.mockStatic(ConnectionPool.class)) {
-            utilMock.when(ConnectionPool::getConnection)
-                    .thenReturn(con);
-
-            Command command = CommandContainer.getCommand("login");
-            String address = command.execute(req, resp, con);
-            Assert.assertEquals(address, "controller?command=viewNurse");
-        }
-    }
-
-    @Test
-    public void еnterLoginNurseAndPasswordIsTrueShouldTrue() throws SQLException {
-        Mockito.when(req.getParameter("login"))
-                .thenReturn("nurse1");
-        Mockito.when(req.getParameter("password"))
-                .thenReturn("12345");
-        Mockito.when(ps.executeQuery())
-                .thenReturn(rs);
-        Mockito.when(con.prepareStatement("SELECT * FROM login_password WHERE login=? AND password=?"))
-                .thenReturn(ps);
-        Mockito.when(rs.next()).thenReturn(true).thenReturn(false);
-        Mockito.when(rs.getString("role")).thenReturn("nurse");
-        Mockito.when(rs.getInt("id")).thenReturn(42);
-        Mockito.when(con.createStatement()).thenReturn(st);
-        Mockito.when(st.executeQuery("SELECT * FROM nurse WHERE login_password_id=42")).thenReturn(rs2);
-        try (MockedStatic<ConnectionPool> utilMock = Mockito.mockStatic(ConnectionPool.class)) {
-            utilMock.when(ConnectionPool::getConnection)
-                    .thenReturn(con);
-
-            Command command = CommandContainer.getCommand("login");
-            String address = command.execute(req, resp, con);
-            Assert.assertEquals(address, "controller?command=viewNurse");
-        }
-    }
-
-    @Test
-    public void checkNewLoginAndPasswordShouldLoginTaken() throws SQLException {
-        Mockito.when(req.getParameter("login"))
-                .thenReturn("doctor10");
-        Mockito.when(req.getParameter("password"))
                 .thenReturn("12345");
         Mockito.when(req.getParameter("password_repeat"))
                 .thenReturn("12345");
         Mockito.when(req.getParameter("role"))
                 .thenReturn("doctor");
-        Mockito.when(ps.executeQuery())
-                .thenReturn(rs);
+        Mockito.when(con.prepareStatement("INSERT INTO login_password (login,password,role) VALUES (?,?,?)"))
+                .thenReturn(newLogin);
+        Mockito.when(con.prepareStatement("INSERT INTO doctor (login_password_id) VALUES (?)"))
+                .thenReturn(newStaff2);
+        Mockito.when(returnId.executeQuery())
+                .thenReturn(rs2);
         Mockito.when(con.prepareStatement("SELECT * FROM login_password WHERE login=?"))
-                .thenReturn(ps);
-        Mockito.when(rs.next()).thenReturn(true).thenReturn(false);
+                .thenReturn(returnId);
+        Mockito.when(rs2.next())
+                .thenReturn(true)
+                .thenReturn(false);
+        Mockito.when(rs2.getInt("id"))
+                .thenReturn(10);
+        Mockito.when(req.getParameter("name"))
+                .thenReturn("Vasya");
+        Mockito.when(req.getParameter("surname"))
+                .thenReturn("Petrov");
+        Mockito.when(req.getParameter("passport"))
+                .thenReturn("AH1278394");
+        Mockito.when(req.getParameter("telephone"))
+                .thenReturn("380507205912");
+        Mockito.when(req.getParameter("department"))
+                .thenReturn("pediatr");
+        Mockito.when(con.createStatement())
+                .thenReturn(newLogin2);
+        Mockito.when(newLogin2.executeUpdate("UPDATE doctor SET name=Vasya, surname=Petrov," +
+                " telephone=380507205912, passport=AH1278394, department=pediatr" +
+                " WHERE login_password_id=10"))
+                .thenReturn(5);
+
         try (MockedStatic<ConnectionPool> utilMock = Mockito.mockStatic(ConnectionPool.class)) {
             utilMock.when(ConnectionPool::getConnection)
                     .thenReturn(con);
 
-            Command command = CommandContainer.getCommand("checkNewLogin");
+            Command command = CommandContainer.getCommand("createNewLogin");
             String address = command.execute(req, resp, con);
             Assert.assertEquals(address, "users/newLogin.jsp");
         }
     }
 
     @Test
-    public void checkNewLoginAndPasswordWrongRepeatPassword() throws SQLException {
-        Mockito.when(req.getParameter("login"))
-                .thenReturn("doctor10");
-        Mockito.when(req.getParameter("password"))
-                .thenReturn("12345");
-        Mockito.when(req.getParameter("password_repeat"))
-                .thenReturn("123456");
-        Mockito.when(req.getParameter("role"))
-                .thenReturn("doctor");
-        Mockito.when(ps.executeQuery())
-                .thenReturn(rs);
-        Mockito.when(con.prepareStatement("SELECT * FROM login_password WHERE login=?"))
+    public void addNewPatientInDataBaseShouldTrue() throws SQLException {
+        Mockito.when(req.getParameter("name"))
+                .thenReturn("Vasya");
+        Mockito.when(req.getParameter("surname"))
+                .thenReturn("Petrov");
+        Mockito.when(req.getParameter("passport"))
+                .thenReturn("AH1278394");
+        Mockito.when(req.getParameter("telephone"))
+                .thenReturn("380507205912");
+        Mockito.when(req.getParameter("date"))
+                .thenReturn("1995-03-12");
+        Mockito.when(con.prepareStatement("INSERT INTO patient (name,surname,passport,telephone,birthday) " +
+                "VALUES (?,?,?,?,?)"))
                 .thenReturn(ps);
-        Mockito.when(rs.next()).thenReturn(true).thenReturn(false);
+        Mockito.when(con.prepareStatement("INSERT INTO patient_has_case_records " +
+                "(patient_id,case_record_id) VALUES (?,?)"))
+                .thenReturn(ps);
+        Mockito.when(ps.executeUpdate())
+                .thenReturn(5)
+                .thenReturn(2);
+        Mockito.when(con.createStatement())
+                .thenReturn(st);
+        Mockito.when(st.executeQuery("SELECT MAX(id) FROM patient"))
+                .thenReturn(rs);
+        Mockito.when(st.executeQuery("SELECT MAX(id) FROM case_record"))
+                .thenReturn(rs);
+        Mockito.when(rs.next())
+                .thenReturn(true)
+                .thenReturn(false)
+                .thenReturn(true)
+                .thenReturn(false);
+        Mockito.when(rs.getInt(1))
+                .thenReturn(10);
+        Mockito.when(con.prepareStatement("INSERT INTO case_record (initial_diagnosis) VALUES ('null')"))
+                .thenReturn(ps);
+        Mockito.when(ps.executeUpdate())
+                .thenReturn(1);
+
         try (MockedStatic<ConnectionPool> utilMock = Mockito.mockStatic(ConnectionPool.class)) {
             utilMock.when(ConnectionPool::getConnection)
                     .thenReturn(con);
 
-            Command command = CommandContainer.getCommand("checkNewLogin");
+            Command command = CommandContainer.getCommand("addNewPatient");
             String address = command.execute(req, resp, con);
-            Assert.assertEquals(address, "errorMessage/errorRepeatPassword.jsp");
+            Assert.assertEquals(address, "users/newPatient.jsp");
         }
     }
-    @Test
-    public void checkNewLoginAndPasswordShouldTrue() throws SQLException {
-        Mockito.when(req.getParameter("login"))
-                .thenReturn("doctor10");
-        Mockito.when(req.getParameter("password"))
-                .thenReturn("12345");
-        Mockito.when(req.getParameter("password_repeat"))
-                .thenReturn("12345");
-        Mockito.when(req.getParameter("role"))
-                .thenReturn("doctor");
-        Mockito.when(ps.executeQuery())
-                .thenReturn(rs);
-        Mockito.when(con.prepareStatement("SELECT * FROM login_password WHERE login=?"))
-                .thenReturn(ps);
-        Mockito.when(rs.next()).thenReturn(false);
-        try (MockedStatic<ConnectionPool> utilMock = Mockito.mockStatic(ConnectionPool.class)) {
-            utilMock.when(ConnectionPool::getConnection)
-                    .thenReturn(con);
 
-            Command command = CommandContainer.getCommand("checkNewLogin");
-            String address = command.execute(req, resp, con);
-            Assert.assertEquals(address, "users/newLogin.jsp");
-        }
+    @After
+    public void destroy() throws SQLException {
+        con.close();
     }
 }

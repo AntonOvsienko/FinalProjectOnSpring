@@ -28,29 +28,21 @@ public class AddAppointmentCommand implements Command {
             if (req.getParameter("select1") != null) {
                 select = req.getParameter("select1");
                 description = req.getParameter("description1");
-                System.out.println("type => " + select);
-                System.out.println("description => " + description);
                 addInTable(req, con, select, description);
             }
             if (req.getParameter("select2") != null) {
                 select = req.getParameter("select2");
                 description = req.getParameter("description2");
-                System.out.println("type2 => " + select);
-                System.out.println("description2 =>" + description);
                 addInTable(req, con, select, description);
             }
             if (req.getParameter("select3") != null) {
                 select = req.getParameter("select3");
                 description = req.getParameter("description3");
-                System.out.println("type3 => " + select);
-                System.out.println("description3 =>" + description);
                 addInTable(req, con, select, description);
             }
             if (req.getParameter("select4") != null) {
                 select = req.getParameter("select4");
                 description = req.getParameter("description4");
-                System.out.println("type4 => " + select);
-                System.out.println("description4 =>" + description);
                 addInTable(req, con, select, description);
             }
             con.commit();
