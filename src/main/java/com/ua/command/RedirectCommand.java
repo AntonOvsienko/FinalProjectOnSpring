@@ -9,12 +9,14 @@ import java.sql.SQLException;
 public class RedirectCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
-        return null;
+
+        return execute(req,resp);
     }
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String address = req.getParameter("address");
+        System.out.println(address);
 
         return address;
     }

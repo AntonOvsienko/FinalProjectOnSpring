@@ -83,7 +83,6 @@ public class ListGenerationNurseCommand implements Command {
 //                    }
                 }
                 path = "SELECT * FROM case_record WHERE id=" + caseRecordId;
-                System.out.println(path);
                 ps = con.prepareStatement(path);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
@@ -96,7 +95,6 @@ public class ListGenerationNurseCommand implements Command {
                 nurseCaseRecord.add(caseRecord);
             }
             session.setAttribute("caseRecordList", nurseCaseRecord);
-            System.out.println(session.getAttribute("caseRecordList"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return "errorMessage/error.jsp";

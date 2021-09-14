@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ARTDoor
-  Date: 31.08.2021
-  Time: 16:12
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page session="true"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

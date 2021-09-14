@@ -38,126 +38,29 @@
         }
     </script>
     <style>
-        .MyMarginLeft {
-            margin-left: 30px;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', Arial, sans-serif;
-            font-size: 1em;
-            background: #ebebeb;
-
-        }
-
-        /* Style the tab */
-        .tab {
-            float: left;
-        }
-
-        input[type=submit], button[type=submit] {
-            margin-top: 20px;
-            padding: 5px 5px;
-            display: block;
-            width: 100%;
-            line-height: 2em;
-            background: rgba(114, 212, 202, 1);
-            border-radius: 5px;
-            border: 0;
-            cursor: pointer;
-            border-top: 1px solid #B2ECE6;
-            box-shadow: 0 0 0 1px #46A294, 0 2px 2px #808389;
-            color: #FFFFFF;
-            font-size: 1.5em;
-            text-shadow: 0 1px 2px #21756A;
-        }
-
-        input[type=submit]:hover, button[type=submit]:hover {
-            background: linear-gradient(to bottom, rgba(107, 198, 186, 1) 0%, rgba(57, 175, 154, 1) 100%);
-        }
-
-        input[type=submit]:active, button[type=submit]:active {
-            box-shadow: inset 0 0 5px #000;
-            background: linear-gradient(to bottom, rgba(57, 175, 154, 1) 0%, rgba(107, 198, 186, 1) 100%);
-        }
-
-        .button {
-            clear: both;
-        }
-
-        /* Style the buttons inside the tab */
-        .tab option {
-
-            padding: 2px 16px;
-            line-height: 1;
-            text-align: left;
-            cursor: pointer;
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            font-size: 15px;
-            line-height: 10px;
-            padding: 0px 10px;
-            size: 10px;
-            float: left;
-        }
-
-        .tabcontent p.login {
-            opacity: 50%;
-        }
-
-        .tab2 {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        /* Style the buttons inside the tab */
-        .tab2 button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
-        }
-
-        /* Change background color of buttons on hover */
-        .tab2 button:hover {
-            background-color: #ddd;
-        }
-
-        /* Create an active/current tablink class */
-        .tab2 button.active {
-            background-color: #ccc;
-        }
-
-        /* Style the tab content */
-        .tabcontent2 {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-        }
+        @import url(/users/css/doctorList_high.css);
+        @import url(/users/css/doctorList_center.css);
     </style>
 </head>
 <body>
+<ul id="nav">
+    <li><p><a href="/controller?command=exit">Выход</a></p></li>
+    <li><p>Локаль</p></li>
+    <li><p>Login:${globalLogin}</p></li>
+
+</ul>
 
 <div class="tab2">
-    <button class="tablinks2" onclick="openCity2(event, 'London')" id="defaultOpen">Врачи</button>
+    <button class="tablinks2" onclick="openCity2(event, 'Staff')" id="defaultOpen">Персонал</button>
     <button class="tablinks2" onclick="openCity2(event, 'Tokyo')">Медсёстры</button>
     <button class="tablinks2" onclick="openCity2(event, 'Paris')">Пациенты</button>
+    <button class="tablinks2">В разработке</button>
+    <button class="tablinks2">В разработке</button>
 </div>
 
-<div id="London" class="tabcontent2">
+<div id="Staff" class="tabcontent2">
     <form action="/controller" method="post">
-        <input name="command" value="deleteDoctor" hidden>
+<%--        <input name="command" value="deleteDoctor" hidden>--%>
         <c:if test="${check == 'on'}">
             <div class="tab">
                 <p><select name="select" size="15" multiple>
@@ -230,9 +133,10 @@
         <div class="button">
             <table>
                 <tr>
-                    <td><input type="submit" value="Удалить сотрудника" width="100%"></td>
+                    <td><button type="submit" name="command" value="deleteDoctor" width="100%">Удалить сотрудника</button></td>
                     <td>
-                        <button type="submit" name="command" value="checkNewLogin" width="100%">Добавить сотрудника</button>
+                        <button type="submit" name="command" value="createNewLogin" width="100%">Добавить сотрудника
+                        </button>
                     </td>
                 </tr>
             </table>
@@ -262,9 +166,9 @@
         </p>
     </div>
     <p align="left">
-        <form action="/controller" method="get">
-            <input name="command" value="exit" hidden>
-    <p align="left"><input type="submit" value="Закончить сессию"></p>
+    <form action="/controller" method="get">
+        <input name="command" value="exit" hidden>
+        <p align="left"><input type="submit" value="Закончить сессию"></p>
     </form>
     </p>
 

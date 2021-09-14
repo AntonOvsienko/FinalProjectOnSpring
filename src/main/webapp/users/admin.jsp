@@ -1,8 +1,11 @@
+<%@ page session="true"%>
 <%@ page import="com.ua.entity.Doctor" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%-- rest of the page --%>
 
 <html>
 <head>

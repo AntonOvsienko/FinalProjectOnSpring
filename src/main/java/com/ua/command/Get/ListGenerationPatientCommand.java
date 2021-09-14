@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.ua.Utils.createElement.newElement;
+import static com.ua.Utils.CreateElement.newElement;
 
 public class ListGenerationPatientCommand implements Command {
 
@@ -61,8 +61,6 @@ public class ListGenerationPatientCommand implements Command {
             session.setAttribute("patients", patients);
             session.setAttribute("patientsByName", patientsSortByName);
             session.setAttribute("patientsByBirthday", patientsSortByBirthday);
-            String path=con.getMetaData().getURL();
-            System.out.println(path);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {

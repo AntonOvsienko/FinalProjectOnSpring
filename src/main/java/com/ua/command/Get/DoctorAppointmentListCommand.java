@@ -5,7 +5,6 @@ import com.ua.command.Command;
 import com.ua.entity.Doctor;
 import com.ua.entity.DoctorAppointment;
 import com.ua.entity.Patient;
-import com.ua.entity.Staff;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import static com.ua.Utils.createElement.newElement;
+import static com.ua.Utils.CreateElement.newElement;
 
 public class DoctorAppointmentListCommand implements Command {
     @Override

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class createElement {
+public class CreateElement {
 
     public static Staff newElement(ResultSet rs, String role) {
         Staff user = null;

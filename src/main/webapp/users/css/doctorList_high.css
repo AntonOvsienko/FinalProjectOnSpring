@@ -1,0 +1,24 @@
+#nav {
+    width: 100%;
+    float: right;
+    margin: 0 0 1em 0;
+    padding: 0;
+    list-style: none;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc; }
+#nav li {
+    float: right; }
+#nav li p {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: bold;
+    border-left: 1px solid #ccc; }
+#nav li p:hover {
+    color: #c00;
+    background-color: #fff; }
+a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+}
+

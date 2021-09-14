@@ -3,7 +3,6 @@ package com.ua.command.Get;
 import com.ua.ConnectionPool;
 import com.ua.command.Command;
 import com.ua.entity.Doctor;
-import com.ua.entity.Patient;
 import com.ua.entity.Staff;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.ua.Utils.createElement.newElement;
+import static com.ua.Utils.CreateElement.newElement;
 
 public class ListGenerationDoctorCommand implements Command {
 
