@@ -24,6 +24,6 @@
 
     <filter-mapping>
         <filter-name>SecurityFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/users/*</url-pattern>
     </filter-mapping>
 </web-app>
