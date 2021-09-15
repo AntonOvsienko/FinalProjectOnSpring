@@ -43,7 +43,7 @@
                         <c:otherwise>
                             <input name="command" value="checkNewLogin" hidden/>
                             <input name="login" required type="text" placeholder="login"/>
-                            <input name="password" type="password" required placeholder="repeat"/>
+                            <input name="password" type="password" required placeholder="password"/>
                             <input name="password_repeat" type="password" required placeholder="repeat password"/>
 
                             <select name="role" class="selcls">
@@ -65,14 +65,14 @@
                         <input name="password" value="${password}" hidden>
                         <input name="role" value="${role}" hidden>
                         <input name="command" value="createNewLogin" hidden>
-                        <p align="center"><input name="passport" placeholder="Номер паспорта: AH0000000"
-                                                                 pattern="[А-Яа-яЁё]{2,2}\d{7,7}" type="text" required>
+                        <p align="center"><input name="passport" placeholder="Номер паспорта: AH00000000"
+                                                                 pattern="[А-Яа-яЁё]{2,2}\d{8,8}" type="text" required>
                         </p>
                         <p align="center"><input type="text" name="name" placeholder="Имя"
                                                       pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>
                         <p align="center"><input type="text" name="surname" placeholder="Фамилия"
                                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>
-                        <p align="center"><input id="online_phone" name="phone" type="tel" maxlength="50"
+                        <p align="center"><input id="online_phone" name="telephone" type="tel" maxlength="50"
                                                           pattern="[0-9]{12,12}"
                                                           placeholder="Номер телефона"
                                                           name="telephone"></p>

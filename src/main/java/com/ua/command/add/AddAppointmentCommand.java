@@ -52,7 +52,7 @@ public class AddAppointmentCommand implements Command {
                 e.printStackTrace();
             }
             throwables.getMessage();
-            return "errorMessage/error.jsp";
+            return Constant.URL_ERROR_PAGE;
         } finally {
             try {
                 con.close();
@@ -67,21 +67,17 @@ public class AddAppointmentCommand implements Command {
     private void addInTable(HttpServletRequest req, Connection con, String select, String description) throws SQLException {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
-        int patient_has_case_records_id = Integer.parseInt(req.getParameter("caseRecordId"));
         int case_record_id = 0;
-        String path;
-        Statement st;
         PreparedStatement ps;
-        path = "SELECT * FROM patient_has_case_records WHERE id=" + patient_has_case_records_id;
-        st = con.createStatement();
-        ResultSet rs = st.executeQuery(path);
+        ps = con.prepareStatement(Constant.SQL_APPOINTMENT_SELECT);
+        int k = 1;
+        ps.setInt(k++, Integer.parseInt(req.getParameter("caseRecordId")));
+        ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             case_record_id = rs.getInt("case_record_id");
         }
-        path = "INSERT INTO doctor_appointment (case_record_id,type,description,complete)" +
-                " VALUES (?,?,?,?)";
-        ps = con.prepareStatement(path);
-        int k = 1;
+        ps = con.prepareStatement(Constant.SQL_APPOINTMENT_INSERT);
+        k = 1;
         ps.setInt(k++, case_record_id);
         ps.setString(k++, select);
         ps.setString(k++, description);

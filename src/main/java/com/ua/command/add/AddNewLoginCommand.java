@@ -1,5 +1,6 @@
 package com.ua.command.add;
 
+import com.ua.Utils.Constant;
 import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,73 +16,11 @@ public class AddNewLoginCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
-        session.setAttribute("successfully",null);
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-        String passwordRepeat = req.getParameter("password_repeat");
-        String role = req.getParameter("role");
-        System.out.println("login => " + login);
-        System.out.println("password => " + password);
-        System.out.println("password_repeat => " + passwordRepeat);
-        System.out.println("role => " + role);
-        PreparedStatement newLogin;
-        PreparedStatement newStaff2;
-        PreparedStatement returnId;
-        ResultSet rs2;
-        Statement newLogin2;
-
+        session.setAttribute("successfully" , null);
         try {
             con.setAutoCommit(false);
-            newLogin = con.prepareStatement(
-                    "INSERT INTO login_password (login,password,role) VALUES (?,?,?)");
-
-            newLogin.setString(1, login);
-            newLogin.setString(2, password);
-            newLogin.setString(3, role);
-            newLogin.executeUpdate();
-            String newStaff = "INSERT INTO " + role + " (login_password_id) VALUES (?)";
-            System.out.println(newStaff);
-            newStaff2 = con.prepareStatement(newStaff);
-
-            returnId = con.prepareStatement(
-                    "SELECT * FROM login_password WHERE login=?");
-            returnId.setString(1, login);
-            rs2 = returnId.executeQuery();
-            int id = 0;
-            while (rs2.next()) {
-                id = rs2.getInt("id");
-            }
-            newStaff2.setInt(1, id);
-            newStaff2.executeUpdate();
-            String nameSet = req.getParameter("name");
-            String surnameSet = req.getParameter("surname");
-            String passportSet = req.getParameter("passport");
-            String telephoneSet = req.getParameter("telephone");
-            String department = "";
-            if (req.getParameter("department") != null) {
-                department = req.getParameter("department");
-            }
-            System.out.println("login-" + login
-                    + "\npassword-" + password
-                    + "\nname-" + nameSet
-                    + "\nsurname-" + surnameSet
-                    + "\npassport-" + passportSet
-                    + "\nrole-" + role
-                    + "\ntelephone-" + telephoneSet);
-            String update = "";
-            if (role.equals("doctor")) {
-                update = "UPDATE " + role + " SET name='" + nameSet + "', surname='" +
-                        surnameSet + "', telephone='" + telephoneSet + "', passport='" + passportSet +
-                        "', department='" + department + "'" +
-                        " WHERE login_password_id=" + id;
-            } else {
-                update = "UPDATE " + role + " SET name='" + nameSet + "', surname='" +
-                        surnameSet + "', telephone='" + telephoneSet + "', passport='" + passportSet +
-                        "' WHERE login_password_id=" + id;
-            }
-            System.out.println(update);
-            newLogin2 = con.createStatement();
-            newLogin2.executeUpdate(update);
+            insertLogin(con, req);
+            updateLogin(con, req);
             con.commit();
         } catch (SQLException throwables) {
             try {
@@ -90,8 +29,8 @@ public class AddNewLoginCommand implements Command {
                 e.printStackTrace();
             }
             throwables.printStackTrace();
-            session.setAttribute("error", "Ошибка ввода");
-            return "users/newLogin.jsp";
+            session.setAttribute("error" , "Ошибка ввода");
+            return Constant.URL_NEW_LOGIN;
         } finally {
             try {
                 con.setAutoCommit(true);
@@ -100,10 +39,70 @@ public class AddNewLoginCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        session.setAttribute("checkLogin",null);
-        session.setAttribute("successfully","Логин создан");
-        session.setAttribute("error", null);
-        return "users/newLogin.jsp";
+        session.setAttribute("checkLogin" , null);
+        session.setAttribute("successfully" , "Логин создан");
+        session.setAttribute("error" , null);
+        return Constant.URL_NEW_LOGIN;
+    }
+
+    private void insertLogin(Connection con, HttpServletRequest req) throws SQLException {
+        HttpSession session = req.getSession();
+        PreparedStatement preparedStatement1;
+        PreparedStatement preparedStatement2;
+        PreparedStatement preparedStatement3;
+        ResultSet rs2;
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
+        String role = req.getParameter("role");
+        preparedStatement1 = con.prepareStatement(Constant.SQL_NEW_LOGIN_INSERT_LOGIN);
+        preparedStatement1.setString(1, login);
+        preparedStatement1.setString(2, password);
+        preparedStatement1.setString(3, role);
+        session.setAttribute("role" , role);
+        preparedStatement1.executeUpdate();
+        preparedStatement2 = con.prepareStatement(Constant.SQL_NEW_LOGIN_SELECT_LOGIN);
+        int k = 1;
+        preparedStatement2.setString(k++, login);
+        rs2 = preparedStatement2.executeQuery();
+        int id = 0;
+        while (rs2.next()) {
+            id = rs2.getInt("id");
+        }
+        String path = "INSERT INTO " + role + " (login_password_id) VALUES (?)";
+        preparedStatement3 = con.prepareStatement(path);
+        preparedStatement3.setInt(1, id);
+        preparedStatement3.executeUpdate();
+        session.setAttribute("idLoginPassword" , id);
+        preparedStatement1.close();
+        preparedStatement2.close();
+        preparedStatement3.close();
+        rs2.close();
+    }
+
+    private void updateLogin(Connection con, HttpServletRequest req) throws SQLException {
+        HttpSession session = req.getSession();
+        PreparedStatement preparedStatement;
+        int k;
+        String update = "";
+        String role = (String) session.getAttribute("role");
+        if (role.equals("doctor")) {
+            update = Constant.SQL_NEW_LOGIN_UPDATE_DOCTOR;
+        } else {
+            update = Constant.SQL_NEW_LOGIN_UPDATE_NURSE;
+        }
+        System.out.println(update);
+        preparedStatement = con.prepareStatement(update);
+        k = 1;
+        preparedStatement.setString(k++, req.getParameter("name"));
+        preparedStatement.setString(k++, req.getParameter("surname"));
+        preparedStatement.setString(k++, req.getParameter("telephone"));
+        preparedStatement.setString(k++, req.getParameter("passport"));
+        if (role.equals("doctor")) {
+            preparedStatement.setString(k++, req.getParameter("department"));
+        }
+        preparedStatement.setInt(k++, (int) session.getAttribute("idLoginPassword"));
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 
     @Override

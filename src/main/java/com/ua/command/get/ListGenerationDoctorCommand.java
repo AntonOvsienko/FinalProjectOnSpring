@@ -32,6 +32,7 @@ public class ListGenerationDoctorCommand implements Command {
             while (rs.next()) {
                 Doctor doctor = (Doctor) newElement(rs, "doctor");
                 doctors.add(doctor);
+                System.out.println(doctor);
             }
             List<Doctor> doctorsSortByName = new ArrayList<>(doctors);
             List<Doctor> doctorsSortByCategory = new ArrayList<>(doctorsSortByName);
@@ -63,7 +64,7 @@ public class ListGenerationDoctorCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Connection con = null;
         try {
-            con = ConnectionPool.getInstance().getConnection();
+            con = ConnectionPool.getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

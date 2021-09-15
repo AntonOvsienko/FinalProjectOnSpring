@@ -28,7 +28,7 @@ public class AddNewPatientCommand implements Command {
             System.out.println("patientId => " + patientId);
             List<String> massivDiagnoses = createDiagnisList(req);
             for (int i = 0; i < massivDiagnoses.size(); i++) {
-                addDiagnoses(ConnectionPool.getInstance().getConnection(), patientId, massivDiagnoses.get(i));
+                addDiagnoses(ConnectionPool.getConnection(), patientId, massivDiagnoses.get(i));
             }
             con.commit();
         } catch (SQLException throwables) {
@@ -36,6 +36,7 @@ public class AddNewPatientCommand implements Command {
             throwables.printStackTrace();
         } finally {
             try {
+                con.setAutoCommit(true);
                 con.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -49,29 +50,19 @@ public class AddNewPatientCommand implements Command {
         String initDiagnosis1 = req.getParameter("diagnosis1");
         list.add(initDiagnosis1);
         String initDiagnosis2 = null;
-        if (req.getParameter("diagnosis2") != "") {
+        if (!req.getParameter("diagnosis2").equals("")) {
             initDiagnosis2 = req.getParameter("diagnosis2");
             list.add(initDiagnosis2);
         }
         String initDiagnosis3 = null;
-        if (req.getParameter("diagnosis3") != "") {
+        if (!req.getParameter("diagnosis3").equals("")) {
             initDiagnosis3 = req.getParameter("diagnosis3");
             list.add(initDiagnosis3);
         }
         String initDiagnosis4 = null;
-        if (req.getParameter("diagnosis4") != "") {
+        if (!req.getParameter("diagnosis4").equals("")) {
             initDiagnosis4 = req.getParameter("diagnosis4");
             list.add(initDiagnosis4);
-        }
-        String initDiagnosis5 = null;
-        if (req.getParameter("diagnosis5") != "") {
-            initDiagnosis5 = req.getParameter("diagnosis5");
-            list.add(initDiagnosis5);
-        }
-        String initDiagnosis6 = null;
-        if (req.getParameter("diagnosis6") != "") {
-            initDiagnosis6 = req.getParameter("diagnosis6");
-            list.add(initDiagnosis6);
         }
         return list;
     }
@@ -109,11 +100,6 @@ public class AddNewPatientCommand implements Command {
         String passportSet = req.getParameter("passport");
         String telephoneSet = req.getParameter("telephone");
         String dataBirthdaySet = req.getParameter("date");
-        System.out.println("name-" + nameSet
-                + "\nsurname-" + surnameSet
-                + "\npassport-" + passportSet
-                + "\ndataBirthday-" + dataBirthdaySet
-                + "\ntelephone-" + telephoneSet);
         String patient = "INSERT INTO patient (name,surname,passport,telephone,birthday)" +
                 " VALUES (?,?,?,?,?)";
         ps = con.prepareStatement(patient);

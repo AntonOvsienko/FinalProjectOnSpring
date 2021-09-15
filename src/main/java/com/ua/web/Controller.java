@@ -33,10 +33,11 @@ public class Controller extends HttpServlet {
         System.out.println("command ==> " + command);
 
         String address = "errorMessage/error.jsp";
+        ConnectionPool.getInstance();
 
         // (3) do command
         try {
-            address = command.execute(req, resp, ConnectionPool.getInstance().getConnection());
+            address = command.execute(req, resp, ConnectionPool.getConnection());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
