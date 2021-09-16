@@ -3,6 +3,7 @@ package com.ua.command.get;
 import com.ua.ConnectionPool;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
+import com.ua.entity.Department;
 import com.ua.entity.Doctor;
 import com.ua.entity.Staff;
 
@@ -43,6 +44,18 @@ public class ListGenerationDoctorCommand implements Command {
             doctorsSortByCategory.sort(Comparator.comparing(Staff::getDepartment));
             doctorsSortByNumberPatient.sort(Comparator.comparingInt(o -> o.getCaseRecords().size()));
 
+            List<Department> departments=new ArrayList<>();
+
+            rs = con.createStatement().executeQuery(Constant.SQL_SELECT_DEPARTMENT);
+            while (rs.next()) {
+                Department department = new Department();
+                department.setId(rs.getInt("id"));
+                department.setDescription(rs.getString("department"));
+                departments.add(department);
+            }
+            departments.sort(Comparator.comparing(Department::getDescription));
+
+            session.setAttribute("departments",departments);
             session.setAttribute("doctors", doctors);
             session.setAttribute("doctorsByCategory", doctorsSortByCategory);
             session.setAttribute("doctorsByName", doctorsSortByName);

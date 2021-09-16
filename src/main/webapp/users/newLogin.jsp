@@ -78,10 +78,9 @@
                                                           name="telephone"></p>
                         <c:if test="${role == 'doctor'}">
                             <p align="center"><select name="department" class="selcls">
-                                <option value="Педиатр">Педиатр</option>
-                                <option value="Хирург">Хирург</option>
-                                <option value="Терапевт">Терапевт</option>
-                                <option value="Травматолог">Травматолог</option>
+                                <c:forEach items="${departments}" var="department">
+                                    <option value="${department.description}">${department.description}</option>
+                                </c:forEach>
                             </select></p>
                         </c:if>
                         <p align="center"><input type="submit" value="Создать"></p>

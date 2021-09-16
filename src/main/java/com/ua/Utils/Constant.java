@@ -17,6 +17,7 @@ public class Constant {
     public static final String SQL_SELECT_LOGIN_PASSWORD_WHERE_ID = "SELECT * FROM login_password WHERE id=?";
     public static final String SQL_SELECT_LOGIN_PASSWORD_WHERE_LOGIN_AND_PASSWORD = "SELECT * FROM login_password " +
             "WHERE login=? AND password=?";
+    public static final String SQL_SELECT_DEPARTMENT = "SELECT * FROM department";
     public static final String SQL_SELECT_DOCTOR = "SELECT * FROM doctor";
     public static final String SQL_SELECT_DOCTOR_WHERE_LOGIN = "SELECT * FROM doctor WHERE login=?";
     public static final String SQL_SELECT_DOCTOR_WHERE_ID = "SELECT * FROM doctor WHERE id=?";

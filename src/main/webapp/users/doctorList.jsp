@@ -59,42 +59,54 @@
         <c:if test="${check == 'on'}">
             <div class="tab">
                 <p><select name="select" size="15" multiple>
-                    <optgroup label="Педиатр">
+                    <c:forEach items="${departments}" var="department">
+                    <optgroup label="${department.description}">
                         <c:forEach items="${doctors}" var="entry">
-                            <c:if test="${entry.getDepartment() == 'Педиатр' }">
+                            <c:if test="${entry.getDepartment() == department.description }">
                                 <option value="${entry.getId()}" class="tablinks"
                                         onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
                                         ${entry.getSurname()}</option>
                             </c:if>
                         </c:forEach>
                     </optgroup>
-                    <optgroup label="Хирург">
-                        <c:forEach items="${doctors}" var="entry">
-                            <c:if test="${entry.getDepartment() == 'Хирург' }">
-                                <option value="${entry.getId()}" class="tablinks"
-                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
-                                        ${entry.getSurname()}</option>
-                            </c:if>
-                        </c:forEach>
-                    </optgroup>
-                    <optgroup label="Терапевт">
-                        <c:forEach items="${doctors}" var="entry">
-                            <c:if test="${entry.getDepartment() == 'Терапевт' }">
-                                <option value="${entry.getId()}" class="tablinks"
-                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
-                                        ${entry.getSurname()}</option>
-                            </c:if>
-                        </c:forEach>
-                    </optgroup>
-                    <optgroup label="Травматолог">
-                        <c:forEach items="${doctors}" var="entry">
-                            <c:if test="${entry.getDepartment() == 'Травматолог' }">
-                                <option value="${entry.getId()}" class="tablinks"
-                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
-                                        ${entry.getSurname()}</option>
-                            </c:if>
-                        </c:forEach>
-                    </optgroup>
+                    </c:forEach>
+
+<%--                    <optgroup label="Педиатр">--%>
+<%--                        <c:forEach items="${doctors}" var="entry">--%>
+<%--                            <c:if test="${entry.getDepartment() == 'Педиатр' }">--%>
+<%--                                <option value="${entry.getId()}" class="tablinks"--%>
+<%--                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}--%>
+<%--                                        ${entry.getSurname()}</option>--%>
+<%--                            </c:if>--%>
+<%--                        </c:forEach>--%>
+<%--                    </optgroup>--%>
+<%--                    <optgroup label="Хирург">--%>
+<%--                        <c:forEach items="${doctors}" var="entry">--%>
+<%--                            <c:if test="${entry.getDepartment() == 'Хирург' }">--%>
+<%--                                <option value="${entry.getId()}" class="tablinks"--%>
+<%--                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}--%>
+<%--                                        ${entry.getSurname()}</option>--%>
+<%--                            </c:if>--%>
+<%--                        </c:forEach>--%>
+<%--                    </optgroup>--%>
+<%--                    <optgroup label="Терапевт">--%>
+<%--                        <c:forEach items="${doctors}" var="entry">--%>
+<%--                            <c:if test="${entry.getDepartment() == 'Терапевт' }">--%>
+<%--                                <option value="${entry.getId()}" class="tablinks"--%>
+<%--                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}--%>
+<%--                                        ${entry.getSurname()}</option>--%>
+<%--                            </c:if>--%>
+<%--                        </c:forEach>--%>
+<%--                    </optgroup>--%>
+<%--                    <optgroup label="Травматолог">--%>
+<%--                        <c:forEach items="${doctors}" var="entry">--%>
+<%--                            <c:if test="${entry.getDepartment() == 'Травматолог' }">--%>
+<%--                                <option value="${entry.getId()}" class="tablinks"--%>
+<%--                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}--%>
+<%--                                        ${entry.getSurname()}</option>--%>
+<%--                            </c:if>--%>
+<%--                        </c:forEach>--%>
+<%--                    </optgroup>--%>
                 </select></p>
             </div>
         </c:if>
