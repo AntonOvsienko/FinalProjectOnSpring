@@ -8,7 +8,9 @@ public class Constant {
     public static final String URL_NEW_LOGIN = "users/newLogin.jsp";
     public static final String URL_NEW_PATIENT = "users/newPatient.jsp";
 
+
     public static final String URL_CONTROLLER_VIEW_NURSE = "controller?command=viewNurse";
+    public static final String URL_CONTROLLER_VIEW_CASERECORD = "controller?command=viewCaseRecord";
     public static final String URL_CONTROLLER_VIEW_PATIENT = "controller?command=viewPatient";
     public static final String URL_CONTROLLER_VIEW_STAFF = "controller?command=viewStaff";
 
@@ -31,6 +33,7 @@ public class Constant {
     public static final String SQL_SELECT_PATIENT_HAS_CASERECORDS_WHERE_DOCTOR_ID =
             "SELECT * FROM patient_has_case_records WHERE doctor_id=?";
     public static final String SQL_SELECT_CASERECORD_WHERE_ID = "SELECT * FROM case_record WHERE id=?";
+    public static final String SQL_SELECT_NURSE = "SELECT * FROM nurse";
     public static final String SQL_SELECT_NURSE_WHERE_LOGIN_PASSWORD = "SELECT * FROM nurse WHERE login_password_id=?";
     public static final String SQL_MAX_ID_PATIENT = "SELECT MAX(id) FROM patient";
     public static final String SQL_MAX_ID_CASERECORD = "SELECT MAX(id) FROM case_record";

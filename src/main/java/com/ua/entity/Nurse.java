@@ -10,6 +10,7 @@ public class Nurse extends Staff implements Serializable {
     private String login;
     private String password;
     private String name;
+    private String role;
     private String surname;
     private String telephone;
     private static List<CaseRecord> caseRecords=new ArrayList<>();
@@ -25,6 +26,16 @@ public class Nurse extends Staff implements Serializable {
 
     public Nurse(){
 
+    }
+
+    @Override
+    public String getRole() {
+        return role;
+    }
+
+    @Override
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

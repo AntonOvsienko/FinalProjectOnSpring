@@ -71,7 +71,7 @@ public class ListGenerationDoctorCommand implements Command {
                 return Constant.URL_ERROR_PAGE;
             }
         }
-        return Constant.URL_CONTROLLER_VIEW_PATIENT;
+        return Constant.URL_CONTROLLER_VIEW_NURSE;
     }
 
     @Override

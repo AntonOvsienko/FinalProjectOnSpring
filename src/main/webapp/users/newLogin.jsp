@@ -34,11 +34,12 @@
                 <form class="login-form" id="auth" action="/controller" method="post">
                     <c:choose>
                         <c:when test="${checkLogin == 'true'}">
+                            <h2 align="center">Новый логин</h2>
                             <input name="command" value="checkNewLogin" hidden/>
                             <input name="login" value="${login}" required disabled type="text"/>
                             <input name="password" type="password" value="${password}" required disabled/>
                             <input name="password_repeat" type="password" value="${password_repeat}" required disabled
-                                   placeholder="repeat password"/>
+                                   placeholder="confirm password"/>
                         </c:when>
                         <c:otherwise>
                             <input name="command" value="checkNewLogin" hidden/>
@@ -92,106 +93,10 @@
                 <c:if test="${successfully != null}">
                     <h4 style="color:green" name="error" align="center" color="#ff0000" c>${successfully}</h4>
                 </c:if>
-<%--                <form id="auth" action="/controller" method="get">--%>
-<%--                    <p align="center">--%>
-<%--                        <input name="command" value="redirect" hidden>--%>
-<%--                        <input name="address" value="users/admin.jsp" hidden>--%>
-<%--                        <input type="submit" value="Назад">--%>
-<%--                    </p>--%>
-<%--                </form>--%>
+
             </div>
         </div>
-    </section><!-- content -->
-</div><!-- container -->
-<%--<form id="auth" action="/controller" method="post">--%>
-<%--    <c:if test="${checkLogin == 'true'}">--%>
-<%--        <hr align="center" width="400" size="2" color="#00ff00"/>--%>
-<%--    </c:if>--%>
-<%--    <c:if test="${checkLogin == 'false'}">--%>
-<%--        <hr align="center" width="400" size="2" color="#ff0000"/>--%>
-<%--    </c:if>--%>
-<%--    <input name="command" value="checkNewLogin" hidden>--%>
-
-<%--    <c:choose>--%>
-<%--        <c:when test="${checkLogin == 'true'}">--%>
-<%--            <p align="center"><label>Логин:--%>
-<%--                <input name="login" value="${login}" required disabled></label></p>--%>
-<%--            <p align="center"><label>Пароль:--%>
-<%--                <input name="password" type="password" value="${password}" required disabled></label></p>--%>
-<%--            <p align="center"><label>Повторить пароль:--%>
-<%--                <input name="password_repeat" type="password" value="${password_repeat}" required disabled></label>--%>
-<%--            </p>--%>
-<%--        </c:when>--%>
-<%--        <c:otherwise>--%>
-<%--                <p align="center"><label>Логин:--%>
-<%--                    <input name="login" required></label></p>--%>
-<%--                <p align="center"><label>Пароль:--%>
-<%--                    <input name="password" type="password" required></label></p>--%>
-<%--                <p align="center"><label>Повторить пароль:--%>
-<%--                    <input name="password_repeat" type="password" required></label></p>--%>
-<%--                <p align="center"><label>Должность:<select name="role">--%>
-<%--                    <option disabled>Select position</option>--%>
-<%--                    <option value="doctor">Доктор</option>--%>
-<%--                    <option value="nurse">Медсестра</option>--%>
-<%--                </select></label></p>--%>
-<%--        </c:otherwise>--%>
-<%--    </c:choose>--%>
-
-<%--    <c:if test="${checkLogin == 'true'}">--%>
-<%--        <hr align="center" width="400" size="2" color="#00ff00"/>--%>
-<%--    </c:if>--%>
-<%--    <p align="center">--%>
-<%--        <c:if test="${checkLogin != 'true'}">--%>
-<%--            <input type="submit" value="Проверить">--%>
-<%--        </c:if>--%>
-<%--    </p>--%>
-<%--    <c:if test="${checkLogin == 'false'}">--%>
-<%--        <h4 style="color:red" name="error" align="center" color="#ff0000" c>Login is already taken</h4>--%>
-<%--        <hr align="center" width="400" size="2" color="#ff0000"/>--%>
-<%--    </c:if>--%>
-
-<%--</form>--%>
-
-<%--<c:if test="${checkLogin == 'true'}">--%>
-<%--    <form action="/controller" method="post">--%>
-<%--        <input name="login" value="${login}" hidden>--%>
-<%--        <input name="password" value="${password}" hidden>--%>
-<%--        <input name="role" value="${role}" hidden>--%>
-<%--        <input name="command" value="createNewLogin" hidden>--%>
-<%--        <p align="center">Номер паспорта: <input name="passport" placeholder="AH0000000"--%>
-<%--                                                 pattern="[А-Яа-яЁё]{2,2}\d{7,7}" type="text" required></p>--%>
-<%--        <p align="center">Имя: <input type="text" name="name" placeholder="Вася или Vasya"--%>
-<%--                                      pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>--%>
-<%--        <p align="center">Фамилия: <input type="text" name="surname" placeholder="Левчий или Levchiy"--%>
-<%--                                          pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>--%>
-<%--        <p align="center">Телефон: <input id="online_phone" name="phone" type="tel" maxlength="50"--%>
-<%--                                          autofocus="autofocus" value="+3(___)___-__-__"--%>
-<%--                                          pattern="\+3\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"--%>
-<%--                                          placeholder="+3(___)___-__-__"--%>
-<%--                                          name="telephone"></p>--%>
-<%--        <c:if test="${role == 'doctor'}">--%>
-<%--            <p align="center"><label>Направление:<select name="department">--%>
-<%--                <option value="Педиатр">Педиатр</option>--%>
-<%--                <option value="Хирург">Хирург</option>--%>
-<%--                <option value="Терапевт">Терапевт</option>--%>
-<%--                <option value="Травматолог">Травматолог</option>--%>
-<%--            </select></label></p>--%>
-<%--        </c:if>--%>
-<%--        <p align="center"><input type="submit" value="Создать"></p>--%>
-<%--    </form>--%>
-<%--</c:if>--%>
-<%--<c:if test="${error != null}">--%>
-<%--    <h4 style="color:red" name="error" align="center" color="#ff0000" c>${error}</h4>--%>
-<%--</c:if>--%>
-<%--<c:if test="${successfully != null}">--%>
-<%--    <h4 style="color:green" name="error" align="center" color="#ff0000" c>${successfully}</h4>--%>
-<%--</c:if>--%>
-<%--<form id="auth" action="/controller" method="get">--%>
-<%--    <p align="center">--%>
-<%--        <input name="command" value="redirect" hidden>--%>
-<%--        <input name="address" value="users/admin.jsp" hidden>--%>
-<%--        <input type="submit" value="Назад">--%>
-<%--    </p>--%>
-<%--</form>--%>
+    </section>
+</div>
 </body>
 </html>

@@ -36,6 +36,7 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
     </script>
     <style>
         @import url(/users/css/doctorList_high.css);
@@ -51,11 +52,11 @@
     <li class="left"><p><a href="/controller?command=exit">Выход</a></p></li>
     <li class="left"><p>Локаль</p></li>
     <li class="left"><p>Login:${globalLogin}</p></li>
+    <li class="left"><p><a href="/controller?command=viewStaff">Обновить</a></p></li>
 </ul>
 
 <div id="Staff" class="tabcontent2">
     <form action="/controller" method="post">
-<%--        <input name="command" value="deleteDoctor" hidden>--%>
         <c:if test="${check == 'on'}">
             <div class="tab">
                 <p><select name="select" size="15" multiple>
@@ -70,43 +71,6 @@
                         </c:forEach>
                     </optgroup>
                     </c:forEach>
-
-<%--                    <optgroup label="Педиатр">--%>
-<%--                        <c:forEach items="${doctors}" var="entry">--%>
-<%--                            <c:if test="${entry.getDepartment() == 'Педиатр' }">--%>
-<%--                                <option value="${entry.getId()}" class="tablinks"--%>
-<%--                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}--%>
-<%--                                        ${entry.getSurname()}</option>--%>
-<%--                            </c:if>--%>
-<%--                        </c:forEach>--%>
-<%--                    </optgroup>--%>
-<%--                    <optgroup label="Хирург">--%>
-<%--                        <c:forEach items="${doctors}" var="entry">--%>
-<%--                            <c:if test="${entry.getDepartment() == 'Хирург' }">--%>
-<%--                                <option value="${entry.getId()}" class="tablinks"--%>
-<%--                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}--%>
-<%--                                        ${entry.getSurname()}</option>--%>
-<%--                            </c:if>--%>
-<%--                        </c:forEach>--%>
-<%--                    </optgroup>--%>
-<%--                    <optgroup label="Терапевт">--%>
-<%--                        <c:forEach items="${doctors}" var="entry">--%>
-<%--                            <c:if test="${entry.getDepartment() == 'Терапевт' }">--%>
-<%--                                <option value="${entry.getId()}" class="tablinks"--%>
-<%--                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}--%>
-<%--                                        ${entry.getSurname()}</option>--%>
-<%--                            </c:if>--%>
-<%--                        </c:forEach>--%>
-<%--                    </optgroup>--%>
-<%--                    <optgroup label="Травматолог">--%>
-<%--                        <c:forEach items="${doctors}" var="entry">--%>
-<%--                            <c:if test="${entry.getDepartment() == 'Травматолог' }">--%>
-<%--                                <option value="${entry.getId()}" class="tablinks"--%>
-<%--                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}--%>
-<%--                                        ${entry.getSurname()}</option>--%>
-<%--                            </c:if>--%>
-<%--                        </c:forEach>--%>
-<%--                    </optgroup>--%>
                 </select></p>
             </div>
         </c:if>
@@ -142,12 +106,13 @@
                 <tr>
                     <td><button type="submit" name="command" value="deleteDoctor" width="100%">Удалить сотрудника</button></td>
                     <td>
-                        <button type="submit" name="command" value="createNewLogin" width="100%">Добавить сотрудника
+                        <button type="submit" name="command" value="redirect" width="100%">Добавить сотрудника
                         </button>
                     </td>
                 </tr>
             </table>
         </div>
+        <input name="address" value="users/newLogin.jsp" hidden>
     </form>
     <div class="button">
         <p align="left">
@@ -179,6 +144,27 @@
     </form>
     </p>
 
+</div>
+
+<div id="Tokyo" class="tabcontent2">
+    <div class="tab">
+        <p><select size="15" multiple>
+            <c:forEach items="${nurses}" var="entry">
+                <option class="tablinks"
+                        onclick="openCity(event, '${entry.getId()}')">${entry.getName()}
+                        ${entry.getSurname()}</option>
+            </c:forEach>
+        </select></p>
+    </div>
+    <c:forEach items="${nurses}" var="entry">
+        <div id="${entry.getId()}" class="tabcontent" hidden>
+            <p class="login">Login : ${entry.getLogin()}</p>
+            <p>Passport : ${entry.getPassport()}</p>
+            <p>Name : ${entry.getName()}</p>
+            <p>Surname : ${entry.getSurname()}</p>
+            <p>Phone : ${entry.getTelephone()}</p>
+        </div>
+    </c:forEach>
 </div>
 
 <div id="Paris" class="tabcontent2">

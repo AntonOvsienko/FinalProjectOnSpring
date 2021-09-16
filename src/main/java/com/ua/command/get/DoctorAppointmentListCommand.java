@@ -80,7 +80,7 @@ public class DoctorAppointmentListCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        return Constant.URL_CONTROLLER_VIEW_NURSE;
+        return Constant.URL_CONTROLLER_VIEW_CASERECORD;
     }
 
     private void daCreate(ResultSet rs2, DoctorAppointment da) throws SQLException {
