@@ -19,7 +19,7 @@
     color: #c00;
     background-color: #fff; }
 a {
-    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+    text-decoration: none;
 }
 #nav li.left {
     float: right; }

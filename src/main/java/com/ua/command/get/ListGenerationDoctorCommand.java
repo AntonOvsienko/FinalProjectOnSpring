@@ -54,7 +54,7 @@ public class ListGenerationDoctorCommand implements Command {
                 departments.add(department);
             }
             departments.sort(Comparator.comparing(Department::getDescription));
-
+            System.out.println(doctors);
             session.setAttribute("departments",departments);
             session.setAttribute("doctors", doctors);
             session.setAttribute("doctorsByCategory", doctorsSortByCategory);

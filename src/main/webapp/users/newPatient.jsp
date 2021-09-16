@@ -3,6 +3,9 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+    @import url(/users/css/highBanner.css);
+    </style>
     <script type="text/javascript">
         function showForm() {
             if (document.getElementById("diagnosis2").hidden == true) {

@@ -36,11 +36,33 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-
     </script>
     <style>
-        @import url(/users/css/doctorList_high.css);
+        @import url(/users/css/highBanner.css);
         @import url(/users/css/doctorList_center.css);
+
+        .vertical-menu {
+            width: 200px;
+            height: 150px;
+            overflow-y: auto;
+        }
+
+        .vertical-menu option {
+            background-color: #eee;
+            color: black;
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+        }
+
+        .vertical-menu option:hover {
+            background-color: #ccc;
+        }
+
+        .vertical-menu option.active {
+            background-color: #4CAF50;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -61,15 +83,15 @@
             <div class="tab">
                 <p><select name="select" size="15" multiple>
                     <c:forEach items="${departments}" var="department">
-                    <optgroup label="${department.description}">
-                        <c:forEach items="${doctors}" var="entry">
-                            <c:if test="${entry.getDepartment() == department.description }">
-                                <option value="${entry.getId()}" class="tablinks"
-                                        onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
-                                        ${entry.getSurname()}</option>
-                            </c:if>
-                        </c:forEach>
-                    </optgroup>
+                        <optgroup label="${department.description}">
+                            <c:forEach items="${doctors}" var="entry">
+                                <c:if test="${entry.getDepartment() == department.description }">
+                                    <option value="${entry.getId()}" class="tablinks"
+                                            onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
+                                            ${entry.getSurname()}</option>
+                                </c:if>
+                            </c:forEach>
+                        </optgroup>
                     </c:forEach>
                 </select></p>
             </div>
@@ -104,7 +126,10 @@
         <div class="button">
             <table>
                 <tr>
-                    <td><button type="submit" name="command" value="deleteDoctor" width="100%">Удалить сотрудника</button></td>
+                    <td>
+                        <button type="submit" name="command" value="deleteDoctor" width="100%">Удалить сотрудника
+                        </button>
+                    </td>
                     <td>
                         <button type="submit" name="command" value="redirect" width="100%">Добавить сотрудника
                         </button>
@@ -138,9 +163,9 @@
         </p>
     </div>
     <p align="left">
-    <form action="/controller" method="get">
-        <input name="command" value="exit" hidden>
-        <p align="left"><input type="submit" value="Закончить сессию"></p>
+        <form action="/controller" method="get">
+            <input name="command" value="exit" hidden>
+    <p align="left"><input type="submit" value="Закончить сессию"></p>
     </form>
     </p>
 

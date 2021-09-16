@@ -6,6 +6,7 @@
     <title>Title</title>
     <style>
         @import url(/users/css/newLogin_blank.css);
+        @import url(/users/css/highBanner.css);
 
         .selcls {
             padding: 9px;
@@ -21,12 +22,19 @@
             width: 100%;
         }
 
+
     </style>
     <script type="text/javascript">
 
     </script>
 </head>
 <body>
+<ul id="nav">
+    <li class="left"><p><a href="/controller?command=exit">Выход</a></p></li>
+    <li class="left"><p>Локаль</p></li>
+    <li class="left"><p>Login:${globalLogin}</p></li>
+    <li class="left"><p><a href="/controller?command=redirect&address=users/doctorList.jsp">Назад</a></p></li>
+</ul>
 <div class="container">
     <section id="content">
         <div class="login-page">
@@ -42,6 +50,7 @@
                                    placeholder="confirm password"/>
                         </c:when>
                         <c:otherwise>
+                            <h2 align="center">Новый логин</h2>
                             <input name="command" value="checkNewLogin" hidden/>
                             <input name="login" required type="text" placeholder="login"/>
                             <input name="password" type="password" required placeholder="password"/>
