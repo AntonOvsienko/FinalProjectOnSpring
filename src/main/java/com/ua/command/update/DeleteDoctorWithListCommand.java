@@ -1,35 +1,30 @@
 package com.ua.command.update;
 
+import com.ua.Utils.Constant;
 import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DeleteDoctorWithListCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
-        Statement st = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
         int idLogin = 0;
         int idDoctor = Integer.parseInt(req.getParameter("select"));
-        String searchDoctorById = "SELECT * FROM doctor WHERE id=" + idDoctor;
         try {
-            st = con.createStatement();
-
-            rs = st.executeQuery(searchDoctorById);
-
+            ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_ID);
+            ps.setInt(1,idDoctor);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 idLogin = rs.getInt("login_password_id");
             }
-            System.out.println("idLogin => " + idLogin);
-            String deleteDoctorById = "DELETE FROM login_password " +
-                    "WHERE id=" + idLogin;
-            st=con.createStatement();
-            st.execute(deleteDoctorById);
+            ps=con.prepareStatement(Constant.SQL_LOGIN_PASSWORD_DELETE);
+            int k=1;
+            ps.setInt(k++,idLogin);
+            ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -39,7 +34,7 @@ public class DeleteDoctorWithListCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        return "controller?command=viewStaff";
+        return Constant.URL_CONTROLLER_VIEW_STAFF;
     }
 
     @Override

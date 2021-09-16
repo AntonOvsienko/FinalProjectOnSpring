@@ -22,19 +22,19 @@ public class CreateElement {
                 if (rs.getString("department") != null) {
                     user.setDepartment(rs.getString("department"));
                 }
-                getLoginPassword(rs, ConnectionPool.getInstance().getConnection(), user);
+                getLoginPassword(rs, ConnectionPool.getConnection(), user);
                 getStandartFields(rs, user);
-                getCaseRecordDoctor(ConnectionPool.getInstance().getConnection(), user, user.getId());
+                getCaseRecordDoctor(ConnectionPool.getConnection(), user, user.getId());
             }
             if (role.equals("patient")) {
                 user = new Patient();
                 getAge(rs, (Patient) user);
                 getStandartFields(rs, user);
-                getCaseRecordPatient(ConnectionPool.getInstance().getConnection(), user, user.getId());
+                getCaseRecordPatient(ConnectionPool.getConnection(), user, user.getId());
             }
             if (role.equals("nurse")) {
                 user = new Nurse();
-                getLoginPassword(rs, ConnectionPool.getInstance().getConnection(), user);
+                getLoginPassword(rs, ConnectionPool.getConnection(), user);
                 getStandartFields(rs, user);
             }
         } catch (SQLException throwables) {
@@ -44,15 +44,14 @@ public class CreateElement {
     }
 
     private static void getCaseRecordPatient(Connection connection, Staff user, int patient_id) {
-        Statement st = null;
+        PreparedStatement ps = null;
         ResultSet rs1 = null;
         ResultSet rs2 = null;
         List<CaseRecord> caseRecords = new ArrayList<>();
         try {
-            String path = "SELECT * FROM patient_has_case_records WHERE patient_id=" + patient_id;
-            System.out.println(path);
-            st = connection.createStatement();
-            rs1 = st.executeQuery(path);
+            ps = connection.prepareStatement(Constant.SQL_SELECT_PATIENT_HAS_CASERECORDS_WHERE_PATIENT_ID);
+            ps.setInt(1, patient_id);
+            rs1 = ps.executeQuery();
             int id = 0;
             int doctor_id = 0;
             int case_record_id = 0;
@@ -61,9 +60,9 @@ public class CreateElement {
                 Staff doctor = new Doctor();
                 if (rs1.getInt("doctor_id") != 0) {
                     doctor_id = rs1.getInt("doctor_id");
-                    path = "SELECT * FROM doctor WHERE id=" + doctor_id;
-                    st = connection.createStatement();
-                    rs2 = st.executeQuery(path);
+                    ps = connection.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_ID);
+                    ps.setInt(1, doctor_id);
+                    rs2 = ps.executeQuery();
                     while (rs2.next()) {
                         String name = rs2.getString(2);
                         String surname = rs2.getString(3);
@@ -73,10 +72,10 @@ public class CreateElement {
                         doctor.setDepartment(department);
                     }
                 }
-                path = "SELECT * FROM patient WHERE id=" + patient_id;
                 Staff patient = new Patient();
-                st = connection.createStatement();
-                rs2 = st.executeQuery(path);
+                ps = connection.prepareStatement(Constant.SQL_SELECT_PATIENT_WHERE_ID);
+                ps.setInt(1, patient_id);
+                rs2 = ps.executeQuery();
                 while (rs2.next()) {
                     String name = rs2.getString("name");
                     String surname = rs2.getString("surname");
@@ -85,9 +84,9 @@ public class CreateElement {
                 }
                 case_record_id = rs1.getInt("case_record_id");
                 String initialDiagnosis = "";
-                String path2 = "SELECT * FROM case_record WHERE id=" + case_record_id;
-                st = connection.createStatement();
-                rs2 = st.executeQuery(path2);
+                ps = connection.prepareStatement(Constant.SQL_SELECT_CASERECORD_WHERE_ID);
+                ps.setInt(1, case_record_id);
+                rs2 = ps.executeQuery();
                 while (rs2.next()) {
                     initialDiagnosis = rs2.getString("initial_diagnosis");
                 }
@@ -106,48 +105,48 @@ public class CreateElement {
     }
 
     private static void getCaseRecordDoctor(Connection connection, Staff user, int doctorId) {
-        Statement st = null;
+        PreparedStatement ps = null;
         ResultSet rs1 = null;
         ResultSet rs2 = null;
         List<CaseRecord> caseRecords = new ArrayList<>();
         try {
-            String path = "SELECT * FROM patient_has_case_records WHERE doctor_id=" + doctorId;
-            st = connection.createStatement();
-            rs1 = st.executeQuery(path);
+            ps = connection.prepareStatement(Constant.SQL_SELECT_PATIENT_HAS_CASERECORDS_WHERE_DOCTOR_ID);
+            ps.setInt(1, doctorId);
+            rs1 = ps.executeQuery();
             int id = 0;
             int patient_id = 0;
             int case_record_id = 0;
             while (rs1.next()) {
+                Staff patient = new Patient();
                 id = rs1.getInt("id");
                 patient_id = rs1.getInt("patient_id");
-                path = "SELECT * FROM patient WHERE id=" + patient_id;
-                Staff patient = new Patient();
-                st = connection.createStatement();
-                rs2 = st.executeQuery(path);
+                ps = connection.prepareStatement(Constant.SQL_SELECT_PATIENT_WHERE_ID);
+                ps.setInt(1, patient_id);
+                rs2 = ps.executeQuery();
                 while (rs2.next()) {
                     String name = rs2.getString("name");
                     String surname = rs2.getString("surname");
                     String passport = rs2.getString("passport");
                     String telephone = rs2.getString("telephone");
-                    patient = new Patient(patient_id, name, surname,passport,telephone);
+                    patient = new Patient(patient_id, name, surname, passport, telephone);
                 }
-                path = "SELECT * FROM doctor WHERE id=" + doctorId;
                 Staff doctor = new Doctor();
-                st = connection.createStatement();
-                rs2 = st.executeQuery(path);
+                ps = connection.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_ID);
+                ps.setInt(1,doctorId);
+                rs2 = ps.executeQuery();
                 while (rs2.next()) {
                     String name = rs2.getString("name");
                     String surname = rs2.getString("surname");
                     String department = rs2.getString("department");
                     String passport = rs2.getString("passport");
                     String telephone = rs2.getString("telephone");
-                    doctor = new Doctor(doctorId, name, surname, department,passport,telephone);
+                    doctor = new Doctor(doctorId, name, surname, department, passport, telephone);
                 }
                 case_record_id = rs1.getInt("case_record_id");
                 String initialDiagnosis = "";
-                String path2 = "SELECT * FROM case_record WHERE id=" + case_record_id;
-                st = connection.createStatement();
-                rs2 = st.executeQuery(path2);
+                ps = connection.prepareStatement(Constant.SQL_SELECT_CASERECORD_WHERE_ID);
+                ps.setInt(1,case_record_id);
+                rs2 = ps.executeQuery();
                 while (rs2.next()) {
                     initialDiagnosis = rs2.getString("initial_diagnosis");
                 }
@@ -211,8 +210,7 @@ public class CreateElement {
         try {
             if (rs.getString("login_password_id") != null) {
                 int login_password_id = rs.getInt("login_password_id");
-                String search = "SELECT * FROM login_password WHERE id=?";
-                PreparedStatement ps = con.prepareStatement(search);
+                PreparedStatement ps = con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_ID);
                 ps.setInt(1, login_password_id);
                 ResultSet rs2 = ps.executeQuery();
                 while (rs2.next()) {

@@ -7,18 +7,29 @@
     background-color: #f2f2f2;
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc; }
-#nav li {
-    float: right; }
-#nav li p {
+#nav li.right {
+    float: left; }
+#nav li.right p {
     display: block;
     padding: 8px 16px;
     text-decoration: none;
     font-weight: bold;
-    border-left: 1px solid #ccc; }
-#nav li p:hover {
+    border-right: 1px solid #ccc; }
+#nav li.right p:hover {
     color: #c00;
     background-color: #fff; }
 a {
     text-decoration: none; /* Отменяем подчеркивание у ссылки */
 }
+#nav li.left {
+    float: right; }
+#nav li.left p {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: bold;
+    border-left: 1px solid #ccc; }
+#nav li.left p:hover {
+    color: #c00;
+    background-color: #fff; }
 

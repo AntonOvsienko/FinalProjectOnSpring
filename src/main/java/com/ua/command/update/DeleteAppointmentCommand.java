@@ -1,5 +1,6 @@
 package com.ua.command.update;
 
+import com.ua.Utils.Constant;
 import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +17,15 @@ public class DeleteAppointmentCommand implements Command {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
         PreparedStatement ps = null;
-        ResultSet rs = null;
         int caseRecordId = (int) session.getAttribute("caseRecordId");
-        String  URL = "controller?command=doctorAppointment&caseRecordId=" + caseRecordId;
+        String  URL = Constant.URL_ADD_APPOINTMENT + caseRecordId;
         String[] checkbox = req.getParameterValues("appointment");
         try {
             con.setAutoCommit(false);
             for (int i = 0; i < checkbox.length; i++) {
-                String path = "DELETE FROM doctor_appointment WHERE id=" + checkbox[i];
-                ps = con.prepareStatement(path);
+                ps = con.prepareStatement(Constant.SQL_DOCTOR_APPOINTMENT_DELETE);
+                int k=1;
+                ps.setInt(k++,Integer.parseInt(checkbox[i]));
                 ps.execute();
             }
             con.commit();
@@ -42,7 +43,6 @@ public class DeleteAppointmentCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        System.out.println(URL);
         return URL;
     }
 

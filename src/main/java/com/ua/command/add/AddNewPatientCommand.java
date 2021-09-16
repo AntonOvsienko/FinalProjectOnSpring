@@ -1,6 +1,7 @@
 package com.ua.command.add;
 
 import com.ua.ConnectionPool;
+import com.ua.Utils.Constant;
 import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +18,8 @@ public class AddNewPatientCommand implements Command {
         Statement st = null;
         try {
             con.setAutoCommit(false);
-            addAnketData(req, ConnectionPool.getInstance().getConnection());
-            String lastPatientId = "SELECT MAX(id) FROM patient";
+            addAnketData(req, ConnectionPool.getConnection());
+            String lastPatientId = Constant.SQL_MAX_ID_PATIENT;
             st = con.createStatement();
             ResultSet rs = st.executeQuery(lastPatientId);
             int patientId = 0;
@@ -42,7 +43,7 @@ public class AddNewPatientCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        return "users/newPatient.jsp";
+        return Constant.URL_NEW_PATIENT;
     }
 
     private List<String> createDiagnisList(HttpServletRequest req) {
@@ -68,26 +69,20 @@ public class AddNewPatientCommand implements Command {
     }
 
     private void addDiagnoses(Connection con, int patientId, String diagnosis) throws SQLException {
-        String initDiagnosis = diagnosis;
         PreparedStatement ps;
         Statement st = null;
         ResultSet rs;
-        String case_record = "INSERT INTO case_record (initial_diagnosis) VALUES ('" + initDiagnosis + "')";
-        System.out.println(case_record);
-        ps = con.prepareStatement(case_record);
+        ps = con.prepareStatement(Constant.SQL_NEW_PATIENT_ADD_DIAGNOSIS);
+        ps.setString(1,diagnosis);
         ps.executeUpdate();
-        String lastCaseId = "SELECT MAX(id) FROM case_record";
         st = con.createStatement();
-        rs = st.executeQuery(lastCaseId);
+        rs = st.executeQuery(Constant.SQL_MAX_ID_CASERECORD);
         int caseId = 0;
         while (rs.next()) {
             caseId = rs.getInt(1);
         }
         System.out.println("caseId => " + caseId);
-        String patientCase = "INSERT INTO patient_has_case_records " +
-                "(patient_id,case_record_id) VALUES (?,?)";
-        System.out.println(patientCase);
-        ps = con.prepareStatement(patientCase);
+        ps = con.prepareStatement(Constant.SQL_NEW_PATIENT_ADD_PATIENT_CASERECORD);
         ps.setInt(1, patientId);
         ps.setInt(2, caseId);
         ps.executeUpdate();
@@ -100,9 +95,7 @@ public class AddNewPatientCommand implements Command {
         String passportSet = req.getParameter("passport");
         String telephoneSet = req.getParameter("telephone");
         String dataBirthdaySet = req.getParameter("date");
-        String patient = "INSERT INTO patient (name,surname,passport,telephone,birthday)" +
-                " VALUES (?,?,?,?,?)";
-        ps = con.prepareStatement(patient);
+        ps = con.prepareStatement(Constant.SQL_NEW_PATIENT_ADD_ANKETA);
         ps.setString(1, nameSet);
         ps.setString(2, surnameSet);
         ps.setString(3, passportSet);
@@ -113,6 +106,6 @@ public class AddNewPatientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        return "users/newPatient.jsp";
+        return Constant.URL_NEW_PATIENT;
     }
 }

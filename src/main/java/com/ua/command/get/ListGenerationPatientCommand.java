@@ -1,6 +1,7 @@
 package com.ua.command.get;
 
 import com.ua.ConnectionPool;
+import com.ua.Utils.Constant;
 import com.ua.command.Command;
 import com.ua.entity.Patient;
 import com.ua.entity.Staff;
@@ -26,7 +27,7 @@ public class ListGenerationPatientCommand implements Command {
         try {
             System.out.println("con ==> " + con);
             ResultSet rs = con.createStatement()
-                    .executeQuery("SELECT * FROM patient");
+                    .executeQuery(Constant.SQL_SELECT_PATIENT);
             List<Patient> patients = new ArrayList<>();
             while (rs.next()) {
                 Patient patient = (Patient) newElement(rs, "patient");
@@ -68,17 +69,17 @@ public class ListGenerationPatientCommand implements Command {
                 con.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-                return "errorMessage/error.jsp";
+                return Constant.URL_ERROR_PAGE;
             }
         }
-        return "controller?command=viewNurse";
+        return Constant.URL_CONTROLLER_VIEW_NURSE;
     }
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         Connection con= null;
         try {
-            con = ConnectionPool.getInstance().getConnection();
+            con = ConnectionPool.getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

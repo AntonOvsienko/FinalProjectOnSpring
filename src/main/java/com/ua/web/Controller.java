@@ -1,6 +1,7 @@
 package com.ua.web;
 
 import com.ua.ConnectionPool;
+import com.ua.Utils.Constant;
 import com.ua.command.*;
 
 import javax.servlet.ServletException;
@@ -52,7 +53,7 @@ public class Controller extends HttpServlet {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
         session.setMaxInactiveInterval(-1);
-        String address = "errorMessage/error.jsp";
+        String address = Constant.URL_ERROR_PAGE;
         if (req.getParameter("command") != null) {
             session.setAttribute("command", req.getParameter("command"));
         }

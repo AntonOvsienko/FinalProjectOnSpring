@@ -1,5 +1,6 @@
 package com.ua.command.get;
 
+import com.ua.Utils.Constant;
 import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,17 +26,16 @@ public class CheckNewLoginCommand implements Command {
         String role = req.getParameter("role");
 
         if (!password.equals(passwordRepeat)) {
-            return "errorMessage/errorRepeatPassword.jsp";
+            return Constant.URL_ERROR_PAGE_REPEAT_PASSWORD;
         }
         try {
             System.out.println("con ==> " + con);
-            PreparedStatement ps = con.prepareStatement(
-                    "SELECT * FROM login_password WHERE login=?");
+            PreparedStatement ps = con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_LOGIN);
             ps.setString(1, login);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 session.setAttribute("checkLogin", "false");
-                return "users/newLogin.jsp";
+                return Constant.URL_NEW_LOGIN;
             }
             System.out.println("session2 ==> " + session);
             session.setAttribute("login", login);
@@ -46,12 +46,12 @@ public class CheckNewLoginCommand implements Command {
         } catch (SQLException throwables) {
             log.log(Level.WARNING, "", throwables.getMessage());
         }
-        return "users/newLogin.jsp";
+        return Constant.URL_NEW_LOGIN;
     }
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        return "users/newLogin.jsp";
+        return Constant.URL_NEW_LOGIN;
     }
 }
 

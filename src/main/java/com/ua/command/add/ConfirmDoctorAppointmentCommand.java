@@ -1,5 +1,6 @@
 package com.ua.command.add;
 
+import com.ua.Utils.Constant;
 import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,23 +17,23 @@ public class ConfirmDoctorAppointmentCommand implements Command {
         PreparedStatement ps = null;
         ResultSet rs = null;
         int caseRecordId = Integer.parseInt(req.getParameter("caseRecordId"));
-        String URL = "controller?command=doctorAppointment&caseRecordId=" + caseRecordId;
+        String URL = Constant.URL_ADD_APPOINTMENT + caseRecordId;
         String[] checkbox = req.getParameterValues("appointment");
         try {
             con.setAutoCommit(false);
             StringBuilder nameSurname = new StringBuilder();
             int id = (int) session.getAttribute("keyLogin");
-            String findName = "SELECT * FROM doctor WHERE login_password_id=" + id;
-            st = con.createStatement();
-            rs = st.executeQuery(findName);
+            ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_LOGIN);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 nameSurname.append(name).append(" ").append(surname);
             }
-            String findRole = "SELECT * FROM login_password WHERE id=" + id;
-            st = con.createStatement();
-            rs = st.executeQuery(findRole);
+            ps = con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_ID);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 String role = rs.getString("role");
                 if (role.equals("doctor")) {
@@ -43,11 +44,9 @@ public class ConfirmDoctorAppointmentCommand implements Command {
                 }
             }
             for (int i = 0; i < checkbox.length; i++) {
-                String path = "UPDATE doctor_appointment SET complete='true'" +
-                        ", name_staff_complete='" + nameSurname.toString() + "'" +
-                        " WHERE id=" + checkbox[i];
-                System.out.println(path);
-                ps = con.prepareStatement(path);
+                ps = con.prepareStatement(Constant.SQL_UPDATE_DOCTOR_APPOINTMENT);
+                ps.setString(1,nameSurname.toString());
+                ps.setInt(2,Integer.parseInt(checkbox[i]));
                 ps.execute();
             }
             con.commit();
@@ -65,7 +64,6 @@ public class ConfirmDoctorAppointmentCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        System.out.println(URL);
         return URL;
     }
 

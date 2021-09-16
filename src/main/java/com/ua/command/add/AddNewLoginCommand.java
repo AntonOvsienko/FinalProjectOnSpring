@@ -60,7 +60,7 @@ public class AddNewLoginCommand implements Command {
         preparedStatement1.setString(3, role);
         session.setAttribute("role" , role);
         preparedStatement1.executeUpdate();
-        preparedStatement2 = con.prepareStatement(Constant.SQL_NEW_LOGIN_SELECT_LOGIN);
+        preparedStatement2 = con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_LOGIN);
         int k = 1;
         preparedStatement2.setString(k++, login);
         rs2 = preparedStatement2.executeQuery();

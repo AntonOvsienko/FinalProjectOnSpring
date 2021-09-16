@@ -1,5 +1,6 @@
 package com.ua.command.update;
 
+import com.ua.Utils.Constant;
 import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,16 +10,15 @@ import java.sql.*;
 public class AppointDoctorToPatientCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
-        Statement st = null;
+        PreparedStatement ps = null;
         try {
             int idDoctor = Integer.parseInt(req.getParameter("selectDoctor"));
             int idCaseRecord = Integer.parseInt(req.getParameter("selectPatient"));
-            System.out.println("idDoctor => " + idDoctor);
-            System.out.println("idCaseRecord => " + idCaseRecord);
-            String path = "UPDATE patient_has_case_records SET doctor_id=" + idDoctor + " WHERE id=" + idCaseRecord;
-            System.out.println(path);
-            st = con.createStatement();
-            st.execute(path);
+            ps = con.prepareStatement(Constant.SQL_UPDATE_PATIENT_CASERECORDS);
+            int k=1;
+            ps.setInt(k++,idDoctor);
+            ps.setInt(k++,idCaseRecord);
+            ps.executeUpdate();
         } catch (
                 SQLException throwables) {
             throwables.printStackTrace();
@@ -29,7 +29,7 @@ public class AppointDoctorToPatientCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        return "controller?command=viewStaff";
+        return Constant.URL_CONTROLLER_VIEW_STAFF;
         }
 
         @Override

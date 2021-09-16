@@ -44,19 +44,14 @@
 </head>
 <body>
 <ul id="nav">
-    <li><p><a href="/controller?command=exit">Выход</a></p></li>
-    <li><p>Локаль</p></li>
-    <li><p>Login:${globalLogin}</p></li>
+    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Staff')" id="defaultOpen">Персонал</p></li>
+    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Tokyo')">Медсёстры</p></li>
+    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Paris')">Пациенты</p></li>
 
+    <li class="left"><p><a href="/controller?command=exit">Выход</a></p></li>
+    <li class="left"><p>Локаль</p></li>
+    <li class="left"><p>Login:${globalLogin}</p></li>
 </ul>
-
-<div class="tab2">
-    <button class="tablinks2" onclick="openCity2(event, 'Staff')" id="defaultOpen">Персонал</button>
-    <button class="tablinks2" onclick="openCity2(event, 'Tokyo')">Медсёстры</button>
-    <button class="tablinks2" onclick="openCity2(event, 'Paris')">Пациенты</button>
-    <button class="tablinks2">В разработке</button>
-    <button class="tablinks2">В разработке</button>
-</div>
 
 <div id="Staff" class="tabcontent2">
     <form action="/controller" method="post">
