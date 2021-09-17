@@ -5,125 +5,8 @@
 <html>
 <head>
     <style>
-
-        th.table1 {
-            font-weight: normal;
-            font-size: 13px;
-            color: #039;
-            border-right: 1px solid #0865c2;
-            border-top: 1px solid #0865c2;
-            border-left: 1px solid #0865c2;
-            border-bottom: 1px solid white;
-            padding: 20px;
-        }
-
-        td.table1 {
-            border-bottom: 1px solid #ccc;
-            color: #669;
-            padding: 9px 8px;
-            transition: .3s linear;
-        }
-
-        tr:hover td {
-            color: #6699ff;
-        }
-
-        table.table2 {
-            border: 1px solid #6cf;
-        }
-
-        th.table2 {
-            font-weight: normal;
-            font-size: 13px;
-            color: #039;
-            border-right: 1px solid #0865c2;
-            border-top: 1px solid #0865c2;
-            border-left: 1px solid #0865c2;
-            border-bottom: 1px solid white;
-            padding: 20px;
-        }
-
-        td.table2 {
-            color: #669;
-            border-right: 1px dashed #6cf;
-            padding: 10px 20px;
-        }
-
-        body {
-            font-family: 'Open Sans', Arial, sans-serif;
-            font-size: 1em;
-            background: #ebebeb;
-        }
-
-        table {
-            /*font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;*/
-            background: #ebebeb;;
-            font-size: 14px;
-            max-width: 70%;
-            width: 90%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th.table {
-            font-weight: normal;
-            color: #039;
-            border-bottom: 2px solid #6678b1;
-            padding: 10px 8px;
-        }
-
-        td.table {
-            border-bottom: 1px solid #ccc;
-            color: #669;
-            padding: 9px 8px;
-            transition: .3s linear;
-        }
-
-        tr:hover td {
-            color: #6699ff;
-        }
-
-        .accordion {
-            background-color: #eee;
-            /*background-color: white;*/
-            color: #444;
-            cursor: pointer;
-            padding: 18px;
-            width: 80%;
-            align-content: center;
-            text-align: left;
-            font-size: 15px;
-            transition: 0.4s;
-        }
-
-        .active, .accordion:hover {
-            background-color: #ccc;
-        }
-
-        .accordion:after {
-            content: '\002B';
-            color: #777;
-            font-weight: bold;
-            float: right;
-            margin-left: 5px;
-        }
-
-        .active:after {
-            content: "\2212";
-        }
-
-        .panel {
-            padding: 0 18px;
-            background-color: #ebebeb;
-            /*background-color: white;*/
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
-        }
-
-        .colortext {
-            color: darkgreen;
-        }
+        @import url(/users/css/highBanner.css);
+        @import url(/users/css/doctor.css);
 
     </style>
     <script>
@@ -145,13 +28,12 @@
     </script>
 </head>
 <body>
-<h1>Hello Nurse</h1>
-<h3>
-    Login:${globalLogin}<br>
-    Name:${name}<br>
-    Surname:${surname}<br>
-    Passport:${passport}<br>
-</h3>
+<ul id="nav">
+    <li class="left"><p><a href="/controller?command=exit">Выход</a></p></li>
+    <li class="left"><p>Локаль</p></li>
+    <li class="left"><p>Login:${globalLogin}(${name} ${surname})</p></li>
+    <li class="left"><p><a href="/controller?command=viewCaseRecord">Обновить</a></p></li>
+</ul>
 <div align="center">
     <c:forEach items="${caseRecordList}" var="entry">
         <c:if test="${entry.getDoctor().login == globalLogin}">

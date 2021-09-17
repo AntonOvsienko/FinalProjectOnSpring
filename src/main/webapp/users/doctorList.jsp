@@ -35,40 +35,131 @@
             }
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
+
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+                    }
+                });
+            }
+
         }
     </script>
     <style>
         @import url(/users/css/highBanner.css);
         @import url(/users/css/doctorList_center.css);
 
-        .vertical-menu {
-            width: 200px;
-            height: 150px;
-            overflow-y: auto;
+        .rounded {
+            counter-reset: li;
+            list-style: none;
+            font: 17px "Trebuchet MS", "Lucida Sans";
+            padding: 0;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
         }
 
-        .vertical-menu option {
-            background-color: #eee;
-            color: black;
+        .rounded a {
+            position: relative;
             display: block;
-            padding: 12px;
+            padding: .4em .4em .4em 2em;
+            margin: .5em 25px;
+            background: #DAD2CA;
+            color: #444;
             text-decoration: none;
+            border-radius: .3em;
+            transition: .3s ease-out;
         }
 
-        .vertical-menu option:hover {
-            background-color: #ccc;
+        .rounded a#font {
+            position: relative;
+            display: block;
+            padding: .4em .4em .4em 2em;
+            margin-top: .5em;
+            margin-right: 25px;
+            margin-left: 50px;
+            margin-bottom: .5em;
+            background: #DAD2CA;
+            color: #444;
+            text-decoration: none;
+            border-radius: .3em;
+            transition: .3s ease-out;
         }
 
-        .vertical-menu option.active {
-            background-color: #4CAF50;
-            color: white;
+        .rounded a:hover {
+            background: #e9e4e0;
         }
+
+        .rounded b {
+            position: relative;
+            display: block;
+            padding: .4em .4em .4em 2em;
+            margin: .5em 25px;
+            background: #DAD2CA;
+            color: #444444;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: .3em;
+            transition: .3s ease-out;
+        }
+
+        .rounded b:hover {
+            background: #E9E4E0;
+        }
+
+        .rounded b:before {
+            content: "";
+            /*content: counter(li);*/
+            /*counter-increment: li;*/
+            position: absolute;
+            left: -1.3em;
+            top: 50%;
+            margin-top: -1.3em;
+            background: #8FD4C1;
+            height: 2em;
+            width: 2em;
+            line-height: 2em;
+            border: .3em solid white;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 2em;
+            transition: all .3s ease-out;
+        }
+
+        .rounded a:hover:before {
+            transform: rotate(360deg);
+        }
+
+        .rounded a:before {
+            content: counter(li);
+            counter-increment: li;
+            position: absolute;
+            left: -1.3em;
+            top: 50%;
+            margin-top: -1.3em;
+            background: #8FD4C1;
+            height: 2em;
+            width: 2em;
+            line-height: 2em;
+            border: .3em solid white;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 2em;
+            transition: all .3s ease-out;
+        }
+
     </style>
 </head>
 <body>
 <ul id="nav">
-    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Staff')" id="defaultOpen">Персонал</p></li>
-    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Tokyo')">Медсёстры</p></li>
+    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Staff')" id="defaultOpen">Доктора</p></li>
+    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Nurse')">Медсёстры</p></li>
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Paris')">Пациенты</p></li>
 
     <li class="left"><p><a href="/controller?command=exit">Выход</a></p></li>
@@ -81,45 +172,49 @@
     <form action="/controller" method="post">
         <c:if test="${check == 'on'}">
             <div class="tab">
-                <p><select name="select" size="15" multiple>
+
+                <ol class="rounded">
                     <c:forEach items="${departments}" var="department">
-                        <optgroup label="${department.description}">
-                            <c:forEach items="${doctors}" var="entry">
-                                <c:if test="${entry.getDepartment() == department.description }">
-                                    <option value="${entry.getId()}" class="tablinks"
-                                            onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
-                                            ${entry.getSurname()}</option>
-                                </c:if>
-                            </c:forEach>
-                        </optgroup>
+                        <li><b>${department.description}</b>
+                            <ol class="rounded">
+                                <c:forEach items="${doctors}" var="entry">
+                                    <c:if test="${entry.getDepartment() == department.description }">
+                                        <li><a href="#" class="tablinks" id="font"
+                                               onclick="openCity(event, '${entry.getLogin()}')"> ${entry.getName()}
+                                                ${entry.getSurname()}</a></li>
+                                    </c:if>
+                                </c:forEach>
+                            </ol>
+                        </li>
                     </c:forEach>
-                </select></p>
+                </ol>
             </div>
         </c:if>
         <c:if test="${check != 'on'}">
             <div class="tab">
-                <p><select name="select" size="15" multiple>
+                <ol class="rounded">
                     <c:forEach items="${doctors}" var="entry">
-                        <option value="${entry.getId()}" class="tablinks"
-                                onclick="openCity(event, '${entry.getLogin()}')">${entry.getName()}
-                                ${entry.getSurname()}</option>
+                        <li><a href="#" class="tablinks"
+                               onclick="openCity(event, '${entry.getLogin()}')"> ${entry.getName()}
+                                ${entry.getSurname()}</a></li>
                     </c:forEach>
-                </select></p>
+                </ol>
             </div>
         </c:if>
         <c:forEach items="${doctors}" var="entry">
             <div id="${entry.getLogin()}" class="tabcontent" hidden>
                 <output>
-                    <p class="login">Login : ${entry.getLogin()}</p>
-                    <p>Passport : ${entry.getPassport()}</p>
-                    <p>Name : ${entry.getName()}</p>
-                    <p>Surname : ${entry.getSurname()}</p>
-                    <p>Phone : ${entry.getTelephone()}</p>
-                    <p>Department : ${entry.getDepartment()}</p>
-                    <p>Patient case :</p>
-                    <c:forEach items="${entry.getCaseRecords()}" var="card">
-                        <p class="MyMarginLeft">${card.getPatient().getName()} ${card.getPatient().getSurname()}(${card.getInitialDiagnosis()})</p>
-                    </c:forEach>
+                    <i><p class="login">Login : ${entry.getLogin()}</p>
+                        <p>Passport : ${entry.getPassport()}</p>
+                        <p>Name : ${entry.getName()}</p>
+                        <p>Surname : ${entry.getSurname()}</p>
+                        <p>Phone : ${entry.getTelephone()}</p>
+                        <p>Department : ${entry.getDepartment()}</p>
+                        <p>Patient case :</p>
+                        <c:forEach items="${entry.getCaseRecords()}" var="card">
+                            <p>${card.getPatient().getName()} ${card.getPatient().getSurname()}(${card.getInitialDiagnosis()})</p>
+                        </c:forEach>
+                    </i>
                 </output>
             </div>
         </c:forEach>
@@ -162,16 +257,9 @@
         </form>
         </p>
     </div>
-    <p align="left">
-        <form action="/controller" method="get">
-            <input name="command" value="exit" hidden>
-    <p align="left"><input type="submit" value="Закончить сессию"></p>
-    </form>
-    </p>
-
 </div>
 
-<div id="Tokyo" class="tabcontent2">
+<div id="Nurse" class="tabcontent2">
     <div class="tab">
         <p><select size="15" multiple>
             <c:forEach items="${nurses}" var="entry">
@@ -249,7 +337,6 @@
                             ${entry.getSurname()} - ${entry.getDepartment()}</option>
                 </c:forEach>
             </select>
-                -->
                 <select name="selectPatient">
                     <c:forEach items="${patients}" var="entry">
                         <c:forEach items="${entry.getCaseRecords()}" var="diagnose">

@@ -3,4 +3,6 @@ https://apptractor.ru/info/articles/kak-pravilno-hranit-paroli-v-baze-dannyh.htm
 2.Доделать исключения
 3.Сделать архив
 4.Сделать теги
-5.Сделать слушателя
+
+https://github.com/PavelRavvich/servlet-tutorial/tree/lesson/10.servlet_test
+https://freefrontend.com

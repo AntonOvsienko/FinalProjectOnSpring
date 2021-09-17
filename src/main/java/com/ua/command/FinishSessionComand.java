@@ -17,6 +17,6 @@ public class FinishSessionComand implements Command {
         HttpSession session = req.getSession();
         session.invalidate();
 
-        return "index.html";
+        return "/index.html";
     }
 }

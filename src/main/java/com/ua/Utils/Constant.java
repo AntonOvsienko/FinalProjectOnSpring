@@ -14,6 +14,7 @@ public class Constant {
     public static final String URL_CONTROLLER_VIEW_PATIENT = "controller?command=viewPatient";
     public static final String URL_CONTROLLER_VIEW_STAFF = "controller?command=viewStaff";
 
+
     public static final String SQL_APPOINTMENT_SELECT = "SELECT * FROM patient_has_case_records WHERE id=?";
     public static final String SQL_SELECT_LOGIN_PASSWORD_WHERE_LOGIN = "SELECT * FROM login_password WHERE login=?";
     public static final String SQL_SELECT_LOGIN_PASSWORD_WHERE_ID = "SELECT * FROM login_password WHERE id=?";
@@ -38,6 +39,7 @@ public class Constant {
     public static final String SQL_MAX_ID_PATIENT = "SELECT MAX(id) FROM patient";
     public static final String SQL_MAX_ID_CASERECORD = "SELECT MAX(id) FROM case_record";
 
+
     public static final String SQL_APPOINTMENT_INSERT = "INSERT INTO doctor_appointment " +
             "(case_record_id,type,description,complete) VALUES (?,?,?,?)";
     public static final String SQL_NEW_LOGIN_INSERT_LOGIN = "INSERT INTO login_password (login,password,role)" +
@@ -48,8 +50,10 @@ public class Constant {
     public static final String SQL_NEW_PATIENT_ADD_ANKETA =
             "INSERT INTO patient (name,surname,passport,telephone,birthday) VALUES (?,?,?,?,?)";
 
+
     public static final String SQL_DOCTOR_APPOINTMENT_DELETE = "DELETE FROM doctor_appointment WHERE id=?";
     public static final String SQL_LOGIN_PASSWORD_DELETE = "DELETE FROM login_password WHERE id=?";
+
 
     public static final String SQL_NEW_LOGIN_UPDATE_DOCTOR = "UPDATE doctor SET name=?, surname=?, telephone=?, passport=?" +
             ", department=? WHERE login_password_id=?";
