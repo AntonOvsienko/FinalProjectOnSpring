@@ -50,7 +50,6 @@
                     }
                 });
             }
-
         }
     </script>
     <style>
@@ -172,7 +171,6 @@
     <form action="/controller" method="post">
         <c:if test="${check == 'on'}">
             <div class="tab">
-
                 <ol class="rounded">
                     <c:forEach items="${departments}" var="department">
                         <li><b>${department.description}</b>
@@ -261,35 +259,43 @@
 
 <div id="Nurse" class="tabcontent2">
     <div class="tab">
-        <p><select size="15" multiple>
+        <ol class="rounded">
             <c:forEach items="${nurses}" var="entry">
-                <option class="tablinks"
-                        onclick="openCity(event, '${entry.getId()}')">${entry.getName()}
-                        ${entry.getSurname()}</option>
+                <li>
+                    <a href="#" class="tablinks"
+                       onclick="openCity(event, '${entry.getLogin()}')"> ${entry.getName()}
+                            ${entry.getSurname()}</a>
+                </li>
             </c:forEach>
-        </select></p>
+        </ol>
     </div>
     <c:forEach items="${nurses}" var="entry">
-        <div id="${entry.getId()}" class="tabcontent" hidden>
-            <p class="login">Login : ${entry.getLogin()}</p>
-            <p>Passport : ${entry.getPassport()}</p>
-            <p>Name : ${entry.getName()}</p>
-            <p>Surname : ${entry.getSurname()}</p>
-            <p>Phone : ${entry.getTelephone()}</p>
+        <div id="${entry.getLogin()}" class="tabcontent" hidden>
+            <output>
+                <i><p class="login">Login : ${entry.getLogin()}</p>
+                    <p>Passport : ${entry.getPassport()}</p>
+                    <p>Name : ${entry.getName()}</p>
+                    <p>Surname : ${entry.getSurname()}</p>
+                    <p>Phone : ${entry.getTelephone()}</p>
+                </i>
+            </output>
         </div>
     </c:forEach>
 </div>
 
 <div id="Paris" class="tabcontent2">
     <div class="tab">
-        <p><select size="15" multiple>
+        <ol class="rounded">
             <c:forEach items="${patients}" var="entry">
-                <option class="tablinks"
-                        onclick="openCity(event, '${entry.getId()}')">${entry.getName()}
-                        ${entry.getSurname()}</option>
+                <li>
+                    <a href="#" class="tablinks"
+                       onclick="openCity(event, '${entry.getId()}')"> ${entry.getName()}
+                            ${entry.getSurname()}</a>
+                </li>
             </c:forEach>
-        </select></p>
+        </ol>
     </div>
+
     <c:forEach items="${patients}" var="entry">
         <div id="${entry.getId()}" class="tabcontent" hidden>
             <p>Passport : ${entry.getPassport()}</p>
@@ -353,7 +359,6 @@
 </div>
 
 <script>
-
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
 </script>
