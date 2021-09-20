@@ -160,6 +160,8 @@
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Staff')" id="defaultOpen">Доктора</p></li>
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Nurse')">Медсёстры</p></li>
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Paris')">Пациенты</p></li>
+    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Archive')">Архив</p></li>
+
 
     <li class="left"><p><a href="/controller?command=exit">Выход</a></p></li>
     <li class="left"><p>Локаль</p></li>
@@ -356,6 +358,10 @@
             <input type="submit" value="Назначить">
         </form>
     </div>
+</div>
+
+<div id="Archive" class="tabcontent2">
+
 </div>
 
 <script>

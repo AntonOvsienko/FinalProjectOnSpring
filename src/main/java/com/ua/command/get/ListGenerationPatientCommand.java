@@ -5,6 +5,7 @@ import com.ua.Utils.Constant;
 import com.ua.command.Command;
 import com.ua.entity.Patient;
 import com.ua.entity.Staff;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,7 +21,7 @@ import static com.ua.Utils.CreateElement.newElement;
 public class ListGenerationPatientCommand implements Command {
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con){
+    public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
 
@@ -31,7 +32,9 @@ public class ListGenerationPatientCommand implements Command {
             List<Patient> patients = new ArrayList<>();
             while (rs.next()) {
                 Patient patient = (Patient) newElement(rs, "patient");
-                patients.add(patient);
+                if (patient.getCaseRecords().size() != 0) {
+                    patients.add(patient);
+                }
             }
             List<Patient> patientsSortByName = new ArrayList<>(patients);
             List<Patient> patientsSortByBirthday = new ArrayList<>(patients);
@@ -77,12 +80,12 @@ public class ListGenerationPatientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        Connection con= null;
+        Connection con = null;
         try {
             con = ConnectionPool.getConnection();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return execute(req,resp,con);
+        return execute(req, resp, con);
     }
 }

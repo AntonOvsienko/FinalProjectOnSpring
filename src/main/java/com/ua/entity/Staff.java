@@ -14,7 +14,43 @@ public abstract class Staff {
     private String name;
     private String surname;
     private String department;
+    private long years;
+    private int dayBorn;
+    private int monthBorn;
+    private int yearBorn;
     private List<CaseRecord> caseRecords =new ArrayList<>();
+
+    public long getYears() {
+        return years;
+    }
+
+    public void setYears(long years) {
+        this.years = years;
+    }
+
+    public int getDayBorn() {
+        return dayBorn;
+    }
+
+    public void setDayBorn(int dayBorn) {
+        this.dayBorn = dayBorn;
+    }
+
+    public int getMonthBorn() {
+        return monthBorn;
+    }
+
+    public void setMonthBorn(int monthBorn) {
+        this.monthBorn = monthBorn;
+    }
+
+    public int getYearBorn() {
+        return yearBorn;
+    }
+
+    public void setYearBorn(int yearBorn) {
+        this.yearBorn = yearBorn;
+    }
 
     public String getTelephone() {
         return telephone;

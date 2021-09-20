@@ -176,6 +176,7 @@ public class CreateElement {
                 user.setMonthBorn(Integer.parseInt(matcher.group(2)));
                 user.setDayBorn(Integer.parseInt(matcher.group(3)));
             }
+
             LocalDate start = LocalDate.of(user.getYearBorn(), user.getMonthBorn(), user.getDayBorn());
             LocalDate end = LocalDate.now();
             long years = ChronoUnit.YEARS.between(start, end);

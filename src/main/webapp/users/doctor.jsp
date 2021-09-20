@@ -1,4 +1,4 @@
-<%@ page session="true"%>
+<%@ page session="true" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -105,18 +105,22 @@
                         </button>
                     </p>
                 </form>
-                <c:if test="${count == entry.getDoctorAppointmentList().size()}">
-                    <p align="center">
-                        <button type="submit" name="command" value="confirmAppointment"
-                                onclick='return confirm("Подтвердить выписку")'>
-                            Выписать
-                        </button>
-                    </p>
-                </c:if>
+                <form action="/controller" method="post">
+                    <input name="command" value="dischargedHospital" hidden>
+                    <input name="caseRecordId" value="${entry.getId()}" hidden>
+                    <c:if test="${count == entry.getDoctorAppointmentList().size() &&
+                entry.getDoctorAppointmentList().size() != 0}">
+                        <p align="center">
+                            <label>Подтвердить диагноз
+                                <input type="text" name="finalDiagnosis" value="${entry.getInitialDiagnosis()}"/></label>
+                            <input type="submit" value="Выписать" onclick='return confirm("Подтвердить выписку")'/>
+                        </p>
+                    </c:if>
+                </form>
                 <form id="auth" action="/controller" method="post">
                     <table class="table2" align="center">
                         <input name="caseRecordId" value="${entry.id}" hidden>
-                        <input input name="command" value="addAppointment" hidden>
+                        <input name="command" value="addAppointment" hidden>
                         <tr class="table2">
                             <th class="table2" align="center" width="5%">id</th>
                             <th class="table2" width="20%">Назначение</th>

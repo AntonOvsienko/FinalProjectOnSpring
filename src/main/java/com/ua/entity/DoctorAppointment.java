@@ -54,6 +54,7 @@ public class DoctorAppointment {
                 ", complete=" + complete +
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
+                ", nameStaffComplete='" + nameStaffComplete + '\'' +
                 '}';
     }
 }

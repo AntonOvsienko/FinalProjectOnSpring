@@ -72,11 +72,12 @@ public class CaseRecord implements Serializable {
     @Override
     public String toString() {
         return "CaseRecord{" +
-                "id=" + id +
-                ", doctor=" + doctor +
-                ", patient=" + patient +
-                ", initialDiagnosis='" + initialDiagnosis + '\'' +
-                ", finalDiagnosis='" + finalDiagnosis + '\'' +
+                "\nid=" + id +
+                ", \ndoctor=" + doctor +
+                ", \npatient=" + patient +
+                ", \nAppointmentList" + doctorAppointmentList +
+                ", \ninitialDiagnosis='" + initialDiagnosis + '\'' +
+                ", \nfinalDiagnosis='" + finalDiagnosis + '\'' +
                 '}';
     }
 }

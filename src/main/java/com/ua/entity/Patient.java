@@ -16,16 +16,16 @@ public class Patient extends Staff implements Serializable {
     private int yearBorn;
     private List<CaseRecord> caseRecords = new ArrayList<>();
 
-    public Patient(){
+    public Patient() {
 
     }
 
-    public Patient(int id,String name,String surname,String passport,String telephone){
-        this.id=id;
-        this.name=name;
-        this.surname=surname;
-        this.passport=passport;
-        this.telephone=telephone;
+    public Patient(int id, String name, String surname, String passport, String telephone) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.passport = passport;
+        this.telephone = telephone;
     }
 
     public long getYears() {
@@ -79,7 +79,6 @@ public class Patient extends Staff implements Serializable {
     public void setYearBorn(int yearBorn) {
         this.yearBorn = yearBorn;
     }
-
 
 
     @Override
@@ -140,8 +139,9 @@ public class Patient extends Staff implements Serializable {
                 ", passport='" + passport + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", years=" + years +
                 ", caseRecords=" + caseRecords +
+                ", years=" + years +
+                ", birthday=" + yearBorn + "/" + monthBorn + "/" + dayBorn +
                 '}' + "\n";
     }
 }

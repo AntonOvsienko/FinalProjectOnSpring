@@ -2,6 +2,7 @@ package com.ua.command.get;
 
 import com.ua.ConnectionPool;
 import com.ua.Utils.Constant;
+import com.ua.Utils.CreateElement;
 import com.ua.command.Command;
 import com.ua.entity.CaseRecord;
 import com.ua.entity.Doctor;
@@ -107,6 +108,7 @@ public class ListGenerationCaseRecordCommand implements Command {
         patient.setSurname(rs2.getString("surname"));
         patient.setPassport(rs2.getString("passport"));
         patient.setTelephone(rs2.getString("telephone"));
+        CreateElement.getAge(rs2,patient);
     }
 
     private void createDoctor(ResultSet rs2, Doctor doctor, int doctorId) throws SQLException {

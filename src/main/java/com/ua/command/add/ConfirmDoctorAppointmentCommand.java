@@ -23,7 +23,8 @@ public class ConfirmDoctorAppointmentCommand implements Command {
             con.setAutoCommit(false);
             StringBuilder nameSurname = new StringBuilder();
             int id = (int) session.getAttribute("keyLogin");
-            ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_LOGIN);
+            ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_LOGIN_PASSWORD_ID);
+            System.out.println(Constant.SQL_SELECT_DOCTOR_WHERE_ID+id);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
