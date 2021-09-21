@@ -1,12 +1,14 @@
 package com.ua.Utils;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
+@WebFilter(urlPatterns = {"/controller"})
 public class SecurityFilter implements Filter {
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         String config = filterConfig.getInitParameter("security-config");
@@ -36,5 +38,7 @@ public class SecurityFilter implements Filter {
 
         chain.doFilter(request, response);
     }
+
+
 
 }

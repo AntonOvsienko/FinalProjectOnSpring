@@ -156,7 +156,7 @@
 <ul id="nav">
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Staff')" id="defaultOpen">Доктора</p></li>
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Nurse')">Медсёстры</p></li>
-    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Paris')">Пациенты</p></li>
+    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Patient')">Пациенты</p></li>
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Archive')">Архив</p></li>
 
 
@@ -282,7 +282,7 @@
     </c:forEach>
 </div>
 
-<div id="Paris" class="tabcontent2">
+<div id="Patient" class="tabcontent2">
     <div class="tab">
         <ol class="rounded">
             <c:forEach items="${patients}" var="entry">

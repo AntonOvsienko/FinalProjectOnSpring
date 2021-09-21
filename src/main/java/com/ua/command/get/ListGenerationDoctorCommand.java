@@ -34,7 +34,6 @@ public class ListGenerationDoctorCommand implements Command {
             while (rs.next()) {
                 Doctor doctor = (Doctor) newElement(rs, "doctor");
                 doctors.add(doctor);
-                System.out.println(doctor);
             }
             List<Doctor> doctorsSortByName = new ArrayList<>(doctors);
             List<Doctor> doctorsSortByCategory = new ArrayList<>(doctorsSortByName);
@@ -54,7 +53,6 @@ public class ListGenerationDoctorCommand implements Command {
                 departments.add(department);
             }
             departments.sort(Comparator.comparing(Department::getDescription));
-            System.out.println(doctors);
             session.setAttribute("departments",departments);
             session.setAttribute("doctors", doctors);
             session.setAttribute("doctorsByCategory", doctorsSortByCategory);

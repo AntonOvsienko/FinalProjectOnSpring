@@ -14,9 +14,7 @@
         <init-param>
             <param-name>security-config</param-name>
             <param-value>
-                admin [controller doctorList.jsp newLogin.jsp newPatient.jsp]
-<!--                doctor-->
-<!--                nurse-->
+                admin [controller newLogin.jsp newPatient.jsp newLogin.jsp]
             </param-value>
         </init-param>
 
