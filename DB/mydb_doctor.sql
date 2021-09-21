@@ -36,7 +36,7 @@ CREATE TABLE `doctor` (
   UNIQUE KEY `passport№_UNIQUE` (`passport`),
   KEY `fk_Administartor_login_password_idx` (`login_password_id`),
   CONSTRAINT `fk_Administartor_login_password0` FOREIGN KEY (`login_password_id`) REFERENCES `login_password` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=382 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=389 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `doctor` (
 
 LOCK TABLES `doctor` WRITE;
 /*!40000 ALTER TABLE `doctor` DISABLE KEYS */;
-INSERT INTO `doctor` VALUES (356,'Николай','Амосов',23,'Педиатр','AH12039357','380509462123'),(359,'Вася','Петров',26,'Травматолог','AH12039457','380509462123'),(361,'Макар','Доценко',28,'Терапевт','AH12039456','380509462123'),(374,'Антон','Доценко',41,'Терапевт','AH12039856','380509462123'),(377,'Арсений','Шульц',45,'Педиатр','AH12040456','380509462128');
+INSERT INTO `doctor` VALUES (356,'Николай','Амосов',23,'Педиатр','AH12039357','380509462123'),(359,'Вася','Петров',26,'Травматолог','AH12039457','380509462123'),(361,'Макар','Доценко',28,'Терапевт','AH12039456','380509462123'),(374,'Антон','Доценко',41,'Терапевт','AH12039856','380509462123'),(377,'Арсений','Шульц',45,'Педиатр','AH12040456','380509462128'),(385,'Кирилл','Мефодий',55,'Хирург','АН00000000','380509462128'),(386,'Марк','Сухоруков',56,'Онкология','АН00059483','380509462128'),(387,'Гриша','Весёлый',57,'Онкология','АН18392847','380509462128'),(388,'Антон','Амосов',58,'Онкология','ПЕ18394827','380509462128');
 /*!40000 ALTER TABLE `doctor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-10 12:51:11
+-- Dump completed on 2021-09-21 15:46:21

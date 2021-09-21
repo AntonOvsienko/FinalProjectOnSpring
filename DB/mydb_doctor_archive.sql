@@ -16,30 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `nurse_has_case_record`
+-- Table structure for table `doctor_archive`
 --
 
-DROP TABLE IF EXISTS `nurse_has_case_record`;
+DROP TABLE IF EXISTS `doctor_archive`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nurse_has_case_record` (
-  `nurse_id` int NOT NULL,
-  `case_record_id` int NOT NULL,
-  PRIMARY KEY (`nurse_id`,`case_record_id`),
-  KEY `fk_nurse_has_case-record_case-record1_idx` (`case_record_id`),
-  KEY `fk_nurse_has_case-record_nurse1_idx` (`nurse_id`),
-  CONSTRAINT `fk_nurse_has_case-record_case-record1` FOREIGN KEY (`case_record_id`) REFERENCES `case_record` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_nurse_has_case-record_nurse1` FOREIGN KEY (`nurse_id`) REFERENCES `nurse` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `doctor_archive` (
+  `id` int NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `surname` varchar(45) DEFAULT NULL,
+  `passport` varchar(45) DEFAULT NULL,
+  `telephone` varchar(45) DEFAULT NULL,
+  `department` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nurse_has_case_record`
+-- Dumping data for table `doctor_archive`
 --
 
-LOCK TABLES `nurse_has_case_record` WRITE;
-/*!40000 ALTER TABLE `nurse_has_case_record` DISABLE KEYS */;
-/*!40000 ALTER TABLE `nurse_has_case_record` ENABLE KEYS */;
+LOCK TABLES `doctor_archive` WRITE;
+/*!40000 ALTER TABLE `doctor_archive` DISABLE KEYS */;
+INSERT INTO `doctor_archive` VALUES (26,'Вася','Петров','AH12039457','380509462123',NULL);
+/*!40000 ALTER TABLE `doctor_archive` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-10 12:51:11
+-- Dump completed on 2021-09-21 15:46:22

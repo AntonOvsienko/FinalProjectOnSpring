@@ -16,31 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `login_password`
+-- Table structure for table `archive`
 --
 
-DROP TABLE IF EXISTS `login_password`;
+DROP TABLE IF EXISTS `archive`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `login_password` (
+CREATE TABLE `archive` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `login` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `role` varchar(45) NOT NULL,
+  `passport` varchar(45) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `surname` varchar(45) DEFAULT NULL,
+  `telephone` varchar(45) DEFAULT NULL,
+  `birthday` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb3;
+  UNIQUE KEY `passport_UNIQUE` (`passport`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `login_password`
+-- Dumping data for table `archive`
 --
 
-LOCK TABLES `login_password` WRITE;
-/*!40000 ALTER TABLE `login_password` DISABLE KEYS */;
-INSERT INTO `login_password` VALUES (1,'admin','12345','administrator'),(23,'doctor3','12345','doctor'),(26,'doctor1','12345','doctor'),(28,'doctor2','12345','doctor'),(41,'doctor9','12345','doctor'),(42,'nurse1','12345','nurse'),(45,'doctor10','12345','doctor'),(47,'nurse2','12345','nurse'),(55,'doctor80','12345','doctor'),(56,'set34q','12345','doctor'),(57,'doctor90','12345','doctor'),(58,'doctor50','12345','doctor');
-/*!40000 ALTER TABLE `login_password` ENABLE KEYS */;
+LOCK TABLES `archive` WRITE;
+/*!40000 ALTER TABLE `archive` DISABLE KEYS */;
+INSERT INTO `archive` VALUES (5,'АН49582740','Петр','Пяточкин','380509462123','1984-4-23'),(6,'АН4920481','Кирилл','Первый',NULL,'1993-12-13'),(7,'АН1240591','Вася','Амосов',NULL,'2007-8-15'),(8,'ЕП12839357','Николай','Непомнящий','380509462123','1993-4-25'),(15,'AH12289456','Всеволод','Кузнецов','380504462123','1978-8-16');
+/*!40000 ALTER TABLE `archive` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

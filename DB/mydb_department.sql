@@ -16,31 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `login_password`
+-- Table structure for table `department`
 --
 
-DROP TABLE IF EXISTS `login_password`;
+DROP TABLE IF EXISTS `department`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `login_password` (
+CREATE TABLE `department` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `login` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `role` varchar(45) NOT NULL,
+  `department` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb3;
+  UNIQUE KEY `department_UNIQUE` (`department`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `login_password`
+-- Dumping data for table `department`
 --
 
-LOCK TABLES `login_password` WRITE;
-/*!40000 ALTER TABLE `login_password` DISABLE KEYS */;
-INSERT INTO `login_password` VALUES (1,'admin','12345','administrator'),(23,'doctor3','12345','doctor'),(26,'doctor1','12345','doctor'),(28,'doctor2','12345','doctor'),(41,'doctor9','12345','doctor'),(42,'nurse1','12345','nurse'),(45,'doctor10','12345','doctor'),(47,'nurse2','12345','nurse'),(55,'doctor80','12345','doctor'),(56,'set34q','12345','doctor'),(57,'doctor90','12345','doctor'),(58,'doctor50','12345','doctor');
-/*!40000 ALTER TABLE `login_password` ENABLE KEYS */;
+LOCK TABLES `department` WRITE;
+/*!40000 ALTER TABLE `department` DISABLE KEYS */;
+INSERT INTO `department` VALUES (5,'Онкология'),(2,'Педиатр'),(1,'Терапевт'),(3,'Травматолог'),(4,'Хирург');
+/*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-21 15:46:18
+-- Dump completed on 2021-09-21 15:46:21

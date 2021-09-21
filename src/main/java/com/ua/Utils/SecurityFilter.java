@@ -28,7 +28,7 @@ public class SecurityFilter implements Filter {
         }
         String userRole =  (String) session.getAttribute("globalLogin");
         if (userRole==null){
-            request.getRequestDispatcher("index.html").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
             return;
         }
         String servletPath = httpReq.getServletPath();

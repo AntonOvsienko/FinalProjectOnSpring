@@ -7,7 +7,6 @@
     <style>
         @import url(/users/css/highBanner.css);
         @import url(/users/css/doctor.css);
-
     </style>
     <script>
         var acc = document.getElementsByClassName("accordion");

@@ -16,31 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `login_password`
+-- Table structure for table `doctor_appointment_archive`
 --
 
-DROP TABLE IF EXISTS `login_password`;
+DROP TABLE IF EXISTS `doctor_appointment_archive`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `login_password` (
+CREATE TABLE `doctor_appointment_archive` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `login` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `role` varchar(45) NOT NULL,
+  `case_record_archive_id` int NOT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  `name_staff_complete` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb3;
+  KEY `fk_doctor_appointment_archive_case_record_archive1_idx` (`case_record_archive_id`),
+  CONSTRAINT `fk_doctor_appointment_archive_case_record_archive1` FOREIGN KEY (`case_record_archive_id`) REFERENCES `case_record_archive` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `login_password`
+-- Dumping data for table `doctor_appointment_archive`
 --
 
-LOCK TABLES `login_password` WRITE;
-/*!40000 ALTER TABLE `login_password` DISABLE KEYS */;
-INSERT INTO `login_password` VALUES (1,'admin','12345','administrator'),(23,'doctor3','12345','doctor'),(26,'doctor1','12345','doctor'),(28,'doctor2','12345','doctor'),(41,'doctor9','12345','doctor'),(42,'nurse1','12345','nurse'),(45,'doctor10','12345','doctor'),(47,'nurse2','12345','nurse'),(55,'doctor80','12345','doctor'),(56,'set34q','12345','doctor'),(57,'doctor90','12345','doctor'),(58,'doctor50','12345','doctor');
-/*!40000 ALTER TABLE `login_password` ENABLE KEYS */;
+LOCK TABLES `doctor_appointment_archive` WRITE;
+/*!40000 ALTER TABLE `doctor_appointment_archive` DISABLE KEYS */;
+INSERT INTO `doctor_appointment_archive` VALUES (90,22,'Приём лекарств','','Вася Петров(доктор)'),(91,22,'Терапия','','Вася Петров(доктор)');
+/*!40000 ALTER TABLE `doctor_appointment_archive` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-21 15:46:18
+-- Dump completed on 2021-09-21 15:46:20

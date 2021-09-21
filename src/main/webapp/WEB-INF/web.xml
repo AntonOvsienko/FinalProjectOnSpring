@@ -26,4 +26,15 @@
         <filter-name>SecurityFilter</filter-name>
         <url-pattern>/users/*</url-pattern>
     </filter-mapping>
+
+    <context-param>
+        <param-name>defaultLocale</param-name>
+        <param-value>en</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>locales</param-name>
+        <param-value>ru en</param-value>
+    </context-param>
+
 </web-app>

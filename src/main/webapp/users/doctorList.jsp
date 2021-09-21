@@ -80,10 +80,7 @@
             position: relative;
             display: block;
             padding: .4em .4em .4em 2em;
-            margin-top: .5em;
-            margin-right: 25px;
-            margin-left: 50px;
-            margin-bottom: .5em;
+            margin: .5em 25px .5em 50px;
             background: #DAD2CA;
             color: #444;
             text-decoration: none;
