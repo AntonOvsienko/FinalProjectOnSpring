@@ -33,28 +33,28 @@
     <li class="left"><p><a href="/controller?command=viewCaseRecord">Обновить</a></p></li>
 </ul>
 <div align="center">
-    <c:forEach items="${caseRecordList}" var="entry">
-        <c:if test="${entry.getDoctor().login == globalLogin}">
+    <c:forEach items="${caseRecordList}" var="patient">
+        <c:if test="${patient.getDoctor().login == globalLogin}">
             <fmt:parseNumber var="count" type="number" value="0"/>
-            <c:forEach items="${entry.getDoctorAppointmentList()}" var="appointment" varStatus="i">
+            <c:forEach items="${patient.getDoctorAppointmentList()}" var="appointment" varStatus="i">
                 <c:if test="${appointment.getComplete() == 'true'}">
                     <fmt:parseNumber var="count" type="number" value="${count+1}"/>
                 </c:if>
             </c:forEach>
             <button class="accordion">
-                Пациент: ${entry.getPatient().getName()}
-                    ${entry.getPatient().getSurname()}
-                (${entry.getInitialDiagnosis()}) |
-                Процедур:${entry.getDoctorAppointmentList().size()}
+                Пациент: ${patient.getPatient().getName()}
+                    ${patient.getPatient().getSurname()}
+                (${patient.getInitialDiagnosis()}) |
+                Процедур:${patient.getDoctorAppointmentList().size()}
                 <c:if test="${count != '0'}">
                     <span class="colortext">Выполненно:${count}</span>
 
                 </c:if>
             </button>
             <div class="panel" align="center">
-                <input type="hidden" name="id" value="${entry.id}"/>
+                <input type="hidden" name="id" value="${patient.id}"/>
                 <form action="/controller" method="post" class="form">
-                    <input name="caseRecordId" value="${entry.id}" hidden>
+                    <input name="caseRecordId" value="${patient.id}" hidden>
                     <table align="center">
                         <tr class="table">
                             <th class="table" align="center" width="5%">id</th>
@@ -62,7 +62,7 @@
                             <th class="table" width="50%">Подробности</th>
                             <th class="table">Выполнено</th>
                         </tr>
-                        <c:forEach items="${entry.getDoctorAppointmentList()}" var="appointment" varStatus="i">
+                        <c:forEach items="${patient.getDoctorAppointmentList()}" var="appointment" varStatus="i">
                             <c:if test="${appointment != null}">
                                 <c:if test="${appointment.getComplete() != 'true'}">
                                     <tr class="table">
@@ -90,7 +90,7 @@
                                 </c:if>
                             </c:if>
                         </c:forEach>
-                        <c:if test="${entry.getDoctorAppointmentList().size() == 0}">
+                        <c:if test="${patient.getDoctorAppointmentList().size() == 0}">
                             <tr class="table">
                                 <th class="table" colspan="4" class="table1" align="center">Нет назначений врача
                                 </th>
@@ -106,19 +106,19 @@
                 </form>
                 <form action="/controller" method="post">
                     <input name="command" value="dischargedHospital" hidden>
-                    <input name="caseRecordId" value="${entry.getId()}" hidden>
-                    <c:if test="${count == entry.getDoctorAppointmentList().size() &&
-                entry.getDoctorAppointmentList().size() != 0}">
+                    <input name="caseRecordId" value="${patient.getId()}" hidden>
+                    <c:if test="${count == patient.getDoctorAppointmentList().size() &&
+                patient.getDoctorAppointmentList().size() != 0}">
                         <p align="center">
                             <label>Подтвердить диагноз
-                                <input type="text" name="finalDiagnosis" value="${entry.getInitialDiagnosis()}"/></label>
+                                <input type="text" name="finalDiagnosis" value="${patient.getInitialDiagnosis()}"/></label>
                             <input type="submit" value="Выписать" onclick='return confirm("Подтвердить выписку")'/>
                         </p>
                     </c:if>
                 </form>
                 <form id="auth" action="/controller" method="post">
                     <table class="table2" align="center">
-                        <input name="caseRecordId" value="${entry.id}" hidden>
+                        <input name="caseRecordId" value="${patient.id}" hidden>
                         <input name="command" value="addAppointment" hidden>
                         <tr class="table2">
                             <th class="table2" align="center" width="5%">id</th>

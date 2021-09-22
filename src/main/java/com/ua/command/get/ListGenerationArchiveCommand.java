@@ -43,6 +43,7 @@ public class ListGenerationArchiveCommand implements Command {
                 archivePatient.add(patient);
             }
             session.setAttribute("archivePatient", archivePatient);
+            System.out.println(archivePatient);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return Constant.URL_ERROR_PAGE;
@@ -53,6 +54,7 @@ public class ListGenerationArchiveCommand implements Command {
                 throwables.printStackTrace();
             }
         }
+        System.out.println((String) session.getAttribute("finalAddress"));
         return (String) session.getAttribute("finalAddress");
     }
 
@@ -68,6 +70,7 @@ public class ListGenerationArchiveCommand implements Command {
             Doctor doctor=new Doctor();
             int idCaseRecord=rs2.getInt("id");
             int idDoctor=rs2.getInt("doctor_id");
+            caseRecord.setId(idCaseRecord);
             caseRecord.setInitialDiagnosis(rs2.getString("initial_diagnosis"));
             caseRecord.setFinalDiagnosis(rs2.getString("final_diagnosis"));
             getDoctorAppointment(con, caseRecord, doctorAppointments, idCaseRecord);
@@ -112,6 +115,6 @@ public class ListGenerationArchiveCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
-        return null;
+        return execute(req,resp,ConnectionPool.getConnection());
     }
 }

@@ -14,7 +14,7 @@
     <c:forTokens items="${initParam['locales']}"
                  var="locale" delims=" ">
         <li class="left">
-            <p><a href="/changeLocale.jsp?localeToSet=${locale}&pageToForward=index.jsp&basename=message">
+            <p><a href="/changeLocale.jsp?localeToSet=${locale}&pageToForward=index.jsp&basename=message_${locale}">
                 <img src="${locale}.png" width="20" height="20"></a></p>
         </li>
     </c:forTokens>

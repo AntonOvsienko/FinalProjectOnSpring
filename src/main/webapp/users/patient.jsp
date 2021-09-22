@@ -5,57 +5,8 @@
 <html>
 <head>
     <style>
-
-        table {
-            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-            font-size: 14px;
-            background: white;
-            max-width: 70%;
-            width: 90%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th.table1 {
-            font-weight: normal;
-            color: #039;
-            border-bottom: 2px solid #6678b1;
-            padding: 10px 8px;
-        }
-
-        td.table1 {
-            border-bottom: 1px solid #ccc;
-            color: #669;
-            padding: 9px 8px;
-            transition: .3s linear;
-        }
-
-        tr:hover td {
-            color: #6699ff;
-        }
-
-        table.table2 {
-            border: 1px solid #6cf;
-        }
-
-        th.table2 {
-            font-weight: normal;
-            font-size: 13px;
-            color: #039;
-            text-transform: uppercase;
-            border-right: 1px solid #0865c2;
-            border-top: 1px solid #0865c2;
-            border-left: 1px solid #0865c2;
-            border-bottom: 1px solid white;
-            padding: 20px;
-        }
-
-        td.table2 {
-            color: #669;
-            border-right: 1px dashed #6cf;
-            padding: 10px 20px;
-        }
-
+        @import url(/users/css/highBanner.css);
+        @import url(/users/css/table_case_record.css);
     </style>
     <script type="text/javascript">
         function showForm() {
@@ -92,34 +43,34 @@
             <th class="table1" width="50%">Подробности</th>
             <th class="table1">Выполнено</th>
         </tr>
-        <c:forEach items="${appointmentList}" var="entry" varStatus="i">
-            <input type="hidden" name="id" value="${entry.getId()}"/>
-            <c:if test="${entry == null}">
+        <c:forEach items="${appointmentList}" var="patient" varStatus="i">
+            <input type="hidden" name="id" value="${patient.getId()}"/>
+            <c:if test="${patient == null}">
                 <tr class="table1">
                     <th class="table1" colspan="4" class="table1" align="center">Нет назначений врача</th>
                 </tr>
             </c:if>
-            <c:if test="${entry != null}">
-                <c:if test="${entry.getComplete() != 'true'}">
+            <c:if test="${patient != null}">
+                <c:if test="${patient.getComplete() != 'true'}">
                     <tr class="table1">
                         <td class="table1" align="center">${i.count}</td>
-                        <td class="table1">${entry.getType()}</td>
-                        <td class="table1">${entry.getDescription()}</td>
+                        <td class="table1">${patient.getType()}</td>
+                        <td class="table1">${patient.getDescription()}</td>
                         <td class="table1">
                             <input type="checkbox"
                                    name="appointment"
-                                   value="${entry.getId()}">
+                                   value="${patient.getId()}">
                         </td>
                     </tr>
                 </c:if>
-                <c:if test="${entry.getComplete() == 'true'}">
+                <c:if test="${patient.getComplete() == 'true'}">
                     <div class="toggle-button">
                         <tr id="auth2" class="table1">
                             <td class="table1" align="center">${i.count}</td>
-                            <td class="table1"><s>${entry.getType()}</s></td>
-                            <td class="table1"><s>${entry.getDescription()}</s></td>
+                            <td class="table1"><s>${patient.getType()}</s></td>
+                            <td class="table1"><s>${patient.getDescription()}</s></td>
                             <td class="table1">
-                                    ${entry.getNameStaffComplete()}
+                                    ${patient.getNameStaffComplete()}
                             </td>
                         </tr>
                     </div>
