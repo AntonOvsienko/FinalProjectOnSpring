@@ -18,7 +18,7 @@ public class LocalTag extends TagSupport {
     public int doStartTag() throws JspException {
         String baseName="";
         if ((String) pageContext.getSession().getAttribute("basename") == null) {
-            baseName = "startPage";
+            baseName = "message";
         } else {
             baseName = (String) pageContext.getSession().getAttribute("basename");
         }

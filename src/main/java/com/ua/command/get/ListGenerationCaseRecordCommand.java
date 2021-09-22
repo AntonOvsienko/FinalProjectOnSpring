@@ -91,7 +91,7 @@ public class ListGenerationCaseRecordCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        return (String) session.getAttribute("finalAddress");
+        return Constant.URL_CONTROLLER_VIEW_ARCHIVE;
     }
 
     private void doctorAppointmentCreate(ResultSet rs2, DoctorAppointment da) throws SQLException {

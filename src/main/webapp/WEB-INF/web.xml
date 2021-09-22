@@ -17,7 +17,6 @@
                 admin [controller newLogin.jsp newPatient.jsp newLogin.jsp]
             </param-value>
         </init-param>
-
     </filter>
 
     <filter-mapping>

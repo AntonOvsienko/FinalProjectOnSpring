@@ -11,6 +11,7 @@ public class Constant {
 
     public static final String URL_CONTROLLER_VIEW_NURSE = "controller?command=viewNurse";
     public static final String URL_CONTROLLER_VIEW_CASERECORD = "controller?command=viewCaseRecord";
+    public static final String URL_CONTROLLER_VIEW_ARCHIVE = "controller?command=archivePatient";
     public static final String URL_CONTROLLER_VIEW_PATIENT = "controller?command=viewPatient";
     public static final String URL_CONTROLLER_VIEW_STAFF = "controller?command=viewStaff";
 

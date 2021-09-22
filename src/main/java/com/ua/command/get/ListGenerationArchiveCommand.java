@@ -14,10 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-
-import static com.ua.Utils.CreateElement.newElement;
 
 public class ListGenerationArchiveCommand implements Command {
 
@@ -28,71 +25,24 @@ public class ListGenerationArchiveCommand implements Command {
 
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ResultSet rs2 = null;
-        ResultSet rs3 = null;
         List<Patient> archivePatient = new ArrayList<>();
         try {
             ps = con.prepareStatement("SELECT * FROM archive");
             rs = ps.executeQuery();
             while (rs.next()) {
                 int idPatient=rs.getInt("id");
+                List<CaseRecord> caseRecords=new ArrayList<>();
                 Patient patient = new Patient();
                 patient.setId(idPatient);
                 patient.setName(rs.getString("name"));
                 patient.setSurname(rs.getString("surname"));
                 patient.setPassport(rs.getString("passport"));
                 patient.setTelephone(rs.getString("telephone"));
-                CreateElement.newElement(rs,)
                 CreateElement.getAge(rs,patient);
-                ps=con.p
-
-                List<DoctorAppointment> doctorAppointmentList = new ArrayList<>();
-                Doctor doctor = new Doctor();
-
-                CaseRecord caseRecord = new CaseRecord();
-                int patientId = rs.getInt("patient_id");
-                int caseRecordId = rs.getInt("case_record_id");
-                int doctorId = rs.getInt("doctor_id");
-                ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_ID);
-                ps.setInt(1, doctorId);
-                rs2 = ps.executeQuery();
-                while (rs2.next()) {
-                    int login_password = rs2.getInt("login_password_id");
-                    createDoctor(rs2, doctor, doctorId);
-                    ps = con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_ID);
-                    ps.setInt(1, login_password);
-                    rs3 = ps.executeQuery();
-                    while (rs3.next()) {
-                        doctor.setLogin(rs3.getString("login"));
-                    }
-                }
-                ps = con.prepareStatement(Constant.SQL_SELECT_PATIENT_WHERE_ID);
-                ps.setInt(1, patientId);
-                rs2 = ps.executeQuery();
-                while (rs2.next()) {
-                    createPatient(rs2, patient, patientId);
-                }
-                ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_APPOINTMENT_WHERE_CASERECORDS_ID);
-                ps.setInt(1, caseRecordId);
-                rs2 = ps.executeQuery();
-                while (rs2.next()) {
-                    DoctorAppointment da = new DoctorAppointment();
-                    doctorAppointmentCreate(rs2, da);
-                    doctorAppointmentList.add(da);
-                }
-                ps = con.prepareStatement(Constant.SQL_SELECT_CASERECORD_WHERE_ID);
-                ps.setInt(1, caseRecordId);
-                rs2 = ps.executeQuery();
-                while (rs2.next()) {
-                    caseRecord.setInitialDiagnosis(rs2.getString("initial_diagnosis"));
-                }
-                caseRecord.setId(rs.getInt("id"));
-                caseRecord.setDoctor(doctor);
-                caseRecord.setPatient(patient);
-                caseRecord.setDoctorAppointmentList(doctorAppointmentList);
-                nurseCaseRecord.add(caseRecord);
+                getCaseRecord(con, idPatient, caseRecords, patient);
+                archivePatient.add(patient);
             }
-            session.setAttribute("caseRecordList", nurseCaseRecord);
+            session.setAttribute("archivePatient", archivePatient);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return Constant.URL_ERROR_PAGE;
@@ -106,44 +56,59 @@ public class ListGenerationArchiveCommand implements Command {
         return (String) session.getAttribute("finalAddress");
     }
 
-    private void doctorAppointmentCreate(ResultSet rs2, DoctorAppointment da) throws SQLException {
-        da.setId(rs2.getInt("id"));
-        da.setType(rs2.getString("type"));
-        da.setDescription(rs2.getString("description"));
-        da.setNameStaffComplete(rs2.getString("name_staff_complete"));
-        da.setComplete(rs2.getString("complete"));
-    }
-
-    private void createPatient(ResultSet rs2, Patient patient, int patientId) throws SQLException {
-        patient.setId(patientId);
-        patient.setName(rs2.getString("name"));
-        patient.setSurname(rs2.getString("surname"));
-        patient.setPassport(rs2.getString("passport"));
-        patient.setTelephone(rs2.getString("telephone"));
-        CreateElement.getAge(rs2, patient);
-    }
-
-    private void createDoctor(ResultSet rs2, Doctor doctor, int doctorId) throws SQLException {
-        doctor.setId(doctorId);
-        doctor.setName(rs2.getString("name"));
-        doctor.setSurname(rs2.getString("surname"));
-        doctor.setDepartment(rs2.getString("department"));
-        doctor.setPassport(rs2.getString("passport"));
-        doctor.setTelephone(rs2.getString("telephone"));
-    }
-
-    @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
-        Connection con = null;
-        try {
-            con = ConnectionPool.getConnection();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    private void getCaseRecord(Connection con, int idPatient, List<CaseRecord> caseRecords, Patient patient) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs2;
+        ps= con.prepareStatement("SELECT * FROM case_record_archive WHERE archive_id=?");
+        ps.setInt(1, idPatient);
+        rs2= ps.executeQuery();
+        while (rs2.next()){
+            CaseRecord caseRecord=new CaseRecord();
+            List<DoctorAppointment> doctorAppointments=new ArrayList<>();
+            Doctor doctor=new Doctor();
+            int idCaseRecord=rs2.getInt("id");
+            int idDoctor=rs2.getInt("doctor_id");
+            caseRecord.setInitialDiagnosis(rs2.getString("initial_diagnosis"));
+            caseRecord.setFinalDiagnosis(rs2.getString("final_diagnosis"));
+            getDoctorAppointment(con, caseRecord, doctorAppointments, idCaseRecord);
+            getDoctor(con, caseRecord, doctor, idDoctor);
+            caseRecords.add(caseRecord);
         }
-        return execute(req, resp, con);
+        patient.setCaseRecords(caseRecords);
     }
-        return null;
-}
+
+    private void getDoctor(Connection con, CaseRecord caseRecord, Doctor doctor, int idDoctor) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs3;
+        ps= con.prepareStatement(
+                "SELECT * FROM doctor_archive WHERE id=?");
+        ps.setInt(1, idDoctor);
+        rs3=ps.executeQuery();
+        while (rs3.next()){
+           doctor.setName(rs3.getString("name"));
+           doctor.setSurname(rs3.getString("surname"));
+           doctor.setPassport(rs3.getString("passport"));
+           doctor.setTelephone(rs3.getString("telephone"));
+        }
+        caseRecord.setDoctor(doctor);
+    }
+
+    private void getDoctorAppointment(Connection con, CaseRecord caseRecord, List<DoctorAppointment> doctorAppointments, int idCaseRecord) throws SQLException {
+        PreparedStatement ps;
+        ResultSet rs3;
+        ps= con.prepareStatement(
+                "SELECT * FROM doctor_appointment_archive WHERE case_record_archive_id=?");
+        ps.setInt(1, idCaseRecord);
+        rs3=ps.executeQuery();
+        while (rs3.next()){
+            DoctorAppointment doctorAppointment=new DoctorAppointment();
+            doctorAppointment.setType(rs3.getString("type"));
+            doctorAppointment.setDescription(rs3.getString("description"));
+            doctorAppointment.setNameStaffComplete(rs3.getString("name_staff_complete"));
+            doctorAppointments.add(doctorAppointment);
+        }
+        caseRecord.setDoctorAppointmentList(doctorAppointments);
+    }
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
