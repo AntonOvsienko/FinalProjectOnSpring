@@ -3,8 +3,6 @@ package com.ua.command.get;
 import com.ua.ConnectionPool;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
-import com.ua.entity.Department;
-import com.ua.entity.Doctor;
 import com.ua.entity.Nurse;
 import com.ua.entity.Staff;
 

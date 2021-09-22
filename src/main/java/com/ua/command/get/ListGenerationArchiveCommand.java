@@ -43,7 +43,6 @@ public class ListGenerationArchiveCommand implements Command {
                 archivePatient.add(patient);
             }
             session.setAttribute("archivePatient", archivePatient);
-            System.out.println(archivePatient);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return Constant.URL_ERROR_PAGE;

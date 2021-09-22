@@ -165,7 +165,6 @@
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Archive')">
         <loc:print key="Head_Button_Archive"/></p></li>
 
-
     <li class="left"><p><a href="/controller?command=exit">
         <loc:print key="Head_Button_Exit"/></a></p></li>
     <c:forTokens items="${initParam['locales']}"
@@ -189,11 +188,11 @@
                     <c:forEach items="${departments}" var="department">
                         <li><b>${department.description}</b>
                             <ol class="rounded">
-                                <c:forEach items="${doctors}" var="patient">
-                                    <c:if test="${patient.getDepartment() == department.description }">
+                                <c:forEach items="${doctors}" var="entry">
+                                    <c:if test="${entry.getDepartment() == department.description }">
                                         <li><a href="#" class="tablinks" id="font"
-                                               onclick="openCity(event, '${patient.getLogin()}')"> ${patient.getName()}
-                                                ${patient.getSurname()}</a></li>
+                                               onclick="openCity(event, '${entry.getLogin()}')"> ${entry.getName()}
+                                                ${entry.getSurname()}</a></li>
                                     </c:if>
                                 </c:forEach>
                             </ol>
@@ -205,39 +204,28 @@
         <c:if test="${check != 'on'}">
             <div class="tab">
                 <ol class="rounded">
-                    <c:forEach items="${doctors}" var="patient">
+                    <c:forEach items="${doctors}" var="entry">
                         <li><a href="#" class="tablinks"
-                               onclick="openCity(event, '${patient.getLogin()}')"> ${patient.getName()}
-                                ${patient.getSurname()}</a></li>
+                               onclick="openCity(event, '${entry.getLogin()}')"> ${entry.getName()}
+                                ${entry.getSurname()}</a></li>
                     </c:forEach>
                 </ol>
             </div>
         </c:if>
-        <c:forEach items="${doctors}" var="patient">
-            <div id="${patient.getLogin()}" class="tabcontent" hidden>
+        <c:forEach items="${doctors}" var="entry">
+            <div id="${entry.getLogin()}" class="tabcontent" hidden>
                 <output>
-                    <i><p class="login">${patient.getLogin()}</p>
-                        <p>${patient.getPassport()}</p>
-                        <p>${patient.getName()}</p>
-                        <p>${patient.getSurname()}</p>
-                        <p>${patient.getTelephone()}</p>
-                        <p>${patient.getDepartment()}</p>
-                        <p></p>
-                        <c:forEach items="${patient.getCaseRecords()}" var="card">
+                    <i><p class="login"><loc:print key="Login_Anketa"/>${entry.getLogin()}</p>
+                        <p><loc:print key="Passport_Anketa"/>${entry.getPassport()}</p>
+                        <p><loc:print key="Name_Anketa"/>${entry.getName()}</p>
+                        <p><loc:print key="Surname_Anketa"/>${entry.getSurname()}</p>
+                        <p><loc:print key="Telephone_Anketa"/>${entry.getTelephone()}</p>
+                        <p><loc:print key="Department_Anketa"/>${entry.getDepartment()}</p>
+                        <p><loc:print key="Patient_case_Anketa"/></p>
+                        <c:forEach items="${entry.getCaseRecords()}" var="card">
                             <p>${card.getPatient().getName()} ${card.getPatient().getSurname()}(${card.getInitialDiagnosis()})</p>
                         </c:forEach>
                     </i>
-<%--                    <i><p class="login"><loc:print key="Login_Anketa"/>${patient.getLogin()}</p>--%>
-<%--                        <p><loc:print key="Passport_Anketa"/>${patient.getPassport()}</p>--%>
-<%--                        <p><loc:print key="Name_Anketa"/>${patient.getName()}</p>--%>
-<%--                        <p><loc:print key="Surname_Anketa"/>${patient.getSurname()}</p>--%>
-<%--                        <p><loc:print key="Telephone_Anketa"/>${patient.getTelephone()}</p>--%>
-<%--                        <p><loc:print key="Department_Anketa"/>${patient.getDepartment()}</p>--%>
-<%--                        <p><loc:print key="Patient_case_Anketa"/></p>--%>
-<%--                        <c:forEach items="${patient.getCaseRecords()}" var="card">--%>
-<%--                            <p>${card.getPatient().getName()} ${card.getPatient().getSurname()}(${card.getInitialDiagnosis()})</p>--%>
-<%--                        </c:forEach>--%>
-<%--                    </i>--%>
                 </output>
             </div>
         </c:forEach>
