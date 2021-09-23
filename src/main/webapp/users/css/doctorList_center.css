@@ -13,7 +13,6 @@ body {
     background: #ebebeb;
 }
 
-/* Style the tab */
 .tab {
     float: left;
 }
@@ -67,11 +66,11 @@ input[type=submit]:active, button[type=submit]:active {
 
 .button {
     clear: both;
+    text-align: left;
 }
 
 /* Style the buttons inside the tab */
 .tab option {
-
     padding: 2px 16px;
     line-height: 1;
     text-align: left;
@@ -85,6 +84,7 @@ input[type=submit]:active, button[type=submit]:active {
     padding: 0px 15px;
     size: 17px;
     float: left;
+    text-align: left;
 }
 
 .tabcontent p.login {
@@ -92,8 +92,9 @@ input[type=submit]:active, button[type=submit]:active {
 }
 
 .tab2 {
+    float: left;
     overflow: hidden;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     background-color: #f1f1f1;
 }
 
@@ -123,6 +124,6 @@ input[type=submit]:active, button[type=submit]:active {
 .tabcontent2 {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     border-top: none;
 }
