@@ -2,6 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="loc" uri="http://com.ua/FinalProject" %>
 <html>
 <head>
     <style>
@@ -27,10 +28,17 @@
 </head>
 <body>
 <ul id="nav">
-    <li class="left"><p><a href="/controller?command=exit">Выход</a></p></li>
-    <li class="left"><p>Локаль</p></li>
+    <li class="left"><p><a href="/controller?command=exit">
+        <loc:print key="Head_Button_Exit"/></a></p></li>
+    <c:forTokens items="${initParam['locales']}"
+                 var="locale" delims=" ">
+        <li class="left">
+            <p>
+                <a href="/changeLocale.jsp?localeToSet=${locale}&pageToForward=users/doctor.jsp&basename=message_${locale}">
+                    <img src="/${locale}.png" width="20" height="20"></a></p>
+        </li>
+    </c:forTokens>
     <li class="left"><p>Login:${globalLogin}(${name} ${surname})</p></li>
-    <li class="left"><p><a href="/controller?command=viewCaseRecord">Обновить</a></p></li>
 </ul>
 <div align="center">
     <c:forEach items="${caseRecordList}" var="patient">
@@ -42,12 +50,12 @@
                 </c:if>
             </c:forEach>
             <button class="accordion">
-                Пациент: ${patient.getPatient().getName()}
+                <loc:print key="Patient_Anketa"/>: ${patient.getPatient().getName()}
                     ${patient.getPatient().getSurname()}
                 (${patient.getInitialDiagnosis()}) |
-                Процедур:${patient.getDoctorAppointmentList().size()}
+                <loc:print key="Procedures"/>:${patient.getDoctorAppointmentList().size()}
                 <c:if test="${count != '0'}">
-                    <span class="colortext">Выполненно:${count}</span>
+                    <span class="colortext"><loc:print key="Performed"/>:${count}</span>
 
                 </c:if>
             </button>
@@ -58,9 +66,9 @@
                     <table align="center">
                         <tr class="table">
                             <th class="table" align="center" width="5%">id</th>
-                            <th class="table" width="20%">Назначение</th>
-                            <th class="table" width="50%">Подробности</th>
-                            <th class="table">Выполнено</th>
+                            <th class="table" width="20%"><loc:print key="Doctor's_Appointments"/></th>
+                            <th class="table" width="50%"><loc:print key="Details"/></th>
+                            <th class="table"><loc:print key="Complete"/></th>
                         </tr>
                         <c:forEach items="${patient.getDoctorAppointmentList()}" var="appointment" varStatus="i">
                             <c:if test="${appointment != null}">
@@ -92,15 +100,16 @@
                         </c:forEach>
                         <c:if test="${patient.getDoctorAppointmentList().size() == 0}">
                             <tr class="table">
-                                <th class="table" colspan="4" class="table1" align="center">Нет назначений врача
+                                <th class="table" colspan="4" class="table1" align="center">
+                                    <loc:print key="No_Doctor's_Appointment"/>
                                 </th>
                             </tr>
                         </c:if>
                     </table>
                     <p align="center">
                         <button type="submit" name="command" value="confirmAppointment"
-                                onclick='return confirm("Подтвердить выполнение")'>
-                            Выполнить
+                                onclick='return confirm("<loc:print key="Confirm_Сompletion"/>")'>
+                            <loc:print key="Confirm"/>
                         </button>
                     </p>
                 </form>
@@ -110,9 +119,11 @@
                     <c:if test="${count == patient.getDoctorAppointmentList().size() &&
                 patient.getDoctorAppointmentList().size() != 0}">
                         <p align="center">
-                            <label>Подтвердить диагноз
-                                <input type="text" name="finalDiagnosis" value="${patient.getInitialDiagnosis()}"/></label>
-                            <input type="submit" value="Выписать" onclick='return confirm("Подтвердить выписку")'/>
+                            <label><loc:print key="Confirm_Diagnisis"/>
+                                <input type="text" name="finalDiagnosis"
+                                       value="${patient.getInitialDiagnosis()}"/></label>
+                            <input type="submit" value="<loc:print key="Discharge"/>" onclick='return confirm
+                                    ("<loc:print key="Confirm_Discharge"/>")'/>
                         </p>
                     </c:if>
                 </form>
@@ -122,18 +133,18 @@
                         <input name="command" value="addAppointment" hidden>
                         <tr class="table2">
                             <th class="table2" align="center" width="5%">id</th>
-                            <th class="table2" width="20%">Назначение</th>
-                            <th class="table2">Подробности</th>
+                            <th class="table2" width="20%"><loc:print key="Doctor's_Appointments"/></th>
+                            <th class="table2"><loc:print key="Details"/></th>
                         </tr>
                         <tr>
                             <td class="table2" align="center">1</td>
                             <td class="table2">
                                 <select name="select1">
-                                    <option value="null" selected disabled>Выберите действие</option>
-                                    <option value="Приём лекарств">Приём лекарств</option>
-                                    <option value="Подготовка к операции">Подготовка к операции</option>
-                                    <option value="Операция">Операция</option>
-                                    <option value="Терапия">Терапия</option>
+                                    <option value="null" selected disabled><loc:print key="Select_Action"/></option>
+                                    <option value="Приём лекарств"><loc:print key="Medication_Intake"/></option>
+                                    <option value="Подготовка к операции"><loc:print key="Preparing_Surgery"/></option>
+                                    <option value="Операция"><loc:print key="Operation"/></option>
+                                    <option value="Терапия"><loc:print key="Therapy"/></option>
                                 </select>
                             </td>
                             <td class="table2"><textarea name="description1" rows="1" cols="100"></textarea></td>
@@ -142,11 +153,11 @@
                             <td class="table2" align="center">2</td>
                             <td class="table2">
                                 <select name="select2">
-                                    <option value="null" selected disabled>Выберите действие</option>
-                                    <option value="Приём лекарств">Приём лекарств</option>
-                                    <option value="Подготовка к операции">Подготовка к операции</option>
-                                    <option value="Операция">Операция</option>
-                                    <option value="Терапия">Терапия</option>
+                                    <option value="null" selected disabled><loc:print key="Select_Action"/></option>
+                                    <option value="Приём лекарств"><loc:print key="Medication_Intake"/></option>
+                                    <option value="Подготовка к операции"><loc:print key="Preparing_Surgery"/></option>
+                                    <option value="Операция"><loc:print key="Operation"/></option>
+                                    <option value="Терапия"><loc:print key="Therapy"/></option>
                                 </select>
                             </td>
                             <td class="table2"><textarea name="description2" rows="1" cols="100"></textarea></td>
@@ -155,11 +166,11 @@
                             <td class="table2" align="center">3</td>
                             <td class="table2">
                                 <select name="select3">
-                                    <option value="null" selected disabled>Выберите действие</option>
-                                    <option value="Приём лекарств">Приём лекарств</option>
-                                    <option value="Подготовка к операции">Подготовка к операции</option>
-                                    <option value="Операция">Операция</option>
-                                    <option value="Терапия">Терапия</option>
+                                    <option value="null" selected disabled><loc:print key="Select_Action"/></option>
+                                    <option value="Приём лекарств"><loc:print key="Medication_Intake"/></option>
+                                    <option value="Подготовка к операции"><loc:print key="Preparing_Surgery"/></option>
+                                    <option value="Операция"><loc:print key="Operation"/></option>
+                                    <option value="Терапия"><loc:print key="Therapy"/></option>
                                 </select>
                             </td>
                             <td class="table2"><textarea name="description3" rows="1" cols="100"></textarea></td>
@@ -168,17 +179,17 @@
                             <td class="table2" align="center">4</td>
                             <td class="table2">
                                 <select name="select4">
-                                    <option value="null" selected disabled>Выберите действие</option>
-                                    <option value="Приём лекарств">Приём лекарств</option>
-                                    <option value="Подготовка к операции">Подготовка к операции</option>
-                                    <option value="Операция">Операция</option>
-                                    <option value="Терапия">Терапия</option>
+                                    <option value="null" selected disabled><loc:print key="Select_Action"/></option>
+                                    <option value="Приём лекарств"><loc:print key="Medication_Intake"/></option>
+                                    <option value="Подготовка к операции"><loc:print key="Preparing_Surgery"/></option>
+                                    <option value="Операция"><loc:print key="Operation"/></option>
+                                    <option value="Терапия"><loc:print key="Therapy"/></option>
                                 </select>
                             </td>
                             <td class="table2"><textarea name="description4" rows="1" cols="100"></textarea></td>
                         </tr>
                     </table>
-                    <p align="center"><input type="submit" value="Готово"></p>
+                    <p align="center"><input type="submit" value="<loc:print key="Submit"/>"></p>
                 </form>
             </div>
         </c:if>
