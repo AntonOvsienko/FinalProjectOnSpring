@@ -25,8 +25,8 @@ public class SecurityFilter implements Filter {
 
         HttpSession session = httpReq.getSession();
 
-        if (request.getParameter("login")!=null){
-            session.setAttribute("globalLogin",request.getParameter("login"));
+        if (request.getParameter("globalLogin")!=null){
+            session.setAttribute("globalLogin",request.getParameter("globalLogin"));
         }
         String userRole =  (String) session.getAttribute("globalLogin");
         if (userRole==null){

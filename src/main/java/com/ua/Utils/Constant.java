@@ -72,7 +72,7 @@ public class Constant {
     public static final String SQL_NEW_LOGIN_UPDATE_DOCTOR = "UPDATE doctor SET name=?, surname=?, telephone=?, passport=?" +
             ", department=? WHERE login_password_id=?";
     public static final String SQL_NEW_LOGIN_UPDATE_NURSE = "UPDATE nurse SET name=?, surname=?, telephone=?, passport=?" +
-            ", WHERE login_password_id=?";
+            " WHERE login_password_id=?";
     public static final String SQL_UPDATE_DOCTOR_APPOINTMENT = "UPDATE doctor_appointment SET complete='true'," +
             " name_staff_complete=? WHERE id=?";
     public static final String SQL_UPDATE_PATIENT_CASERECORDS = "UPDATE patient_has_case_records SET doctor_id=? WHERE id=?";

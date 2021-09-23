@@ -6,32 +6,46 @@
     list-style: none;
     background-color: #f2f2f2;
     border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc; }
+    border-top: 1px solid #ccc;
+}
+
 #nav li.right {
-    float: left; }
+    float: left;
+}
+
 #nav li.right p {
     display: block;
     padding: 8px 16px;
     text-decoration: none;
     font-weight: bold;
-    border-right: 1px solid #ccc; }
+    border-right: 1px solid #ccc;
+}
+
 #nav li.right p:hover {
     color: #c00;
-    background-color: #fff; }
+    background-color: #fff;
+}
+
 a {
     text-decoration: none;
 }
+
 #nav li.left {
-    float: right; }
+    float: right;
+}
+
 #nav li.left p {
     display: block;
     padding: 8px 16px;
     text-decoration: none;
     font-weight: bold;
-    border-left: 1px solid #ccc; }
+    border-left: 1px solid #ccc;
+}
+
 #nav li.left p:hover {
     color: #c00;
-    background-color: #fff; }
+    background-color: #fff;
+}
 
 .login-page {
     width: 84%;
@@ -62,8 +76,6 @@ a {
     padding: 15px;
     color: #FFFFFF;
     font-size: 14px;
-    /*-webkit-transition: all 0.3 ease;*/
-    /*transition: all 0.3 ease;*/
     cursor: pointer;
 }
 
@@ -95,7 +107,7 @@ body {
 
 .letter {
     background: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     margin: 100px auto 0;
     max-width: 550px;
     min-height: 300px;
@@ -114,7 +126,7 @@ body {
 
 .letter:before {
     background: #fafafa;
-    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     left: -5px;
     top: 4px;
     transform: rotate(-2.5deg);
@@ -122,8 +134,17 @@ body {
 
 .letter:after {
     background: #f6f6f6;
-    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     right: -3px;
     top: 1px;
     transform: rotate(1.4deg);
+}
+
+.hr-shadow {
+    margin: 20px 0;
+    padding: 0;
+    height: 10px;
+    border: none;
+    border-top: 1px solid #333;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }

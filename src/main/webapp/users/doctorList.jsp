@@ -171,7 +171,7 @@
                  var="locale" delims=" ">
         <li class="left">
             <p><a href="/changeLocale.jsp?localeToSet=${locale}&pageToForward=users/doctorList.jsp&basename=message_${locale}">
-                <img src="${locale}.png" width="20" height="20"></a></p>
+                <img src="/${locale}.png" width="20" height="20"></a></p>
         </li>
     </c:forTokens>
     <li class="left"><p>
@@ -216,14 +216,14 @@
             <div id="${entry.getLogin()}" class="tabcontent" hidden>
                 <output>
                     <i><p class="login"><loc:print key="Login_Anketa"/>${entry.getLogin()}</p>
-                        <p><loc:print key="Passport_Anketa"/>${entry.getPassport()}</p>
-                        <p><loc:print key="Name_Anketa"/>${entry.getName()}</p>
-                        <p><loc:print key="Surname_Anketa"/>${entry.getSurname()}</p>
-                        <p><loc:print key="Telephone_Anketa"/>${entry.getTelephone()}</p>
-                        <p><loc:print key="Department_Anketa"/>${entry.getDepartment()}</p>
-                        <p><loc:print key="Patient_case_Anketa"/></p>
+                        <p><loc:print key="Passport_Anketa"/> : ${entry.getPassport()}</p>
+                        <p><loc:print key="Name_Anketa"/> : ${entry.getName()}</p>
+                        <p><loc:print key="Surname_Anketa"/> : ${entry.getSurname()}</p>
+                        <p><loc:print key="Telephone_Anketa"/> : ${entry.getTelephone()}</p>
+                        <p><loc:print key="Department_Anketa"/> : ${entry.getDepartment()}</p>
+                        <p><loc:print key="Patient_Case_Anketa"/> :</p>
                         <c:forEach items="${entry.getCaseRecords()}" var="card">
-                            <p>${card.getPatient().getName()} ${card.getPatient().getSurname()}(${card.getInitialDiagnosis()})</p>
+                            <pre>    ${card.getPatient().getName()} ${card.getPatient().getSurname()}(${card.getInitialDiagnosis()})</pre>
                         </c:forEach>
                     </i>
                 </output>
@@ -266,7 +266,7 @@
             </c:if>
             <c:if test="${sort=='sortByCount'}">
                 <label><input type="radio" name="sort" value="sortByName">
-                    <loc:print key="Sorted_By_Name"/></label><br></label><br>
+                    <loc:print key="Sorted_By_Name"/></label><br>
                 <label><input type="radio" name="sort" value="sortByCount" checked>
                     <loc:print key="Sorted_By_Patients"/></label><br>
             </c:if>
@@ -277,139 +277,140 @@
     </div>
 </div>
 
-<%--<div id="Nurse" class="tabcontent2">--%>
-<%--    <div class="tab">--%>
-<%--        <ol class="rounded">--%>
-<%--            <c:forEach items="${nurses}" var="patient">--%>
-<%--                <li>--%>
-<%--                    <a href="#" class="tablinks"--%>
-<%--                       onclick="openCity(event, '${patient.getLogin()}')"> ${patient.getName()}--%>
-<%--                            ${patient.getSurname()}</a>--%>
-<%--                </li>--%>
-<%--            </c:forEach>--%>
-<%--        </ol>--%>
-<%--    </div>--%>
-<%--    <c:forEach items="${nurses}" var="patient">--%>
-<%--        <div id="${patient.getLogin()}" class="tabcontent" hidden>--%>
-<%--            <output>--%>
-<%--                <i><p class="login"><loc:print key="Login_Anketa"/>${patient.getLogin()}</p>--%>
-<%--                    <p><loc:print key="Passport_Anketa"/>${patient.getPassport()}</p>--%>
-<%--                    <p><loc:print key="Name_Anketa"/>${patient.getName()}</p>--%>
-<%--                    <p><loc:print key="Surname_Anketa"/>${patient.getSurname()}</p>--%>
-<%--                    <p><loc:print key="Telephone_Anketa"/>${patient.getTelephone()}</p>--%>
-<%--                </i>--%>
-<%--            </output>--%>
-<%--        </div>--%>
-<%--    </c:forEach>--%>
-<%--</div>--%>
+<div id="Nurse" class="tabcontent2">
+    <div class="tab">
+        <ol class="rounded">
+            <c:forEach items="${nurses}" var="patient">
+                <li>
+                    <a href="#" class="tablinks"
+                       onclick="openCity(event, '${patient.getLogin()}')"> ${patient.getName()}
+                            ${patient.getSurname()}</a>
+                </li>
+            </c:forEach>
+        </ol>
+    </div>
+    <c:forEach items="${nurses}" var="patient">
+        <div id="${patient.getLogin()}" class="tabcontent" hidden>
+            <output>
+                <i><p class="login"><loc:print key="Login_Anketa"/>${patient.getLogin()}</p>
+                    <p><loc:print key="Passport_Anketa"/> : ${patient.getPassport()}</p>
+                    <p><loc:print key="Name_Anketa"/> : ${patient.getName()}</p>
+                    <p><loc:print key="Surname_Anketa"/> : ${patient.getSurname()}</p>
+                    <p><loc:print key="Telephone_Anketa"/> : ${patient.getTelephone()}</p>
+                </i>
+            </output>
+        </div>
+    </c:forEach>
+</div>
 
-<%--<div id="Patient" class="tabcontent2">--%>
-<%--    <div class="tab">--%>
-<%--        <ol class="rounded">--%>
-<%--            <c:forEach items="${patients}" var="patient">--%>
-<%--                <li>--%>
-<%--                    <a href="#" class="tablinks"--%>
-<%--                       onclick="openCity(event, '${patient.getId()}')"> ${patient.getName()}--%>
-<%--                            ${patient.getSurname()}</a>--%>
-<%--                </li>--%>
-<%--            </c:forEach>--%>
-<%--        </ol>--%>
-<%--    </div>--%>
+<div id="Patient" class="tabcontent2">
+    <div class="tab">
+        <ol class="rounded">
+            <c:forEach items="${patients}" var="patient">
+                <li>
+                    <a href="#" class="tablinks"
+                       onclick="openCity(event, '${patient.getId()}')"> ${patient.getName()}
+                            ${patient.getSurname()}</a>
+                </li>
+            </c:forEach>
+        </ol>
+    </div>
 
-<%--    <c:forEach items="${patients}" var="patient">--%>
-<%--        <div id="${patient.getId()}" class="tabcontent" hidden>--%>
-<%--            <p><loc:print key="Passport_Anketa"/>${patient.getPassport()}</p>--%>
-<%--            <p><loc:print key="Birthday_Anketa"/>--%>
-<%--                : ${patient.getDayBorn()}-${patient.getMonthBorn()}-${patient.getYearBorn()}(${patient.getYears()})</p>--%>
-<%--            <p><loc:print key="Name_Anketa"/>${patient.getName()}</p>--%>
-<%--            <p><loc:print key="Surname_Anketa"/>${patient.getSurname()}</p>--%>
-<%--            <p><loc:print key="Telephone_Anketa"/>${patient.getTelephone()}</p>--%>
-<%--            <c:forEach items="${patient.getCaseRecords()}" var="card">--%>
-<%--                <p class="MyMarginLeft"><loc:print key="Diagnosis_Anketa"/>(${card.getInitialDiagnosis()})--%>
-<%--                    <loc:print key="Attending_Physician_Anketa"/>--%>
-<%--                    <c:if test="${card.getDoctor().getName() != null}">--%>
-<%--                        ${card.getDoctor().getName()} ${card.getDoctor().getSurname()}--%>
-<%--                    </c:if>--%>
-<%--                    <c:if test="${card.getDoctor().getName() == null}">--%>
-<%--                        <loc:print key="Not_Available"/>--%>
-<%--                    </c:if>--%>
-<%--                </p>--%>
-<%--            </c:forEach>--%>
-<%--        </div>--%>
-<%--    </c:forEach>--%>
-<%--    <form class="button" action="/controller" method="get">--%>
-<%--        <input name="command" value="addNewPatient" hidden>--%>
-<%--        <p align="left"><input type="submit" value="<loc:print key="Add_Patient"/>"></p>--%>
-<%--    </form>--%>
-<%--    <div class="button">--%>
-<%--        <p align="left">--%>
-<%--        <form>--%>
-<%--            <input name="command" value="sortPatientList" hidden>--%>
-<%--            <c:if test="${sort2=='sortByName'|| sort2==null}">--%>
-<%--                <label><input type="radio" name="sort2" value="sortByName" checked>--%>
-<%--                    <loc:print key="Sorted_By_Name"/></label><br>--%>
-<%--                <label><input type="radio" name="sort2" value="sortByBirthday">--%>
-<%--                    <loc:print key="Sorted_By_Age"/></label><br>--%>
-<%--            </c:if>--%>
-<%--            <c:if test="${sort2=='sortByBirthday'}">--%>
-<%--                <label><input type="radio" name="sort2" value="sortByName">--%>
-<%--                    <loc:print key="Sorted_By_Name"/></label><br>--%>
-<%--                <label><input type="radio" name="sort2" value="sortByBirthday" checked>--%>
-<%--                    <loc:print key="Sorted_By_Age"/></label><br>--%>
-<%--            </c:if>--%>
-<%--            <input type="submit" value="<loc:print key="Sorted"/>">--%>
-<%--        </form>--%>
-<%--        <form class="button" action="/controller" method="post">--%>
-<%--            <p>Назначить врача пациенту</p>--%>
-<%--            <input name="command" value="doctorToPatient" hidden>--%>
-<%--            <p><select name="selectDoctor">--%>
-<%--                <c:forEach items="${doctors}" var="patient">--%>
-<%--                    <option value="${patient.getId()}">${patient.getName()}--%>
-<%--                            ${patient.getSurname()} - ${patient.getDepartment()}</option>--%>
-<%--                </c:forEach>--%>
-<%--            </select>--%>
-<%--                <select name="selectPatient">--%>
-<%--                    <c:forEach items="${patients}" var="patient">--%>
-<%--                        <c:forEach items="${patient.getCaseRecords()}" var="diagnose">--%>
-<%--                            <c:if test="${diagnose.getDoctor().getName()==null}">--%>
-<%--                                <option value="${diagnose.getId()}">${patient.getName()}--%>
-<%--                                        ${patient.getSurname()} - ${diagnose.getInitialDiagnosis()}</option>--%>
-<%--                            </c:if>--%>
-<%--                        </c:forEach>--%>
-<%--                    </c:forEach>--%>
-<%--                </select></p>--%>
-<%--            <input type="submit" value="<loc:print key="Assigment"/>">--%>
-<%--        </form>--%>
-<%--    </div>--%>
-<%--</div>--%>
+    <c:forEach items="${patients}" var="patient">
+        <div id="${patient.getId()}" class="tabcontent" hidden>
+            <i><p><loc:print key="Passport_Anketa"/>${patient.getPassport()}</p>
+            <p><loc:print key="Birthday_Anketa"/>
+                : ${patient.getDayBorn()}-${patient.getMonthBorn()}-${patient.getYearBorn()}(${patient.getYears()})</p>
+            <p><loc:print key="Name_Anketa"/> : ${patient.getName()}</p>
+            <p><loc:print key="Surname_Anketa"/> : ${patient.getSurname()}</p>
+            <p><loc:print key="Telephone_Anketa"/> : ${patient.getTelephone()}</p>
+            <c:forEach items="${patient.getCaseRecords()}" var="card">
+                <p class="MyMarginLeft"><loc:print key="Diagnosis_Anketa"/>(${card.getInitialDiagnosis()})
+                    <loc:print key="Attending_Physician_Anketa"/>
+                    <c:if test="${card.getDoctor().getName() != null}">
+                        ${card.getDoctor().getName()} ${card.getDoctor().getSurname()}
+                    </c:if>
+                    <c:if test="${card.getDoctor().getName() == null}">
+                        <loc:print key="Not_Available"/>
+                    </c:if>
+                </p>
+            </c:forEach>
+            </i>
+        </div>
+    </c:forEach>
+    <form class="button" action="/controller" method="get">
+        <input name="command" value="addNewPatient" hidden>
+        <p align="left"><input type="submit" value="<loc:print key="Add_Patient"/>"></p>
+    </form>
+    <div class="button">
+        <p align="left">
+        <form>
+            <input name="command" value="sortPatientList" hidden>
+            <c:if test="${sort2=='sortByName'|| sort2==null}">
+                <label><input type="radio" name="sort2" value="sortByName" checked>
+                    <loc:print key="Sorted_By_Name"/></label><br>
+                <label><input type="radio" name="sort2" value="sortByBirthday">
+                    <loc:print key="Sorted_By_Age"/></label><br>
+            </c:if>
+            <c:if test="${sort2=='sortByBirthday'}">
+                <label><input type="radio" name="sort2" value="sortByName">
+                    <loc:print key="Sorted_By_Name"/></label><br>
+                <label><input type="radio" name="sort2" value="sortByBirthday" checked>
+                    <loc:print key="Sorted_By_Age"/></label><br>
+            </c:if>
+            <input type="submit" value="<loc:print key="Sorted"/>">
+        </form>
+        <form class="button" action="/controller" method="post">
+            <p>Назначить врача пациенту</p>
+            <input name="command" value="doctorToPatient" hidden>
+            <p><select name="selectDoctor">
+                <c:forEach items="${doctors}" var="patient">
+                    <option value="${patient.getId()}">${patient.getName()}
+                            ${patient.getSurname()} - ${patient.getDepartment()}</option>
+                </c:forEach>
+            </select>
+                <select name="selectPatient">
+                    <c:forEach items="${patients}" var="patient">
+                        <c:forEach items="${patient.getCaseRecords()}" var="diagnose">
+                            <c:if test="${diagnose.getDoctor().getName()==null}">
+                                <option value="${diagnose.getId()}">${patient.getName()}
+                                        ${patient.getSurname()} - ${diagnose.getInitialDiagnosis()}</option>
+                            </c:if>
+                        </c:forEach>
+                    </c:forEach>
+                </select></p>
+            <input type="submit" value="<loc:print key="Assignment"/>">
+        </form>
+    </div>
+</div>
 
-<%--<div id="Archive" class="tabcontent2">--%>
-<%--    <table align="center">--%>
-<%--        <tr class="table1">--%>
-<%--            <th class="table1" width="5%">id</th>--%>
-<%--            <th class="table1" width="15%"><loc:print key="Passport_Anketa"/></th>--%>
-<%--            <th class="table1" width="20%"><loc:print key="Patient_Anketa"/></th>--%>
-<%--            <th class="table1" width="23%"><loc:print key="Provisional_Diagnosis"/></th>--%>
-<%--            <th class="table1" width="22%"><loc:print key="Final_Diagnosis"/></th>--%>
-<%--            <th class="table1"><loc:print key="Medical_Appointments"/></th>--%>
-<%--        </tr>--%>
-<%--        <c:forEach items="${archivePatient}" var="patient">--%>
-<%--            <c:if test="${patient.getCaseRecords().size() != 0}">--%>
-<%--                <c:forEach items="${patient.getCaseRecords()}" var="cr" varStatus="i">--%>
-<%--                    <tr class="table1">--%>
-<%--                        <td class="table1">${i.count}</td>--%>
-<%--                        <td class="table1">${patient.getPassport()}</td>--%>
-<%--                        <td class="table1">${patient.getName()} ${patient.getSurname()}</td>--%>
-<%--                        <td class="table1">${cr.getInitialDiagnosis()}</td>--%>
-<%--                        <td class="table1">${cr.getFinalDiagnosis()}</td>--%>
-<%--                        <td class="table1"><a href="/controller?command=archiveAppointment&appointmentId=${cr.getId()}">Подробно</a>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
-<%--                </c:forEach>--%>
-<%--            </c:if>--%>
-<%--        </c:forEach>--%>
-<%--    </table>--%>
-<%--</div>--%>
+<div id="Archive" class="tabcontent2">
+    <table align="center">
+        <tr class="table1">
+            <th class="table1" width="5%">id</th>
+            <th class="table1" width="15%"><loc:print key="Passport_Anketa"/></th>
+            <th class="table1" width="20%"><loc:print key="Patient_Anketa"/></th>
+            <th class="table1" width="23%"><loc:print key="Provisional_Diagnosis"/></th>
+            <th class="table1" width="22%"><loc:print key="Final_Diagnosis"/></th>
+            <th class="table1"><loc:print key="Medical_Appointments"/></th>
+        </tr>
+        <c:forEach items="${archivePatient}" var="patient">
+            <c:if test="${patient.getCaseRecords().size() != 0}">
+                <c:forEach items="${patient.getCaseRecords()}" var="cr" varStatus="i">
+                    <tr class="table1">
+                        <td class="table1">${i.count}</td>
+                        <td class="table1">${patient.getPassport()}</td>
+                        <td class="table1">${patient.getName()} ${patient.getSurname()}</td>
+                        <td class="table1">${cr.getInitialDiagnosis()}</td>
+                        <td class="table1">${cr.getFinalDiagnosis()}</td>
+                        <td class="table1"><a href="/controller?command=archiveAppointment&appointmentId=${cr.getId()}">Подробно</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+        </c:forEach>
+    </table>
+</div>
 
 <script>
     // Get the element with id="defaultOpen" and click on it

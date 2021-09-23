@@ -16,7 +16,16 @@ public class RedirectCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String address = req.getParameter("address");
+        HttpSession session = req.getSession();
+        session.setAttribute("checkLogin",null);
+        session.setAttribute("messageFalse",null);
+        session.setAttribute("login", null);
+        session.setAttribute("password", null);
+        session.setAttribute("password_repeat", null);
+        session.setAttribute("role", null);
+
         System.out.println(address);
+
 
         return address;
     }

@@ -28,7 +28,7 @@
             <input name="command" value="login" hidden>
             <div class="input">
                 <div class="blockinput">
-                    <i class="icon-envelope-alt"></i><input name="login"
+                    <i class="icon-envelope-alt"></i><input name="globalLogin"
                                        placeholder="<loc:print key="startPage_Login_Placeholder"/>">
                 </div>
                 <div class="blockinput">

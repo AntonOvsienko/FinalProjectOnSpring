@@ -20,13 +20,16 @@ public class CheckNewLoginCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
-        String login = req.getParameter("login");
+        System.out.println((String)session.getAttribute("globalLogin"));
+        String login = req.getParameter("newLogin");
         String password = req.getParameter("password");
         String passwordRepeat = req.getParameter("password_repeat");
         String role = req.getParameter("role");
 
         if (!password.equals(passwordRepeat)) {
-            return Constant.URL_ERROR_PAGE_REPEAT_PASSWORD;
+            session.setAttribute("messageFalse","1");
+            session.setAttribute("newLogin", login);
+            return Constant.URL_NEW_LOGIN;
         }
         try {
             System.out.println("con ==> " + con);
@@ -35,14 +38,16 @@ public class CheckNewLoginCommand implements Command {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 session.setAttribute("checkLogin", "false");
+                session.setAttribute("messageFalse","2");
                 return Constant.URL_NEW_LOGIN;
             }
             System.out.println("session2 ==> " + session);
-            session.setAttribute("login", login);
+            session.setAttribute("newLogin", login);
             session.setAttribute("password", password);
             session.setAttribute("password_repeat", password);
             session.setAttribute("role", role);
             session.setAttribute("checkLogin", "true");
+            session.setAttribute("messageFalse","");
         } catch (SQLException throwables) {
             log.log(Level.WARNING, "", throwables.getMessage());
         }

@@ -19,8 +19,8 @@ public class LoginCommand implements Command {
 
         String address = "errorMessage/error.jsp";
 
-        if (req.getParameter("login") != null) {
-            session.setAttribute("globalLogin", req.getParameter("login"));
+        if (req.getParameter("globalLogin") != null) {
+            session.setAttribute("globalLogin", req.getParameter("globalLogin"));
         }
         if (req.getParameter("password") != null) {
             session.setAttribute("globalPassword", req.getParameter("password"));

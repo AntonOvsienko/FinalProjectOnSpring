@@ -16,7 +16,7 @@ public class AddNewLoginCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
-        session.setAttribute("successfully" , null);
+        session.setAttribute("successfully", null);
         try {
             con.setAutoCommit(false);
             insertLogin(con, req);
@@ -29,7 +29,7 @@ public class AddNewLoginCommand implements Command {
                 e.printStackTrace();
             }
             throwables.printStackTrace();
-            session.setAttribute("error" , "Ошибка ввода");
+            session.setAttribute("error", "Ошибка ввода");
             return Constant.URL_NEW_LOGIN;
         } finally {
             try {
@@ -39,9 +39,9 @@ public class AddNewLoginCommand implements Command {
                 throwables.printStackTrace();
             }
         }
-        session.setAttribute("checkLogin" , null);
-        session.setAttribute("successfully" , "Логин создан");
-        session.setAttribute("error" , null);
+        session.setAttribute("checkLogin", null);
+        session.setAttribute("successfully", "Логин создан");
+        session.setAttribute("error", null);
         return Constant.URL_NEW_LOGIN;
     }
 
@@ -51,14 +51,14 @@ public class AddNewLoginCommand implements Command {
         PreparedStatement preparedStatement2;
         PreparedStatement preparedStatement3;
         ResultSet rs2;
-        String login = req.getParameter("login");
+        String login = req.getParameter("newLogin");
         String password = req.getParameter("password");
         String role = req.getParameter("role");
         preparedStatement1 = con.prepareStatement(Constant.SQL_NEW_LOGIN_INSERT_LOGIN);
         preparedStatement1.setString(1, login);
         preparedStatement1.setString(2, password);
         preparedStatement1.setString(3, role);
-        session.setAttribute("role" , role);
+        session.setAttribute("role", role);
         preparedStatement1.executeUpdate();
         preparedStatement2 = con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_LOGIN);
         int k = 1;
@@ -72,7 +72,7 @@ public class AddNewLoginCommand implements Command {
         preparedStatement3 = con.prepareStatement(path);
         preparedStatement3.setInt(1, id);
         preparedStatement3.executeUpdate();
-        session.setAttribute("idLoginPassword" , id);
+        session.setAttribute("idLoginPassword", id);
         preparedStatement1.close();
         preparedStatement2.close();
         preparedStatement3.close();
@@ -93,6 +93,11 @@ public class AddNewLoginCommand implements Command {
         System.out.println(update);
         preparedStatement = con.prepareStatement(update);
         k = 1;
+        System.out.println("name => " + req.getParameter("name"));
+        System.out.println("surname => " + req.getParameter("surname"));
+        System.out.println("telephone => " + req.getParameter("telephone"));
+        System.out.println("passport => " + req.getParameter("passport"));
+        System.out.println("idLoginPassword => " + (int) session.getAttribute("idLoginPassword"));
         preparedStatement.setString(k++, req.getParameter("name"));
         preparedStatement.setString(k++, req.getParameter("surname"));
         preparedStatement.setString(k++, req.getParameter("telephone"));
