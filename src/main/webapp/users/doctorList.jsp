@@ -55,102 +55,10 @@
     </script>
     <style>
         @import url(/users/css/doctorList_center.css);
-        @import url(/users/css/table_case_record.css);
-        @import url(/users/css/newLogin_blank2.css);
-
-        .rounded {
-            counter-reset: li;
-            list-style: none;
-            font: 17px "Trebuchet MS", "Lucida Sans";
-            padding: 0;
-            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-        }
-
-        .rounded a {
-            position: relative;
-            display: block;
-            padding: .4em .4em .4em 2em;
-            margin: .5em 25px;
-            background: #DAD2CA;
-            color: #444;
-            text-decoration: none;
-            border-radius: .3em;
-            transition: .3s ease-out;
-        }
-
-        .rounded a#font {
-            position: relative;
-            display: block;
-            padding: .4em .4em .4em 2em;
-            margin: .5em 25px .5em 50px;
-            background: #DAD2CA;
-            color: #444;
-            text-decoration: none;
-            border-radius: .3em;
-            transition: .3s ease-out;
-        }
-
-        .rounded a:hover {
-            background: #e9e4e0;
-        }
-
-        .rounded b {
-            position: relative;
-            display: block;
-            padding: .4em .4em .4em 2em;
-            margin: .5em 25px;
-            background: #DAD2CA;
-            color: #444444;
-            text-transform: uppercase;
-            text-decoration: none;
-            border-radius: .3em;
-            transition: .3s ease-out;
-        }
-
-        .rounded b:hover {
-            background: #E9E4E0;
-        }
-
-        .rounded b:before {
-            content: "";
-            /*content: counter(li);*/
-            /*counter-increment: li;*/
-            position: absolute;
-            left: -1.3em;
-            top: 50%;
-            margin-top: -1.3em;
-            background: #8FD4C1;
-            height: 2em;
-            width: 2em;
-            line-height: 2em;
-            border: .3em solid white;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 2em;
-            transition: all .3s ease-out;
-        }
-
-        .rounded a:hover:before {
-            transform: rotate(360deg);
-        }
-
-        .rounded a:before {
-            content: counter(li);
-            counter-increment: li;
-            position: absolute;
-            left: -1.3em;
-            top: 50%;
-            margin-top: -1.3em;
-            background: #8FD4C1;
-            height: 2em;
-            width: 2em;
-            line-height: 2em;
-            border: .3em solid white;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 2em;
-            transition: all .3s ease-out;
-        }
+        @import url(/users/css/highBanner.css);
+        /*@import url(/users/css/table_case_record.css);*/
+        /*@import url(/users/css/newLogin_blank2.css);*/
+        @import url(/users/css/list.css);
 
     </style>
 </head>
@@ -184,6 +92,24 @@
     <div class="login-page">
         <div class="form">
             <div id="Staff" class="tabcontent2">
+                <div class="button">
+                    <p align="left">
+                    <form class="button" action="/controller" method="post">
+                        <input name="command" value="doctorToPatient" hidden>
+                        <p><select name="type sort" class="selcls">
+                            <option value="name"><loc:print key="Sorted_By_Name"/></option>
+                            <option value="count"><loc:print key="Sorted_By_Patients"/></option>
+                        </select>
+                            <select name="categorize" class="selcls">
+                                <c:forEach items="${departments}" var="entry">
+                                    <option value="${entry.getDescription()}">${entry.getDescription()}</option>
+                                </c:forEach>
+                            </select>
+                            <input type="submit" class="shine-button" value="<loc:print key="Sorted"/>">
+                            <input name="command" value="sortDoctorList" hidden></p>
+                    </form>
+                    </p>
+                </div>
                 <form action="/controller" method="post">
                     <c:if test="${check == 'on'}">
                         <div class="tab">
@@ -206,7 +132,7 @@
                     </c:if>
                     <c:if test="${check != 'on'}">
                         <div class="tab">
-                            <ol class="rounded">
+                            <ol class="square">
                                 <c:forEach items="${doctors}" var="entry">
                                     <li><a href="#" class="tablinks"
                                            onclick="openCity(event, '${entry.getLogin()}')"> ${entry.getName()}
@@ -250,34 +176,7 @@
                     </div>
                     <input name="address" value="users/newLogin.jsp" hidden>
                 </form>
-                <div class="button">
-                    <p align="left">
-                    <form id="sort" action="/controller" method="get">
-                        <c:if test="${check!='on'}">
-                            <label><input type="checkbox" name="check" value="on">
-                                <loc:print key="Categorize_By"/></label><br>
-                        </c:if>
-                        <c:if test="${check=='on'}">
-                            <label><loc:print key="Categorize_By"/><input type="checkbox" name="check" value="on" checked>
-                                </label><br>
-                        </c:if>
-                        <c:if test="${sort=='sortByName'|| sort==null}">
-                            <label><loc:print key="Sorted_By_Name"/><input type="radio" name="sort" value="sortByName" checked>
-                               </label><br>
-                            <label><loc:print key="Sorted_By_Patients"/><input type="radio" name="sort" value="sortByCount">
-                                </label><br></label><br>
-                        </c:if>
-                        <c:if test="${sort=='sortByCount'}">
-                            <label><loc:print key="Sorted_By_Name"/><input type="radio" name="sort" value="sortByName">
-                                </label><br>
-                            <label><loc:print key="Sorted_By_Patients"/><input type="radio" name="sort" value="sortByCount" checked>
-                                </label><br>
-                        </c:if>
-                        <input type="submit" value="<loc:print key="Sorted"/>">
-                        <input name="command" value="sortDoctorList" hidden>
-                    </form>
-                    </p>
-                </div>
+
             </div>
 
             <div id="Nurse" class="tabcontent2">
