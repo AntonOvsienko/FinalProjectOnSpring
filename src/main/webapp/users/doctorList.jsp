@@ -251,7 +251,7 @@
             <div id="Staff" class="tabcontent2">
                 <div class="button">
                     <p align="left">
-                    <form class="button" action="/controller" method="post">
+                    <form class="button" action="/controller" method="get">
                         <select name="sort" class="selcls">
                             <option value="name"><loc:print key="Sorted_By_Name"/></option>
                             <option value="count"><loc:print key="Sorted_By_Patients"/></option>
@@ -265,9 +265,10 @@
                         <button class="shine-button" type="submit" name="command" value="sortDoctorList" width="100%">
                             <loc:print key="Sorted"/>
                         </button>
-                        <button class="shine-button" type="submit" name="command" value="createNewLogin" width="100%">
+                        <button class="shine-button" type="submit" name="command" value="redirect" width="100%">
                             <loc:print key="Add_Employee"/>
                         </button>
+                    <input name="address" value="users/newLogin.jsp" hidden>
                     </form>
                     </p>
                 </div>

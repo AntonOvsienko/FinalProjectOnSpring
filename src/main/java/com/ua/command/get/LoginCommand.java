@@ -48,7 +48,7 @@ public class LoginCommand implements Command {
                 if (role.equals("administrator")) {
                     session.setAttribute("finalAddress","users/doctorList.jsp");
                     address = Constant.URL_CONTROLLER_VIEW_STAFF;
-                    session.setAttribute("error",null);
+                    session.setAttribute("error","");
                 } else if (role.equals("doctor")) {
                     session.setAttribute("finalAddress","users/doctor.jsp");
                     address = Constant.URL_CONTROLLER_VIEW_CASERECORD;
