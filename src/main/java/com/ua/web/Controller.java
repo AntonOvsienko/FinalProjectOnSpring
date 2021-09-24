@@ -35,7 +35,6 @@ public class Controller extends HttpServlet {
 
         String address = "errorMessage/error.jsp";
         ConnectionPool.getInstance();
-
         // (3) do command
         try {
             address = command.execute(req, resp, ConnectionPool.getConnection());
