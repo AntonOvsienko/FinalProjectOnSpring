@@ -260,7 +260,6 @@
             <div id="Staff" class="tabcontent2">
                 <div class="button">
                     <p align="left">
-
                     <form class="button" action="/controller" method="get">
                         <select name="sort" class="selcls">
                             <option value="name"><loc:print key="Sorted_By_Name"/></option>
@@ -374,13 +373,26 @@
                 <%--                    </div>--%>
                 <%--                </c:forEach>--%>
             </div>
-
+            <form class="button" action="/controller" method="get">
+                <select name="sort2" class="selcls">
+                    <option value="sortByName"><loc:print key="Sorted_By_Name"/></option>
+                    <option value="sortByBirthday"><loc:print key="Sorted_By_Age"/></option>
+                </select>
+                <button class="shine-button" type="submit" name="command" value="sortPatientList" width="100%">
+                    <loc:print key="Sorted"/>
+                </button>
+                <input name="address" value="users/newPatient.jsp" hidden>
+                <button class="shine-button" type="submit" name="command" value="redirect" width="100%">
+                    <loc:print key="Add_Patient"/>
+                </button>
+            </form>
             <div id="Patient" class="tabcontent2">
                 <table align="center">
                     <output>
                         <tr class="table1">
                             <th class="table1" width="5%">id</th>
                             <th class="table1" width="20%"><loc:print key="Name_Anketa"/> <loc:print key="Surname_Anketa"/></th>
+                            <th class="table1" width="15%"><loc:print key="Birthday_Anketa"/></th>
                             <th class="table1" width="20%"><loc:print key="Provisional_Diagnosis"/></th>
                             <th class="table1" width="20%"><loc:print key="Attending_Physician_Anketa"/></th>
                             <th class="table1"><loc:print key="Details"/></th>
@@ -389,6 +401,8 @@
                             <tr>
                                 <th class="table1">${i.count}</th>
                                 <th class="table1">${entry.getPatient().getName()} ${entry.getPatient().getSurname()}</th>
+                                <th class="table1">${entry.getPatient().getYearBorn()}/${entry.getPatient().getMonthBorn()}/${entry.getPatient().getDayBorn()}
+                                    (${entry.getPatient().getYears()})</th>
                                 <th class="table1">${entry.getInitialDiagnosis()}</th>
                                 <th class="table1">${entry.getDoctor().getName()} ${entry.getDoctor().getSurname()}</th>
                                 <th class="table1"></th>

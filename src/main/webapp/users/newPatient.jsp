@@ -7,6 +7,21 @@
     <title>Title</title>
     <style>
         @import url(/users/css/newLogin_blank.css);
+
+        .selcls {
+            padding: 9px;
+            margin: 0px 0px 15px;
+            border: solid 1px Black;
+            outline: 0;
+            background: #f1f1f1;
+            align-content: center;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+            -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+            -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+            border-radius: 8px;
+            width: 100%;
+        }
+
     </style>
     <script type="text/javascript">
         function showForm() {
@@ -49,13 +64,13 @@
                 <h2 align="center">Карточка пациента</h2>
                 <hr class="hr-shadow">
                 <p align="center"><input name="passport" placeholder="<loc:print key="Passport_Number"/>"
-                                                         pattern="[А-Яа-яЁё]{2,2}\d{8,8}" type="text"
-                                                         required>
+                                         pattern="[А-Яа-яЁё]{2,2}\d{8,8}" type="text"
+                                         required>
                 </p>
                 <p align="center"><input type="text" name="name" placeholder="<loc:print key="Name_Anketa"/>"
-                                              pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>
+                                         pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>
                 <p align="center"><input type="text" name="surname" placeholder="<loc:print key="Surname_Anketa"/>"
-                                                         pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>
+                                         pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" required></p>
                 <p align="center"><input type="date" name="date" placeholder="<loc:print key="Birthday_Anketa"/>"/></p>
                 <p align="center"><input id="online_phone" name="telephone" type="tel" maxlength="50"
                                          pattern="[0-9]{12,12}"
@@ -64,17 +79,31 @@
                 <hr class="hr-shadow">
                 <p align="center"><input type="text" name="diagnosis1" required
                                          placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <p id="diagnosis2" align="center" hidden><input type="text" name="diagnosis2"
-                                                                placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <p id="diagnosis3" align="center" hidden><input type="text" name="diagnosis3"
-                                                                placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <p id="diagnosis4" align="center" hidden><input type="text" name="diagnosis4"
-                                                                placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <p id="diagnosis5" align="center" hidden><input type="text" name="diagnosis5"
-                                                                placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <p id="diagnosis6" align="center" hidden><input type="text" name="diagnosis6"
-                                                                placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <p align="center"><input type="button" value="<loc:print key="Add_Diagnosis_Field"/>" onclick="showForm()"></p>
+                <select name="selectDoctor" class="selcls">
+                    <option value="" selected disabled><loc:print key="Choose_Doctor"/></option>
+                    <c:forEach items="${doctors}" var="patient">
+                        <option value="${patient.getId()}">${patient.getName()}
+                                ${patient.getSurname()} - ${patient.getDepartment()}</option>
+                    </c:forEach>
+                </select>
+                <p id="diagnosis2" align="center" hidden>
+                <input type="text" name="diagnosis2"
+                       placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
+                <p id="diagnosis3" align="center" hidden>
+                <input type="text" name="diagnosis3"
+                       placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
+                <p id="diagnosis4" align="center" hidden>
+                <input type="text" name="diagnosis4"
+                       placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
+                <p id="diagnosis5" align="center" hidden>
+                <input type="text" name="diagnosis5"
+                       placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
+                <p id="diagnosis6" align="center" hidden>
+                <input type="text" name="diagnosis6"
+                       placeholder="<loc:print key="Provisional_Diagnosis"/>">
+                </p>
+                <p align="center"><input type="button" value="<loc:print key="Add_Diagnosis_Field"/>"
+                                         onclick="showForm()"></p>
                 <p align="center">
                     <button type="submit" name="command" value="addNewPatient">
                         <loc:print key="Create"/></button>
