@@ -101,7 +101,7 @@
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             margin: 100px auto 0;
-            max-width: 550px;
+            max-width: 650px;
             min-height: 300px;
             padding: 24px;
             position: relative;
@@ -245,46 +245,98 @@
         <div class="form">
             <div class="three"><h1><loc:print key="Anketa"/></h1></div>
             <hr class="hr-shadow">
-            <table align="center" width="100%">
-                <c:forEach items="${doctors}" var="entry">
-                    <c:if test="${entry.getLogin() == loginDoctor}">
-                        <tr>
-                            <th><loc:print key="Passport_Number_Empty"/></th>
-                            <th><input name="passport" placeholder="${entry.getPassport()}"
-                                       pattern="[А-Яа-яЁё]{2,2}\d{8,8}" type="text" readonly></th>
-                            </p>
-                        </tr>
-                        <tr>
-                            <th align="right"><loc:print key="Name_Anketa"/></th>
-                            <th><input type="text" name="name" placeholder="${entry.getName()}"
-                                       pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
-                        </tr>
-                        <tr>
-                            <th><loc:print key="Surname_Anketa"/></th>
-                            <th><input type="text" name="surname" placeholder="${entry.getSurname()}"
-                                       pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
-                        </tr>
-                        <tr>
-                            <th><loc:print key="Department_Anketa"/></th>
-                            <th><input type="text" name="surname" placeholder="${entry.getDepartment()}"
-                                       pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
-                        </tr>
+            <c:if test="${changeProfile != true}">
+                <table align="center" width="100%">
+                    <c:forEach items="${doctors}" var="entry">
+                        <c:if test="${entry.getLogin() == loginDoctor}">
+                            <tr>
+                                <th align="right"><loc:print key="Passport_Number_Empty"/></th>
+                                <th><input name="passport" placeholder="${entry.getPassport()}"
+                                           pattern="[А-Яа-яЁё]{2,2}\d{8,8}" type="text" readonly></th>
+                                </p>
+                            </tr>
+                            <tr>
+                                <th align="right"><loc:print key="Name_Anketa"/></th>
+                                <th><input type="text" name="name" placeholder="${entry.getName()}"
+                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
+                            </tr>
+                            <tr>
+                                <th align="right"><loc:print key="Surname_Anketa"/></th>
+                                <th><input type="text" name="surname" placeholder="${entry.getSurname()}"
+                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
+                            </tr>
+                            <tr>
+                                <th align="right"><loc:print key="Department_Anketa"/></th>
+                                <th><input type="text" name="surname" placeholder="${entry.getDepartment()}"
+                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
+                            </tr>
 
-                    </c:if>
-                </c:forEach>
-            </table>
+                        </c:if>
+                    </c:forEach>
+                </table>
+            </c:if>
+            <c:if test="${changeProfile == true}">
+                <table align="center" width="100%">
+                    <c:forEach items="${doctors}" var="entry">
+                        <c:if test="${entry.getLogin() == loginDoctor}">
+                            <tr>
+                                <th align="right"><loc:print key="Passport_Number_Empty"/></th>
+                                <th><input name="passport" placeholder="${entry.getPassport()}"
+                                           pattern="[А-Яа-яЁё]{2,2}\d{8,8}" type="text"></th>
+                                </p>
+                            </tr>
+                            <tr>
+                                <th align="right"><loc:print key="Name_Anketa"/></th>
+                                <th><input type="text" name="name" placeholder="${entry.getName()}"
+                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)"></th>
+                            </tr>
+                            <tr>
+                                <th align="right"><loc:print key="Surname_Anketa"/></th>
+                                <th><input type="text" name="surname" placeholder="${entry.getSurname()}"
+                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)"></th>
+                            </tr>
+                            <tr>
+                                <th align="right"><loc:print key="Department_Anketa"/></th>
+                                <th><input type="text" name="surname" placeholder="${entry.getDepartment()}"
+                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)"></th>
+                            </tr>
+                            <tr>
+                                <th align="right"><loc:print key="Password"/></th>
+                                <th><input name="password" type="password" required
+                                           placeholder="${entry.getPassword()}"/></th>
+                            </tr>
+                            <tr>
+                                <th align="right"><loc:print key="Confirm_Password"/></th>
+                                <th><input name="password_repeat" type="password" required
+                                           placeholder="${entry.getPassword()}"></th>
+                            </tr>
+
+                        </c:if>
+                    </c:forEach>
+                </table>
+            </c:if>
             <hr class="hr-shadow">
             <form action="/controller" method="post">
                 <button class="shine-button" type="submit" name="command" value="deleteDoctor" width="100%">
                     <loc:print key="Delete_Employee"/>
                 </button>
-                <button class="shine-button" type="submit" name="command" value="changeDoctor" width="100%">
-                    <loc:print key="Add_Employee"/>
-                </button>
+                <c:if test="${changeProfile != true}">
+                    <button class="shine-button" type="submit" name="command" value="updateDoctor" width="100%">
+                        <loc:print key="Edit"/>
+                    </button>
+                </c:if>
+                <c:if test="${changeProfile == true}">
+                    <button class="shine-button" type="submit" name="command" value="updateDoctor" width="100%">
+                        <loc:print key="Confirm"/>
+                    </button>
+                </c:if>
                 <input name="loginDoctor" value="${loginDoctor}" hidden>
                 <input name="address" value="users/anketa.jsp" hidden>
+
+
             </form>
             </input>
+
             <%--            <form action="/controller" method="post">--%>
             <%--                <input name="password" type="password" required placeholder="<loc:print key="Password"/>"/>--%>
             <%--                <input name="password_repeat" type="password" required--%>

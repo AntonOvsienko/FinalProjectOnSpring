@@ -2,10 +2,7 @@ package com.ua.command;
 
 import com.ua.command.add.*;
 import com.ua.command.get.*;
-import com.ua.command.update.AppointDoctorToPatientCommand;
-import com.ua.command.update.DeleteAppointmentCommand;
-import com.ua.command.update.DeleteDoctorWithListCommand;
-import com.ua.command.update.DischargedHospitalCommand;
+import com.ua.command.update.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +29,7 @@ public class CommandContainer {
 		commands.put("sortDoctorList", new SortDoctorListCommand());
 		commands.put("sortPatientList", new SortPatientListCommand());
 		commands.put("deleteDoctor", new DeleteDoctorWithListCommand());
+		commands.put("updateDoctor", new UpdateDoctorCommand());
         commands.put("doctorToPatient", new AppointDoctorToPatientCommand());
 		commands.put("doctorAppointment", new DoctorAppointmentListCommand());
 		commands.put("addAppointment", new AddAppointmentCommand());
