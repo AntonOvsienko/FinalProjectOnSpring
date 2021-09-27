@@ -255,7 +255,7 @@
                             </p>
                         </tr>
                         <tr>
-                            <th><loc:print key="Name_Anketa"/></th>
+                            <th align="right"><loc:print key="Name_Anketa"/></th>
                             <th><input type="text" name="name" placeholder="${entry.getName()}"
                                        pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
                         </tr>
