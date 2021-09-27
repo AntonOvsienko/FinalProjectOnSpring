@@ -51,7 +51,7 @@ public class Constant {
             " VALUES (?,?,?)";
     public static final String SQL_NEW_PATIENT_ADD_DIAGNOSIS = "INSERT INTO case_record (initial_diagnosis) VALUES (?)";
     public static final String SQL_NEW_PATIENT_ADD_PATIENT_CASERECORD =
-            "INSERT INTO patient_has_case_records (patient_id,case_record_id) VALUES (?,?)";
+            "INSERT INTO patient_has_case_records (patient_id,case_record_id,doctor_id) VALUES (?,?,?)";
     public static final String SQL_NEW_PATIENT_ADD_ANKETA =
             "INSERT INTO patient (name,surname,passport,telephone,birthday) VALUES (?,?,?,?,?)";
     public static final String SQL_NEW_ARCHIVE_ADD_NEWRECORD=
@@ -66,6 +66,7 @@ public class Constant {
 
     public static final String SQL_DOCTOR_APPOINTMENT_DELETE = "DELETE FROM doctor_appointment WHERE id=?";
     public static final String SQL_LOGIN_PASSWORD_DELETE = "DELETE FROM login_password WHERE id=?";
+    public static final String SQL_LOGIN_PASSWORD_DELETE_WHERE_LOGIN = "DELETE FROM login_password WHERE login=?";
     public static final String SQL_PATIENT_CASE_RECORD_DELETE="DELETE FROM patient_has_case_records WHERE id=?";
 
 

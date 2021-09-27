@@ -26,8 +26,6 @@ public class LocalTag extends TagSupport {
         if (curLocale == null) {
             curLocale = pageContext.getServletContext().getInitParameter("defaultLocale");
         }
-        System.out.println("baseName ==> " + baseName);
-        System.out.println("curLocale ==> " + curLocale);
 
         ResourceBundle rb =
                 ResourceBundle.getBundle(baseName, new Locale(curLocale));

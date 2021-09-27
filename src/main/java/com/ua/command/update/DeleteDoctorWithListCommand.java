@@ -5,25 +5,22 @@ import com.ua.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DeleteDoctorWithListCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         PreparedStatement ps = null;
         ResultSet rs = null;
-        int idLogin = 0;
-        int idDoctor = Integer.parseInt(req.getParameter("select"));
+        String loginDoctor = req.getParameter("loginDoctor");
+        System.out.println("Delete =>" + loginDoctor);
         try {
-            ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_ID);
-            ps.setInt(1,idDoctor);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                idLogin = rs.getInt("login_password_id");
-            }
-            ps=con.prepareStatement(Constant.SQL_LOGIN_PASSWORD_DELETE);
+            ps=con.prepareStatement(Constant.SQL_LOGIN_PASSWORD_DELETE_WHERE_LOGIN);
             int k=1;
-            ps.setInt(k++,idLogin);
+            ps.setString(k++,loginDoctor);
             ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

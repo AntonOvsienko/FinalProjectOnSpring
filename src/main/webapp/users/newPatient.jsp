@@ -18,7 +18,7 @@
             box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
             -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
             -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
-            border-radius: 8px;
+            border-radius: 1px;
             width: 100%;
         }
 
@@ -26,15 +26,18 @@
     <script type="text/javascript">
         function showForm() {
             if (document.getElementById("diagnosis2").hidden == true) {
+                document.getElementById("line2").hidden = false;
                 document.getElementById("diagnosis2").hidden = false;
+                document.getElementById("selectDoctor2").hidden = false;
             } else if (document.getElementById("diagnosis3").hidden == true) {
+                document.getElementById("line3").hidden = false;
                 document.getElementById("diagnosis3").hidden = false;
+                document.getElementById("selectDoctor3").hidden = false;
             } else if (document.getElementById("diagnosis4").hidden == true) {
+                document.getElementById("line4").hidden = false;
                 document.getElementById("diagnosis4").hidden = false;
-            } else if (document.getElementById("diagnosis5").hidden == true) {
                 document.getElementById("diagnosis5").hidden = false;
-            } else if (document.getElementById("diagnosis6").hidden == true) {
-                document.getElementById("diagnosis6").hidden = false;
+                document.getElementById("selectDoctor4").hidden = false;
             }
         }
     </script>
@@ -61,7 +64,7 @@
         <div class="form">
             <form action="/controller" method="post">
                 <input name="command" value="addNewPatient" hidden>
-                <h2 align="center">Карточка пациента</h2>
+                <div class="three"><h1><loc:print key="Patient_Case_Anket"/></h1></div>
                 <hr class="hr-shadow">
                 <p align="center"><input name="passport" placeholder="<loc:print key="Passport_Number"/>"
                                          pattern="[А-Яа-яЁё]{2,2}\d{8,8}" type="text"
@@ -79,30 +82,48 @@
                 <hr class="hr-shadow">
                 <p align="center"><input type="text" name="diagnosis1" required
                                          placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <select name="selectDoctor" class="selcls">
+                <select name="selectDoctor1" class="selcls">
                     <option value="" selected disabled><loc:print key="Choose_Doctor"/></option>
                     <c:forEach items="${doctors}" var="patient">
                         <option value="${patient.getId()}">${patient.getName()}
                                 ${patient.getSurname()} - ${patient.getDepartment()}</option>
                     </c:forEach>
                 </select>
+                <hr class="hr-shadow" id="line2" hidden>
                 <p id="diagnosis2" align="center" hidden>
                 <input type="text" name="diagnosis2"
                        placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
+                <select name="selectDoctor2" id="selectDoctor2" class="selcls" hidden>
+                    <option value="" selected disabled><loc:print key="Choose_Doctor"/></option>
+                    <c:forEach items="${doctors}" var="patient">
+                        <option value="${patient.getId()}">${patient.getName()}
+                                ${patient.getSurname()} - ${patient.getDepartment()}</option>
+                    </c:forEach>
+                </select>
+                <hr class="hr-shadow" id="line3" hidden>
                 <p id="diagnosis3" align="center" hidden>
                 <input type="text" name="diagnosis3"
                        placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
+                <select name="selectDoctor3" class="selcls" id="selectDoctor3" hidden>
+                    <option value="" selected disabled><loc:print key="Choose_Doctor"/></option>
+                    <c:forEach items="${doctors}" var="patient">
+                        <option value="${patient.getId()}">${patient.getName()}
+                                ${patient.getSurname()} - ${patient.getDepartment()}</option>
+                    </c:forEach>
+                </select>
+                <hr class="hr-shadow" id="line4" hidden>
                 <p id="diagnosis4" align="center" hidden>
                 <input type="text" name="diagnosis4"
                        placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <p id="diagnosis5" align="center" hidden>
-                <input type="text" name="diagnosis5"
-                       placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <p id="diagnosis6" align="center" hidden>
-                <input type="text" name="diagnosis6"
-                       placeholder="<loc:print key="Provisional_Diagnosis"/>">
-                </p>
-                <p align="center"><input type="button" value="<loc:print key="Add_Diagnosis_Field"/>"
+                <select name="selectDoctor4" class="selcls" id="selectDoctor4" hidden>
+                    <option value="" selected disabled><loc:print key="Choose_Doctor"/></option>
+                    <c:forEach items="${doctors}" var="patient">
+                        <option value="${patient.getId()}">${patient.getName()}
+                                ${patient.getSurname()} - ${patient.getDepartment()}</option>
+                    </c:forEach>
+                </select>
+                <hr class="hr-shadow" id="line5" hidden>
+                <p align="center" id="button_diagnosis"><input type="button" value="<loc:print key="Add_Diagnosis_Field"/>"
                                          onclick="showForm()"></p>
                 <p align="center">
                     <button type="submit" name="command" value="addNewPatient">

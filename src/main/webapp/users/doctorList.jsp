@@ -56,174 +56,45 @@
     <style>
         @import url(/users/css/doctorList_center2.css);
         @import url(/users/css/table_case_record.css);
-        /*@import url(/users/css/newLogin_blank2.css);*/
+        @import url(/users/css/newLogin_blank2.css);
         @import url(/users/css/list.css);
 
-        table {
-            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-            font-size: 14px;
-            background: white;
-            max-width: 98%;
-            width: 98%;
-            border-collapse: collapse;
-            text-align: left;
+        .three {
+            padding: 0px 20px 50px;
+            text-align: center;
         }
-
-        #nav {
-            width: 100%;
-            float: right;
-            margin: -112px 0 1em 0;
-            padding: 0;
-            list-style: none;
-            background-color: #f2f2f2;
-            border-bottom: 1px solid #ccc;
-            border-top: 1px solid #ccc;
-        }
-
-        #nav li.right {
-            float: left;
-        }
-
-        #nav li.right p {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            font-weight: bold;
-            border-right: 1px solid #ccc;
-        }
-
-        #nav li.right p:hover {
-            color: #c00;
-            background-color: #fff;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        #nav li.left {
-            float: right;
-        }
-
-        #nav li.left p {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            font-weight: bold;
-            border-left: 1px solid #ccc;
-        }
-
-        #nav li.left p:hover {
-            color: #c00;
-            background-color: #fff;
-        }
-
-        .login-page {
-            width: 100%;
-            padding: 5% 5% 5% 5%;
-            margin: auto;
-            text-align: left;
-        }
-
-        .shine-button {
-            text-decoration: none;
-            display: inline-block;
-            padding: 10px 30px;
-            margin: 10px 20px;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid rgba(114, 212, 202, 1);
-            border-radius: 8px;
-            font-family: 'Montserrat', sans-serif;
-            color: GREEN;
-            transition: .2s ease-in-out;
-            float: end;
-        }
-
-        .shine-button:before {
-            content: "";
-            background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
-            height: 50px;
-            width: 50px;
-            position: absolute;
-            top: -8px;
-            left: -75px;
-            transform: skewX(-45deg);
-        }
-
-        .shine-button:hover {
-            background: rgba(114, 212, 202, 1);
-            color: #fff;
-        }
-
-        .shine-button:hover:before {
-            left: 150px;
-            transition: .5s ease-in-out;
-        }
-
-        .selcls {
-            padding: 9px;
-            margin: 0px 0px 15px;
-            border: solid 1px Black;
-            outline: 0;
-            background: #f1f1f1;
-            align-content: center;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
-            -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
-            -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
-            border-radius: 8px;
-            width: 23%;
-        }
-
-        body {
-            background: #ebebeb; /* fallback for old browsers */
+        .three h1 {
             font-family: 'Open Sans', Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .letter {
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            margin: 120px auto 0;
-            max-width: 70%;
-            min-height: 600px;
-            padding: 18px;
             position: relative;
-            width: 80%;
+            color: White;
+            background: #c0c0c0;
+            font-size: 2.5em;
+            font-weight: normal;
+            padding: 10px 40px;
+            display: inline-block;
+            margin: 0;
+            line-height: 1;
         }
-
-        .letter:before, .letter:after {
+        .three h1:before {
             content: "";
-            height: 98%;
             position: absolute;
             width: 100%;
-            z-index: -1;
+            height: 4px;
+            left: 0;
+            bottom: -15px;
+            background: #c0c0c0;
         }
-
-        .letter:before {
-            background: #fafafa;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-            left: -5px;
-            top: 4px;
-            transform: rotate(-2.5deg);
-        }
-
-        .letter:after {
-            background: #f6f6f6;
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-            right: -3px;
-            top: 1px;
-            transform: rotate(1.4deg);
-        }
-
-        .hr-shadow {
-            margin: 20px 0;
-            padding: 0;
-            height: 10px;
-            border: none;
-            border-top: 1px solid #333;
-            box-shadow: 0 10px 10px -10px #8c8b8b inset;
+        .three h1:after {
+            content: "";
+            position: absolute;
+            height: 0;
+            width: 80%;
+            border-top: 10px solid #c0c0c0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -25px;
         }
 
     </style>
@@ -231,9 +102,7 @@
 <body>
 <ul id="nav">
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Staff')" id="defaultOpen">
-        <loc:print key="Head_Button_Doctor"/></p></li>
-    <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Nurse')">
-        <loc:print key="Head_Button_Nurse"/></p></li>
+        <loc:print key="Employee"/></p></li>
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Patient')">
         <loc:print key="Head_Button_Patient"/></p></li>
     <li class="right"><p class="tablinks2" onclick="openCity2(event, 'Archive')">
@@ -258,6 +127,9 @@
     <div class="login-page">
         <div class="form">
             <div id="Staff" class="tabcontent2">
+                <div class="three"><h1><loc:print key="Employee"/></h1></div>
+                <hr class="hr-shadow">
+                <h2 align="center"><loc:print key="Head_Button_Doctor"/></h2>
                 <div class="button">
                     <p align="left">
                     <form class="button" action="/controller" method="get">
@@ -282,7 +154,8 @@
                     </p>
                 </div>
                 <table align="center">
-                    <output>
+                    <form class="button" action="/controller" method="get">
+                        <input name="address" value="users/anketa.jsp" hidden>
                         <tr class="table1">
                             <th class="table1" width="5%">id</th>
                             <th class="table1" width="15%"><loc:print key="Login"/></th>
@@ -292,7 +165,7 @@
                             <th class="table1"><loc:print key="Details"/></th>
                         </tr>
                         <c:forEach items="${doctors}" var="entry" varStatus="i">
-                            <tr class="table1">
+                            <tr>
                                 <th class="table1">${i.count}</th>
                                 <th class="table1">${entry.getLogin()}</th>
                                 <th class="table1">${entry.getName()}</th>
@@ -300,14 +173,16 @@
                                 <th class="table1">${entry.getDepartment()} (${entry.getCaseRecords().size()} -
                                     <loc:print key="Patient_Anketa"/>)
                                 </th>
-                                <th class="table1"></th>
+                                <th class="table1">
+                                <a href="/controller?command=redirect&address=users/anketa.jsp&loginDoctor=${entry.getLogin()}">
+                                    <loc:print key="Details"/></a>
+                                </th>
                             </tr>
                         </c:forEach>
-                    </output>
                 </table>
                 <hr class="hr-shadow">
+                <h2 align="center"><loc:print key="Head_Button_Nurse"/></h2>
                 <table align="center">
-                    <output>
                         <tr class="table1">
                             <th class="table1" width="5%">id</th>
                             <th class="table1" width="15%"><loc:print key="Login"/></th>
@@ -326,7 +201,6 @@
                                <th class="table1"></th>
                            </tr>
                         </c:forEach>
-                    </output>
                 </table>
                 <%--                <c:forEach items="${doctors}" var="entry">--%>
                 <%--                    <div id="${entry.getLogin()}" class="tabcontent" hidden>--%>
@@ -345,21 +219,9 @@
                 <%--                        </output>--%>
                 <%--                    </div>--%>
                 <%--                </c:forEach>--%>
-
+                <hr class="hr-shadow">
             </div>
-            <hr class="hr-shadow">
             <div id="Nurse" class="tabcontent2">
-                <div class="tab">
-                    <ol class="rounded">
-                        <c:forEach items="${nurses}" var="patient">
-                            <li>
-                                <a href="#" class="tablinks"
-                                   onclick="openCity(event, '${patient.getLogin()}')"> ${patient.getName()}
-                                        ${patient.getSurname()}</a>
-                            </li>
-                        </c:forEach>
-                    </ol>
-                </div>
                 <%--                <c:forEach items="${nurses}" var="patient">--%>
                 <%--                    <div id="${patient.getLogin()}" class="tabcontent" hidden>--%>
                 <%--                        <output>--%>
@@ -373,22 +235,24 @@
                 <%--                    </div>--%>
                 <%--                </c:forEach>--%>
             </div>
-            <form class="button" action="/controller" method="get">
-                <select name="sort2" class="selcls">
-                    <option value="sortByName"><loc:print key="Sorted_By_Name"/></option>
-                    <option value="sortByBirthday"><loc:print key="Sorted_By_Age"/></option>
-                </select>
-                <button class="shine-button" type="submit" name="command" value="sortPatientList" width="100%">
-                    <loc:print key="Sorted"/>
-                </button>
-                <input name="address" value="users/newPatient.jsp" hidden>
-                <button class="shine-button" type="submit" name="command" value="redirect" width="100%">
-                    <loc:print key="Add_Patient"/>
-                </button>
-            </form>
+
             <div id="Patient" class="tabcontent2">
+                <div class="three"><h1><loc:print key="Head_Button_Patient"/></h1></div>
+                <hr class="hr-shadow">
+                <form class="button" action="/controller" method="get">
+                    <select name="sort2" class="selcls">
+                        <option value="sortByName"><loc:print key="Sorted_By_Name"/></option>
+                        <option value="sortByBirthday"><loc:print key="Sorted_By_Age"/></option>
+                    </select>
+                    <button class="shine-button" type="submit" name="command" value="sortPatientList" width="100%">
+                        <loc:print key="Sorted"/>
+                    </button>
+                    <input name="address" value="users/newPatient.jsp" hidden>
+                    <button class="shine-button" type="submit" name="command" value="redirect" width="100%">
+                        <loc:print key="Add_Patient"/>
+                    </button>
+                </form>
                 <table align="center">
-                    <output>
                         <tr class="table1">
                             <th class="table1" width="5%">id</th>
                             <th class="table1" width="20%"><loc:print key="Name_Anketa"/> <loc:print key="Surname_Anketa"/></th>
@@ -408,7 +272,6 @@
                                 <th class="table1"></th>
                             </tr>
                         </c:forEach>
-                    </output>
                 </table>
 
 <%--                <c:forEach items="${caseRecordList}" var="patient">--%>
@@ -434,53 +297,12 @@
 <%--                        </i>--%>
 <%--                    </div>--%>
 <%--                </c:forEach>--%>
-                <form class="button" action="/controller" method="get">
-                    <input name="command" value="addNewPatient" hidden>
-                    <p align="left"><input type="submit" value="<loc:print key="Add_Patient"/>"></p>
-                </form>
-                <div class="button">
-                    <p align="left">
-                    <form>
-                        <input name="command" value="sortPatientList" hidden>
-                        <c:if test="${sort2=='sortByName'|| sort2==null}">
-                            <label><input type="radio" name="sort2" value="sortByName" checked>
-                                <loc:print key="Sorted_By_Name"/></label><br>
-                            <label><input type="radio" name="sort2" value="sortByBirthday">
-                                <loc:print key="Sorted_By_Age"/></label><br>
-                        </c:if>
-                        <c:if test="${sort2=='sortByBirthday'}">
-                            <label><input type="radio" name="sort2" value="sortByName">
-                                <loc:print key="Sorted_By_Name"/></label><br>
-                            <label><input type="radio" name="sort2" value="sortByBirthday" checked>
-                                <loc:print key="Sorted_By_Age"/></label><br>
-                        </c:if>
-                        <input type="submit" value="<loc:print key="Sorted"/>">
-                    </form>
-                    <form class="button" action="/controller" method="post">
-                        <p>Назначить врача пациенту</p>
-                        <input name="command" value="doctorToPatient" hidden>
-                        <p><select name="selectDoctor">
-                            <c:forEach items="${doctors}" var="patient">
-                                <option value="${patient.getId()}">${patient.getName()}
-                                        ${patient.getSurname()} - ${patient.getDepartment()}</option>
-                            </c:forEach>
-                        </select>
-                            <select name="selectPatient">
-                                <c:forEach items="${patients}" var="patient">
-                                    <c:forEach items="${patient.getCaseRecords()}" var="diagnose">
-                                        <c:if test="${diagnose.getDoctor().getName()==null}">
-                                            <option value="${diagnose.getId()}">${patient.getName()}
-                                                    ${patient.getSurname()} - ${diagnose.getInitialDiagnosis()}</option>
-                                        </c:if>
-                                    </c:forEach>
-                                </c:forEach>
-                            </select></p>
-                        <input type="submit" value="<loc:print key="Assignment"/>">
-                    </form>
-                </div>
+                <hr class="hr-shadow">
             </div>
 
             <div id="Archive" class="tabcontent2">
+                <div class="three"><h1><loc:print key="Head_Button_Archive"/></h1></div>
+                <hr class="hr-shadow">
                 <table align="center">
                     <tr class="table1">
                         <th class="table1" width="5%">id</th>
@@ -490,23 +312,24 @@
                         <th class="table1" width="22%"><loc:print key="Final_Diagnosis"/></th>
                         <th class="table1"><loc:print key="Medical_Appointments"/></th>
                     </tr>
-                    <c:forEach items="${archivePatient}" var="patient">
+                    <c:forEach items="${archivePatient}" var="patient" varStatus="i">
                         <c:if test="${patient.getCaseRecords().size() != 0}">
-                            <c:forEach items="${patient.getCaseRecords()}" var="cr" varStatus="i">
-                                <tr class="table1">
+                            <c:forEach items="${patient.getCaseRecords()}" var="cr">
+                                <tr>
                                     <td class="table1">${i.count}</td>
                                     <td class="table1">${patient.getPassport()}</td>
                                     <td class="table1">${patient.getName()} ${patient.getSurname()}</td>
                                     <td class="table1">${cr.getInitialDiagnosis()}</td>
                                     <td class="table1">${cr.getFinalDiagnosis()}</td>
                                     <td class="table1"><a
-                                            href="/controller?command=archiveAppointment&appointmentId=${cr.getId()}">Подробно</a>
+                                            href="/controller?command=archiveAppointment&appointmentId=${cr.getId()}"><loc:print key="Details"/></a>
                                     </td>
                                 </tr>
                             </c:forEach>
                         </c:if>
                     </c:forEach>
                 </table>
+                <hr class="hr-shadow">
             </div>
         </div>
     </div>

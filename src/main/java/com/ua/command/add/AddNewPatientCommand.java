@@ -27,9 +27,10 @@ public class AddNewPatientCommand implements Command {
                 patientId = rs.getInt(1);
             }
             System.out.println("patientId => " + patientId);
-            List<String> massivDiagnoses = createDiagnisList(req);
+            List<String> massivDiagnoses = createDiagnosList(req);
+            List<Integer> massivDoctor = createDoctorList(req);
             for (int i = 0; i < massivDiagnoses.size(); i++) {
-                addDiagnoses(ConnectionPool.getConnection(), patientId, massivDiagnoses.get(i));
+                addDiagnoses(ConnectionPool.getConnection(), patientId, massivDiagnoses.get(i),massivDoctor.get(i));
             }
             con.commit();
         } catch (SQLException throwables) {
@@ -46,7 +47,7 @@ public class AddNewPatientCommand implements Command {
         return Constant.URL_NEW_PATIENT;
     }
 
-    private List<String> createDiagnisList(HttpServletRequest req) {
+    private List<String> createDiagnosList(HttpServletRequest req) {
         List<String> list = new ArrayList<>();
         String initDiagnosis1 = req.getParameter("diagnosis1");
         list.add(initDiagnosis1);
@@ -68,7 +69,29 @@ public class AddNewPatientCommand implements Command {
         return list;
     }
 
-    private void addDiagnoses(Connection con, int patientId, String diagnosis) throws SQLException {
+    private List<Integer> createDoctorList(HttpServletRequest req) {
+        List<Integer> list = new ArrayList<>();
+        int doctor1=Integer.parseInt(req.getParameter("selectDoctor1"));
+        list.add(doctor1);
+        int doctor2=0;
+        if (!req.getParameter("diagnosis2").equals("")) {
+            doctor2=Integer.parseInt(req.getParameter("selectDoctor2"));
+            list.add(doctor2);
+        }
+        int doctor3=0;
+        if (!req.getParameter("diagnosis3").equals("")) {
+            doctor3=Integer.parseInt(req.getParameter("selectDoctor3"));
+            list.add(doctor3);
+        }
+        int doctor4=0;
+        if (!req.getParameter("diagnosis4").equals("")) {
+            doctor4=Integer.parseInt(req.getParameter("selectDoctor4"));
+            list.add(doctor4);
+        }
+        return list;
+    }
+
+    private void addDiagnoses(Connection con, int patientId, String diagnosis,int doctorId) throws SQLException {
         PreparedStatement ps;
         Statement st = null;
         ResultSet rs;
@@ -85,6 +108,7 @@ public class AddNewPatientCommand implements Command {
         ps = con.prepareStatement(Constant.SQL_NEW_PATIENT_ADD_PATIENT_CASERECORD);
         ps.setInt(1, patientId);
         ps.setInt(2, caseId);
+        ps.setInt(3,doctorId);
         ps.executeUpdate();
     }
 
