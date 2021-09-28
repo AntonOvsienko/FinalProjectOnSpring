@@ -9,7 +9,6 @@ import java.sql.SQLException;
 public class RedirectCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
-
         return execute(req,resp);
     }
 

@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class Controller extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // (0) session setup
         req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession();
@@ -56,6 +56,7 @@ public class Controller extends HttpServlet {
         if (req.getParameter("command") != null) {
             session.setAttribute("command", req.getParameter("command"));
         }
+        System.out.println("address => " + req.getParameter("address"));
         String commandName = (String) session.getAttribute("command");
         System.out.println("commandName ==> " + commandName);
 

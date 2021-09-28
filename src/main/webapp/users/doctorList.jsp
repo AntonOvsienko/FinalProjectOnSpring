@@ -154,8 +154,6 @@
                     </p>
                 </div>
                 <table align="center">
-                    <form class="button" action="/controller" method="get">
-                        <input name="address" value="users/anketa.jsp" hidden>
                         <tr class="table1">
                             <th class="table1" width="5%">id</th>
                             <th class="table1" width="15%"><loc:print key="Login"/></th>
@@ -179,7 +177,7 @@
                                 </th>
                             </tr>
                         </c:forEach>
-                </table>
+               </table>
                 <hr class="hr-shadow">
                 <h2 align="center"><loc:print key="Head_Button_Nurse"/></h2>
                 <table align="center">
@@ -218,11 +216,10 @@
                     <button class="shine-button" type="submit" name="command" value="sortPatientList" width="100%">
                         <loc:print key="Sorted"/>
                     </button>
+                    <button class="shine-button" type="submit" name="command" value="redirect" width="100%">
+                        <loc:print key="Add_Patient"/>
+                    </button>
                     <input name="address" value="users/newPatient.jsp" hidden>
-                    <a href="users/newPatient.jsp" class="shine-button" class="button"><loc:print key="Add_Patient"/></a>
-<%--                    <button class="shine-button" type="submit" name="command" value="redirect" width="100%">--%>
-<%--                        <loc:print key="Add_Patient"/>--%>
-<%--                    </button>--%>
                 </form>
                 <table align="center">
                         <tr class="table1">

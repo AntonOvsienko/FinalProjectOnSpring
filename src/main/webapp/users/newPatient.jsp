@@ -82,8 +82,8 @@
                 <hr class="hr-shadow">
                 <p align="center"><input type="text" name="diagnosis1" required
                                          placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
-                <select name="selectDoctor1" class="selcls">
-                    <option value="" selected disabled><loc:print key="Choose_Doctor"/></option>
+                <select name="selectDoctor1" class="selcls" required>
+                    <option value="${null}" selected disabled><loc:print key="Choose_Doctor"/></option>
                     <c:forEach items="${doctors}" var="patient">
                         <option value="${patient.getId()}">${patient.getName()}
                                 ${patient.getSurname()} - ${patient.getDepartment()}</option>
@@ -94,7 +94,7 @@
                 <input type="text" name="diagnosis2"
                        placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
                 <select name="selectDoctor2" id="selectDoctor2" class="selcls" hidden>
-                    <option value="" selected disabled><loc:print key="Choose_Doctor"/></option>
+                    <option value="${null}" selected disabled><loc:print key="Choose_Doctor"/></option>
                     <c:forEach items="${doctors}" var="patient">
                         <option value="${patient.getId()}">${patient.getName()}
                                 ${patient.getSurname()} - ${patient.getDepartment()}</option>
@@ -105,7 +105,7 @@
                 <input type="text" name="diagnosis3"
                        placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
                 <select name="selectDoctor3" class="selcls" id="selectDoctor3" hidden>
-                    <option value="" selected disabled><loc:print key="Choose_Doctor"/></option>
+                    <option value="${null}" selected disabled><loc:print key="Choose_Doctor"/></option>
                     <c:forEach items="${doctors}" var="patient">
                         <option value="${patient.getId()}">${patient.getName()}
                                 ${patient.getSurname()} - ${patient.getDepartment()}</option>
@@ -116,7 +116,7 @@
                 <input type="text" name="diagnosis4"
                        placeholder="<loc:print key="Provisional_Diagnosis"/>"></p>
                 <select name="selectDoctor4" class="selcls" id="selectDoctor4" hidden>
-                    <option value="" selected disabled><loc:print key="Choose_Doctor"/></option>
+                    <option value="${null}" selected disabled><loc:print key="Choose_Doctor"/></option>
                     <c:forEach items="${doctors}" var="patient">
                         <option value="${patient.getId()}">${patient.getName()}
                                 ${patient.getSurname()} - ${patient.getDepartment()}</option>

@@ -52,17 +52,17 @@ public class AddNewPatientCommand implements Command {
         String initDiagnosis1 = req.getParameter("diagnosis1");
         list.add(initDiagnosis1);
         String initDiagnosis2 = null;
-        if (!req.getParameter("diagnosis2").equals("")) {
+        if (!req.getParameter("diagnosis2").equals("")&&req.getParameter("selectDoctor2") != null) {
             initDiagnosis2 = req.getParameter("diagnosis2");
             list.add(initDiagnosis2);
         }
         String initDiagnosis3 = null;
-        if (!req.getParameter("diagnosis3").equals("")) {
+        if (!req.getParameter("diagnosis3").equals("")&&req.getParameter("selectDoctor3") != null) {
             initDiagnosis3 = req.getParameter("diagnosis3");
             list.add(initDiagnosis3);
         }
         String initDiagnosis4 = null;
-        if (!req.getParameter("diagnosis4").equals("")) {
+        if (!req.getParameter("diagnosis4").equals("")&&req.getParameter("selectDoctor4") != null) {
             initDiagnosis4 = req.getParameter("diagnosis4");
             list.add(initDiagnosis4);
         }
@@ -74,17 +74,17 @@ public class AddNewPatientCommand implements Command {
         int doctor1=Integer.parseInt(req.getParameter("selectDoctor1"));
         list.add(doctor1);
         int doctor2=0;
-        if (!req.getParameter("selectDoctor2").equals("")) {
+        if (req.getParameter("selectDoctor2") != null&&!req.getParameter("diagnosis2").equals("")) {
             doctor2=Integer.parseInt(req.getParameter("selectDoctor2"));
             list.add(doctor2);
         }
         int doctor3=0;
-        if (!req.getParameter("selectDoctor3").equals("")) {
+        if (req.getParameter("selectDoctor3") != null&&!req.getParameter("diagnosis3").equals("")) {
             doctor3=Integer.parseInt(req.getParameter("selectDoctor3"));
             list.add(doctor3);
         }
         int doctor4=0;
-        if (!req.getParameter("selectDoctor4").equals("")) {
+        if (req.getParameter("selectDoctor4") != null&&!req.getParameter("diagnosis4").equals("")) {
             doctor4=Integer.parseInt(req.getParameter("selectDoctor4"));
             list.add(doctor4);
         }
