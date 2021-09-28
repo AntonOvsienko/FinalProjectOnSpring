@@ -7,6 +7,7 @@ public class Constant {
     public static final String URL_ERROR_PAGE_REPEAT_PASSWORD="errorMessage/errorRepeatPassword.jsp";
     public static final String URL_NEW_LOGIN = "users/newLogin.jsp";
     public static final String URL_NEW_PATIENT = "users/newPatient.jsp";
+    public static final String URL_UPDATE_DOCTOR = "users/anketaDoctor.jsp";
 
 
     public static final String URL_CONTROLLER_VIEW_NURSE = "controller?command=viewNurse";
@@ -72,6 +73,9 @@ public class Constant {
 
     public static final String SQL_NEW_LOGIN_UPDATE_DOCTOR = "UPDATE doctor SET name=?, surname=?, telephone=?, passport=?" +
             ", department=? WHERE login_password_id=?";
+    public static final String SQL_NEW_LOGIN_PASSWORD_UPDATE = "UPDATE login_password SET password=? WHERE login=?";
+    public static final String SQL_UPDATE_LOGIN_UPDATE_DOCTOR = "UPDATE doctor SET name=?, surname=?, telephone=?, passport=?" +
+            ", department=?, password=? WHERE login_password_id=?";
     public static final String SQL_NEW_LOGIN_UPDATE_NURSE = "UPDATE nurse SET name=?, surname=?, telephone=?, passport=?" +
             " WHERE login_password_id=?";
     public static final String SQL_UPDATE_DOCTOR_APPOINTMENT = "UPDATE doctor_appointment SET complete='true'," +

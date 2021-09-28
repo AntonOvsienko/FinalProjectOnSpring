@@ -8,7 +8,6 @@
     <style>
         @import url(/users/css/newLogin_blank.css);
 
-
         .selcls {
             padding: 9px;
             margin: 0px 0px 15px;

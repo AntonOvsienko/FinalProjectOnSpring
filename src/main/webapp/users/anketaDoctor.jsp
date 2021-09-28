@@ -6,222 +6,8 @@
 <head>
     <title>Title</title>
     <style>
-
-        #nav {
-            width: 100%;
-            float: right;
-            margin: -92px 0 1em 0;
-            padding: 0;
-            list-style: none;
-            background-color: #f2f2f2;
-            border-bottom: 1px solid #ccc;
-            border-top: 1px solid #ccc;
-        }
-
-        #nav li.right {
-            float: left;
-        }
-
-        #nav li.right p {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            font-weight: bold;
-            border-right: 1px solid #ccc;
-        }
-
-        #nav li.right p:hover {
-            color: #c00;
-            background-color: #fff;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        #nav li.left {
-            float: right;
-        }
-
-        #nav li.left p {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            font-weight: bold;
-            border-left: 1px solid #ccc;
-        }
-
-        #nav li.left p:hover {
-            color: #c00;
-            background-color: #fff;
-        }
-
-        .login-page {
-            width: 84%;
-            padding: 5% 8% 8% 8%;
-            margin: auto;
-            text-align: center;
-        }
-
-        .form input {
-            font-family: "Roboto", sans-serif;
-            outline: 0;
-            background: #f2f2f2;
-            width: 100%;
-            border: 0;
-            margin: 0 0 15px;
-            padding: 15px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        .form .message {
-            margin: 15px 0 0;
-            color: #b3b3b3;
-            font-size: 12px;
-        }
-
-        .form .message a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-
-        .form .register-form {
-            display: none;
-        }
-
-        body {
-            background: #ebebeb; /* fallback for old browsers */
-            font-family: 'Open Sans', Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .letter {
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            margin: 100px auto 0;
-            max-width: 650px;
-            min-height: 300px;
-            padding: 24px;
-            position: relative;
-            width: 80%;
-        }
-
-        .letter:before, .letter:after {
-            content: "";
-            height: 98%;
-            position: absolute;
-            width: 100%;
-            z-index: -1;
-        }
-
-        .letter:before {
-            background: #fafafa;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-            left: -5px;
-            top: 4px;
-            transform: rotate(-2.5deg);
-        }
-
-        .letter:after {
-            background: #f6f6f6;
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-            right: -3px;
-            top: 1px;
-            transform: rotate(1.4deg);
-        }
-
-        .hr-shadow {
-            margin: 20px 0;
-            padding: 0;
-            height: 10px;
-            border: none;
-            border-top: 1px solid #333;
-            box-shadow: 0 10px 10px -10px #8c8b8b inset;
-        }
-
-        .three {
-            padding: 0px 20px 50px;
-            text-align: center;
-        }
-
-        .three h1 {
-            font-family: 'Open Sans', Arial, sans-serif;
-            position: relative;
-            color: White;
-            background: #c0c0c0;
-            font-size: 2.5em;
-            font-weight: normal;
-            padding: 10px 40px;
-            display: inline-block;
-            margin: 0;
-            line-height: 1;
-        }
-
-        .three h1:before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            left: 0;
-            bottom: -15px;
-            background: #c0c0c0;
-        }
-
-        .three h1:after {
-            content: "";
-            position: absolute;
-            height: 0;
-            width: 80%;
-            border-top: 10px solid #c0c0c0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: -25px;
-        }
-
-        .shine-button {
-            text-decoration: none;
-            display: inline-block;
-            padding: 10px 30px;
-            margin: 10px 20px;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid rgba(114, 212, 202, 1);
-            border-radius: 8px;
-            font-family: 'Montserrat', sans-serif;
-            color: GREEN;
-            transition: .2s ease-in-out;
-            float: end;
-        }
-
-        .shine-button:before {
-            content: "";
-            background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
-            height: 50px;
-            width: 50px;
-            position: absolute;
-            top: -8px;
-            left: -75px;
-            transform: skewX(-45deg);
-        }
-
-        .shine-button:hover {
-            background: rgba(114, 212, 202, 1);
-            color: #fff;
-        }
-
-        .shine-button:hover:before {
-            left: 150px;
-            transition: .5s ease-in-out;
-        }
-
+        @import url(/users/css/anketa.css);
     </style>
-    <script type="text/javascript">
-
-    </script>
 </head>
 <body>
 <ul id="nav">
@@ -231,7 +17,7 @@
                  var="locale" delims=" ">
         <li class="left">
             <p>
-                <a href="/changeLocale.jsp?localeToSet=${locale}&pageToForward=users/anketa.jsp&basename=message_${locale}">
+                <a href="/changeLocale.jsp?localeToSet=${locale}&pageToForward=users/anketaDoctor.jsp&basename=message_${locale}">
                     <img src="/${locale}.png" width="20" height="20"></a></p>
         </li>
     </c:forTokens>
@@ -266,6 +52,13 @@
                                            pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
                             </tr>
                             <tr>
+
+                                <th align="right"><loc:print key="Number_Telephone"/></th>
+                                <th><input id="online_phone" name="telephone" type="tel" maxlength="50"
+                                            pattern="[0-9]{12,12}"
+                                            placeholder="${entry.getTelephone()}" readonly></th>
+                            </tr>
+                            <tr>
                                 <th align="right"><loc:print key="Department_Anketa"/></th>
                                 <th><input type="text" name="surname" placeholder="${entry.getDepartment()}"
                                            pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
@@ -275,6 +68,7 @@
                     </c:forEach>
                 </table>
             </c:if>
+            <form action="/controller" method="post">
             <c:if test="${changeProfile == true}">
                 <table align="center" width="100%">
                     <c:forEach items="${doctors}" var="entry">
@@ -282,41 +76,55 @@
                             <tr>
                                 <th align="right"><loc:print key="Passport_Number_Empty"/></th>
                                 <th><input name="passport" placeholder="${entry.getPassport()}"
+                                           value="${entry.getPassport()}"
                                            pattern="[А-Яа-яЁё]{2,2}\d{8,8}" type="text"></th>
                                 </p>
                             </tr>
                             <tr>
                                 <th align="right"><loc:print key="Name_Anketa"/></th>
                                 <th><input type="text" name="name" placeholder="${entry.getName()}"
-                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)"></th>
+                                           value="${entry.getName()}" pattern="([А-Яа-яЁё]+)|([A-Za-z]+)"></th>
                             </tr>
                             <tr>
                                 <th align="right"><loc:print key="Surname_Anketa"/></th>
                                 <th><input type="text" name="surname" placeholder="${entry.getSurname()}"
-                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)"></th>
-                            </tr>
+                                           value ="${entry.getSurname()}" pattern="([А-Яа-яЁё]+)|([A-Za-z]+)"></th>
+                            </tr><tr>
+                            <th align="right"><loc:print key="Number_Telephone"/></th>
+                            <th><input name="telephone" maxlength="50" value="${entry.getTelephone()}"
+                                       pattern="[0-9]{12,12}"
+                                       placeholder="${entry.getTelephone()}"></th>
+                        </tr>
                             <tr>
                                 <th align="right"><loc:print key="Department_Anketa"/></th>
-                                <th><input type="text" name="surname" placeholder="${entry.getDepartment()}"
-                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)"></th>
+                                <th>
+                                    <select name="department" class="selcls">
+                                        <c:forEach items="${departments}" var="department">
+                                            <c:if test="${department.description == entry.getDepartment()}">
+                                                <option value="${department.description}" selected>${department.description}</option>
+                                            </c:if>
+                                            <option value="${department.description}">${department.description}</option>
+                                        </c:forEach>
+                                    </select></th>
                             </tr>
                             <tr>
                                 <th align="right"><loc:print key="Password"/></th>
                                 <th><input name="password" type="password" required
+                                           value="${entry.getPassword()}"
                                            placeholder="${entry.getPassword()}"/></th>
                             </tr>
                             <tr>
                                 <th align="right"><loc:print key="Confirm_Password"/></th>
                                 <th><input name="password_repeat" type="password" required
+                                           value="${entry.getPassword()}"
                                            placeholder="${entry.getPassword()}"></th>
                             </tr>
-
                         </c:if>
                     </c:forEach>
                 </table>
             </c:if>
             <hr class="hr-shadow">
-            <form action="/controller" method="post">
+
                 <button class="shine-button" type="submit" name="command" value="deleteDoctor" width="100%">
                     <loc:print key="Delete_Employee"/>
                 </button>
@@ -331,7 +139,7 @@
                     </button>
                 </c:if>
                 <input name="loginDoctor" value="${loginDoctor}" hidden>
-                <input name="address" value="users/anketa.jsp" hidden>
+                <input name="address" value="users/anketaDoctor.jsp" hidden>
 
 
             </form>
@@ -364,6 +172,12 @@
             <%--                </c:if>--%>
             <%--                <button type="submit" name="command" value="createNewLogin"><loc:print key="Create"/></button>--%>
             <%--            </form>--%>
+            <c:if test="${messageFalse == 1}">
+                <p style="color:RED"><loc:print key="Re_Password_Error"/></p>
+            </c:if>
+            <c:if test="${successfully == 'true'}">
+                <h4 style="color:green" name="error" align="center" color="#ff0000" c><loc:print key="Login_Update"/></h4>
+            </c:if>
         </div>
     </div>
 </div>

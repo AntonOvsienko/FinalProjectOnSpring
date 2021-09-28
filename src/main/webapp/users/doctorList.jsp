@@ -174,7 +174,7 @@
                                     <loc:print key="Patient_Anketa"/>)
                                 </th>
                                 <th class="table1">
-                                <a href="/controller?command=redirect&address=users/anketa.jsp&loginDoctor=${entry.getLogin()}">
+                                <a href="/controller?command=redirect&address=users/anketaDoctor.jsp&loginDoctor=${entry.getLogin()}">
                                     <loc:print key="Details"/></a>
                                 </th>
                             </tr>

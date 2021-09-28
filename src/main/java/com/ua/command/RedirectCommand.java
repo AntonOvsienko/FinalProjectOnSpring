@@ -23,6 +23,8 @@ public class RedirectCommand implements Command {
         session.setAttribute("password", null);
         session.setAttribute("password_repeat", null);
         session.setAttribute("role", null);
+        session.setAttribute("successfully", null);
+        session.setAttribute("changeProfile", null);
         if (req.getParameter("loginDoctor")!=null){
             session.setAttribute("loginDoctor",req.getParameter("loginDoctor"));
             System.out.println(session.getAttribute("loginDoctor"));
