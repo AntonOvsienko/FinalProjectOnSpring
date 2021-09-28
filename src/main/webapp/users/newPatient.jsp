@@ -64,7 +64,7 @@
         <div class="form">
             <form action="/controller" method="post">
                 <input name="command" value="addNewPatient" hidden>
-                <div class="three"><h1><loc:print key="Patient_Case_Anket"/></h1></div>
+                <div class="three"><h1><loc:print key="Patient_Case_Anketa"/></h1></div>
                 <hr class="hr-shadow">
                 <p align="center"><input name="passport" placeholder="<loc:print key="Passport_Number"/>"
                                          pattern="[А-Яа-яЁё]{2,2}\d{8,8}" type="text"

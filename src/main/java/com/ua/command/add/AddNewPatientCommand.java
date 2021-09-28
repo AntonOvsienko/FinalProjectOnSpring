@@ -30,7 +30,7 @@ public class AddNewPatientCommand implements Command {
             List<String> massivDiagnoses = createDiagnosList(req);
             List<Integer> massivDoctor = createDoctorList(req);
             for (int i = 0; i < massivDiagnoses.size(); i++) {
-                addDiagnoses(ConnectionPool.getConnection(), patientId, massivDiagnoses.get(i),massivDoctor.get(i));
+                addDiagnoses(con, patientId, massivDiagnoses.get(i),massivDoctor.get(i));
             }
             con.commit();
         } catch (SQLException throwables) {
@@ -74,17 +74,17 @@ public class AddNewPatientCommand implements Command {
         int doctor1=Integer.parseInt(req.getParameter("selectDoctor1"));
         list.add(doctor1);
         int doctor2=0;
-        if (!req.getParameter("diagnosis2").equals("")) {
+        if (!req.getParameter("selectDoctor2").equals("")) {
             doctor2=Integer.parseInt(req.getParameter("selectDoctor2"));
             list.add(doctor2);
         }
         int doctor3=0;
-        if (!req.getParameter("diagnosis3").equals("")) {
+        if (!req.getParameter("selectDoctor3").equals("")) {
             doctor3=Integer.parseInt(req.getParameter("selectDoctor3"));
             list.add(doctor3);
         }
         int doctor4=0;
-        if (!req.getParameter("diagnosis4").equals("")) {
+        if (!req.getParameter("selectDoctor4").equals("")) {
             doctor4=Integer.parseInt(req.getParameter("selectDoctor4"));
             list.add(doctor4);
         }

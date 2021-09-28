@@ -219,9 +219,10 @@
                         <loc:print key="Sorted"/>
                     </button>
                     <input name="address" value="users/newPatient.jsp" hidden>
-                    <button class="shine-button" type="submit" name="command" value="redirect" width="100%">
-                        <loc:print key="Add_Patient"/>
-                    </button>
+                    <a href="users/newPatient.jsp" class="shine-button" class="button"><loc:print key="Add_Patient"/></a>
+<%--                    <button class="shine-button" type="submit" name="command" value="redirect" width="100%">--%>
+<%--                        <loc:print key="Add_Patient"/>--%>
+<%--                    </button>--%>
                 </form>
                 <table align="center">
                         <tr class="table1">
