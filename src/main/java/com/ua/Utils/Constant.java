@@ -8,6 +8,8 @@ public class Constant {
     public static final String URL_NEW_LOGIN = "users/newLogin.jsp";
     public static final String URL_NEW_PATIENT = "users/newPatient.jsp";
     public static final String URL_UPDATE_DOCTOR = "users/anketaDoctor.jsp";
+    public static final String URL_UPDATE_NURSE = "users/anketaNurse.jsp";
+    public static final String URL_UPDATE_PATIENT = "users/anketaPatient.jsp";
 
 
     public static final String URL_CONTROLLER_VIEW_NURSE = "controller?command=viewNurse";
@@ -78,11 +80,14 @@ public class Constant {
             ", department=?, password=? WHERE login_password_id=?";
     public static final String SQL_NEW_LOGIN_UPDATE_NURSE = "UPDATE nurse SET name=?, surname=?, telephone=?, passport=?" +
             " WHERE login_password_id=?";
+    public static final String SQL_NEW_LOGIN_UPDATE_PATIENT = "UPDATE patient SET name=?, surname=?, telephone=?, passport=?" +
+            " WHERE id=?";
     public static final String SQL_UPDATE_DOCTOR_APPOINTMENT = "UPDATE doctor_appointment SET complete='true'," +
             " name_staff_complete=? WHERE id=?";
+    public static final String SQL_UPDATE_PATIENT = "UPDATE patient_has_case_records SET doctor_id=? " +
+            "WHERE id=?";
     public static final String SQL_UPDATE_PATIENT_CASERECORDS = "UPDATE patient_has_case_records SET doctor_id=? WHERE id=?";
     public static final String SQL_UPDATE_CASERECORD_ID="UPDATE case_record_archive SET doctor_id=? WHERE id=?";
-    public static final String SQL_UPDATE_CASERECORD_ARCHIVE="UPDATE case_record_archive SET doctor_id=? WHERE id=?";
 
 }
 

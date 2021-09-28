@@ -27,11 +27,14 @@ public class RedirectCommand implements Command {
         session.setAttribute("changeProfile", null);
         if (req.getParameter("loginDoctor")!=null){
             session.setAttribute("loginDoctor",req.getParameter("loginDoctor"));
-            System.out.println(session.getAttribute("loginDoctor"));
+        }
+        if (req.getParameter("loginNurse")!=null){
+            session.setAttribute("loginNurse",req.getParameter("loginNurse"));
+        }
+        if (req.getParameter("loginId")!=null){
+            session.setAttribute("loginId",req.getParameter("loginId"));
         }
         System.out.println(address);
-
-
         return address;
     }
 }

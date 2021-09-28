@@ -10,31 +10,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
-public class UpdateDoctorCommand implements Command {
-    private static final Logger log = Logger.getLogger(UpdateDoctorCommand.class.getName());
-
+public class UpdateNurseCommand implements Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
         System.out.println("name => " + req.getParameter("name"));
         System.out.println("surname => " + req.getParameter("surname"));
-        System.out.println("department => " + req.getParameter("department"));
         System.out.println("passport => " + req.getParameter("passport"));
         System.out.println("password => " + req.getParameter("password"));
         System.out.println("password_repeat => " + req.getParameter("password_repeat"));
-        String address = req.getParameter("address");
         if (session.getAttribute("changeProfile") == null) {
             session.setAttribute("changeProfile", "true");
             session.setAttribute("successfully", "");
             session.setAttribute("error", "");
-            return Constant.URL_UPDATE_DOCTOR;
+            return Constant.URL_UPDATE_NURSE;
         }
         if (!req.getParameter("password").equals(req.getParameter("password_repeat"))) {
-            session.setAttribute("messageFalse","1");
-            return Constant.URL_UPDATE_DOCTOR;
+            session.setAttribute("messageFalse", "1");
+            return Constant.URL_UPDATE_NURSE;
         }
         session.setAttribute("successfully", "");
         try {
@@ -48,7 +43,7 @@ public class UpdateDoctorCommand implements Command {
                 e.printStackTrace();
             }
             throwables.printStackTrace();
-            return Constant.URL_UPDATE_DOCTOR;
+            return Constant.URL_UPDATE_NURSE;
         } finally {
             try {
                 con.setAutoCommit(true);
@@ -58,24 +53,24 @@ public class UpdateDoctorCommand implements Command {
             }
         }
         session.setAttribute("successfully", "true");
-        session.setAttribute("messageFalse","0");
+        session.setAttribute("messageFalse", "0");
         session.setAttribute("changeProfile", "false");
-        return Constant.URL_UPDATE_DOCTOR;
+        return Constant.URL_UPDATE_NURSE;
     }
 
     private void updateLogin(Connection con, HttpServletRequest req) throws SQLException {
         PreparedStatement preparedStatement;
         ResultSet st;
-        int idLoginPassword=0;
+        int idLoginPassword = 0;
         int k;
-        preparedStatement=con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_LOGIN);
-        k=1;
-        preparedStatement.setString(k++,req.getParameter("loginDoctor"));
-        st= preparedStatement.executeQuery();
-        while (st.next()){
-            idLoginPassword=st.getInt("id");
+        preparedStatement = con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_LOGIN);
+        k = 1;
+        preparedStatement.setString(k++, req.getParameter("loginNurse"));
+        st = preparedStatement.executeQuery();
+        while (st.next()) {
+            idLoginPassword = st.getInt("id");
         }
-        preparedStatement = con.prepareStatement(Constant.SQL_NEW_LOGIN_UPDATE_DOCTOR);
+        preparedStatement = con.prepareStatement(Constant.SQL_NEW_LOGIN_UPDATE_NURSE);
         k = 1;
         System.out.println("name => " + req.getParameter("name"));
         System.out.println("surname => " + req.getParameter("surname"));
@@ -86,20 +81,18 @@ public class UpdateDoctorCommand implements Command {
         preparedStatement.setString(k++, req.getParameter("surname"));
         preparedStatement.setString(k++, req.getParameter("telephone"));
         preparedStatement.setString(k++, req.getParameter("passport"));
-        preparedStatement.setString(k++, req.getParameter("department"));
         preparedStatement.setInt(k++, idLoginPassword);
         preparedStatement.executeUpdate();
         k = 1;
         preparedStatement = con.prepareStatement(Constant.SQL_NEW_LOGIN_PASSWORD_UPDATE);
         preparedStatement.setString(k++, req.getParameter("password"));
-        preparedStatement.setString(k++, req.getParameter("loginDoctor"));
+        preparedStatement.setString(k++, req.getParameter("loginNurse"));
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        return Constant.URL_UPDATE_DOCTOR;
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+        return Constant.URL_UPDATE_NURSE;
     }
 }
-

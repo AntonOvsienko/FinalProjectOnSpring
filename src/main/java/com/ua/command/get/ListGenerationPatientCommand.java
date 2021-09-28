@@ -32,9 +32,9 @@ public class ListGenerationPatientCommand implements Command {
             List<Patient> patients = new ArrayList<>();
             while (rs.next()) {
                 Patient patient = (Patient) newElement(rs, "patient");
-                if (patient.getCaseRecords().size() != 0) {
+//                if (patient.getCaseRecords().size() != 0) {
                     patients.add(patient);
-                }
+//                }
             }
             List<Patient> patientsSortByName = new ArrayList<>(patients);
             List<Patient> patientsSortByBirthday = new ArrayList<>(patients);

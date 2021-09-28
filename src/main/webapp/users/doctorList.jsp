@@ -198,44 +198,15 @@
                                <th class="table1">${entry.getName()}</th>
                                <th class="table1">${entry.getSurname()}</th>
                                <th class="table1"><loc:print key="Head_Button_Nurse"/></th>
-                               <th class="table1"></th>
+                               <th class="table1">
+                                   <a href="/controller?command=redirect&address=users/anketaNurse.jsp&loginNurse=${entry.getLogin()}">
+                                       <loc:print key="Details"/></a>
+                               </th>
                            </tr>
                         </c:forEach>
                 </table>
-                <%--                <c:forEach items="${doctors}" var="entry">--%>
-                <%--                    <div id="${entry.getLogin()}" class="tabcontent" hidden>--%>
-                <%--                        <output>--%>
-                <%--                            <i><p class="login"><loc:print key="Login_Anketa"/>${entry.getLogin()}</p>--%>
-                <%--                                <p><loc:print key="Passport_Anketa"/> : ${entry.getPassport()}</p>--%>
-                <%--                                <p><loc:print key="Name_Anketa"/> : ${entry.getName()}</p>--%>
-                <%--                                <p><loc:print key="Surname_Anketa"/> : ${entry.getSurname()}</p>--%>
-                <%--                                <p><loc:print key="Telephone_Anketa"/> : ${entry.getTelephone()}</p>--%>
-                <%--                                <p><loc:print key="Department_Anketa"/> : ${entry.getDepartment()}</p>--%>
-                <%--                                <p><loc:print key="Patient_Case_Anketa"/> :</p>--%>
-                <%--                                <c:forEach items="${entry.getCaseRecords()}" var="card">--%>
-                <%--                                    <pre>    ${card.getPatient().getName()} ${card.getPatient().getSurname()}(${card.getInitialDiagnosis()})</pre>--%>
-                <%--                                </c:forEach>--%>
-                <%--                            </i>--%>
-                <%--                        </output>--%>
-                <%--                    </div>--%>
-                <%--                </c:forEach>--%>
                 <hr class="hr-shadow">
             </div>
-            <div id="Nurse" class="tabcontent2">
-                <%--                <c:forEach items="${nurses}" var="patient">--%>
-                <%--                    <div id="${patient.getLogin()}" class="tabcontent" hidden>--%>
-                <%--                        <output>--%>
-                <%--                            <i><p class="login"><loc:print key="Login_Anketa"/>${patient.getLogin()}</p>--%>
-                <%--                                <p><loc:print key="Passport_Anketa"/> : ${patient.getPassport()}</p>--%>
-                <%--                                <p><loc:print key="Name_Anketa"/> : ${patient.getName()}</p>--%>
-                <%--                                <p><loc:print key="Surname_Anketa"/> : ${patient.getSurname()}</p>--%>
-                <%--                                <p><loc:print key="Telephone_Anketa"/> : ${patient.getTelephone()}</p>--%>
-                <%--                            </i>--%>
-                <%--                        </output>--%>
-                <%--                    </div>--%>
-                <%--                </c:forEach>--%>
-            </div>
-
             <div id="Patient" class="tabcontent2">
                 <div class="three"><h1><loc:print key="Head_Button_Patient"/></h1></div>
                 <hr class="hr-shadow">
@@ -256,47 +227,30 @@
                         <tr class="table1">
                             <th class="table1" width="5%">id</th>
                             <th class="table1" width="20%"><loc:print key="Name_Anketa"/> <loc:print key="Surname_Anketa"/></th>
-                            <th class="table1" width="15%"><loc:print key="Birthday_Anketa"/></th>
-                            <th class="table1" width="20%"><loc:print key="Provisional_Diagnosis"/></th>
-                            <th class="table1" width="20%"><loc:print key="Attending_Physician_Anketa"/></th>
+                            <th class="table1" width="20%"><loc:print key="Birthday_Anketa"/></th>
+                            <th class="table1" width="40%"><loc:print key="Provisional_Diagnosis"/></th>
                             <th class="table1"><loc:print key="Details"/></th>
                         </tr>
-                        <c:forEach items="${caseRecordList}" var="entry" varStatus="i">
+                        <c:forEach items="${patients}" var="entry" varStatus="i">
                             <tr>
                                 <th class="table1">${i.count}</th>
-                                <th class="table1">${entry.getPatient().getName()} ${entry.getPatient().getSurname()}</th>
-                                <th class="table1">${entry.getPatient().getYearBorn()}/${entry.getPatient().getMonthBorn()}/${entry.getPatient().getDayBorn()}
-                                    (${entry.getPatient().getYears()})</th>
-                                <th class="table1">${entry.getInitialDiagnosis()}</th>
-                                <th class="table1">${entry.getDoctor().getName()} ${entry.getDoctor().getSurname()}</th>
-                                <th class="table1"></th>
+                                <th class="table1">
+                                        ${entry.getName()} ${entry.getSurname()}
+                                </th>
+                                <th class="table1">
+                                        ${entry.getYearBorn()}/${entry.getMonthBorn()}/${entry.getDayBorn()}
+                                    (${entry.getYears()})
+                                </th>
+                                <th class="table1">
+                                        <c:forEach items="${entry.getCaseRecords()}" var="caseRecord">
+                                        (${caseRecord.getInitialDiagnosis()})
+                                        </c:forEach>
+                                </th>
+                                <th class="table1"><a href="/controller?command=redirect&address=users/anketaPatient.jsp&loginId=${entry.getId()}">
+                                    <loc:print key="Details"/></a></th>
                             </tr>
                         </c:forEach>
                 </table>
-
-<%--                <c:forEach items="${caseRecordList}" var="patient">--%>
-<%--                    <div id="${patient.getId()}" class="tabcontent" hidden>--%>
-<%--                        <i><p><loc:print key="Passport_Anketa"/>${patient.getPassport()}</p>--%>
-<%--                            <p><loc:print key="Birthday_Anketa"/>--%>
-<%--                                : ${patient.getDayBorn()}-${patient.getMonthBorn()}-${patient.getYearBorn()}(${patient.getYears()})</p>--%>
-<%--                            <p><loc:print key="Name_Anketa"/> : ${patient.getName()}</p>--%>
-<%--                            <p><loc:print key="Surname_Anketa"/> : ${patient.getSurname()}</p>--%>
-<%--                            <p><loc:print key="Telephone_Anketa"/> : ${patient.getTelephone()}</p>--%>
-<%--                            <c:forEach items="${patient.getCaseRecords()}" var="card">--%>
-<%--                                <p class="MyMarginLeft"><loc:print--%>
-<%--                                        key="Diagnosis_Anketa"/>(${card.getInitialDiagnosis()})--%>
-<%--                                    <loc:print key="Attending_Physician_Anketa"/>--%>
-<%--                                    <c:if test="${card.getDoctor().getName() != null}">--%>
-<%--                                        ${card.getDoctor().getName()} ${card.getDoctor().getSurname()}--%>
-<%--                                    </c:if>--%>
-<%--                                    <c:if test="${card.getDoctor().getName() == null}">--%>
-<%--                                        <loc:print key="Not_Available"/>--%>
-<%--                                    </c:if>--%>
-<%--                                </p>--%>
-<%--                            </c:forEach>--%>
-<%--                        </i>--%>
-<%--                    </div>--%>
-<%--                </c:forEach>--%>
                 <hr class="hr-shadow">
             </div>
 

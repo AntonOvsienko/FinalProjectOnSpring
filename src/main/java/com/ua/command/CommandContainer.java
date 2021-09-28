@@ -29,7 +29,10 @@ public class CommandContainer {
 		commands.put("sortDoctorList", new SortDoctorListCommand());
 		commands.put("sortPatientList", new SortPatientListCommand());
 		commands.put("deleteDoctor", new DeleteDoctorWithListCommand());
+		commands.put("deleteNurse", new DeleteNurseCommand());
 		commands.put("updateDoctor", new UpdateDoctorCommand());
+		commands.put("updateNurse", new UpdateNurseCommand());
+		commands.put("updatePatient", new UpdatePatientCommand());
         commands.put("doctorToPatient", new AppointDoctorToPatientCommand());
 		commands.put("doctorAppointment", new DoctorAppointmentListCommand());
 		commands.put("addAppointment", new AddAppointmentCommand());

@@ -64,12 +64,18 @@ public class CreateElement {
                     ps.setInt(1, doctor_id);
                     rs2 = ps.executeQuery();
                     while (rs2.next()) {
+                        int idoctor=rs2.getInt(1);
                         String name = rs2.getString(2);
                         String surname = rs2.getString(3);
                         String department = rs2.getString(5);
+                        String passport = rs2.getString(6);
+                        String telephone = rs2.getString(7);
+                        doctor.setId(idoctor);
                         doctor.setName(name);
                         doctor.setSurname(surname);
                         doctor.setDepartment(department);
+                        doctor.setPassport(passport);
+                        doctor.setTelephone(telephone);
                     }
                 }
                 Staff patient = new Patient();
@@ -79,8 +85,13 @@ public class CreateElement {
                 while (rs2.next()) {
                     String name = rs2.getString("name");
                     String surname = rs2.getString("surname");
+                    String telephone = rs2.getString("telephone");
+                    String passport = rs2.getString("passport");
+                    patient.setId(rs2.getInt("id"));
                     patient.setName(name);
                     patient.setSurname(surname);
+                    patient.setTelephone(telephone);
+                    patient.setPassport(passport);
                 }
                 case_record_id = rs1.getInt("case_record_id");
                 String initialDiagnosis = "";

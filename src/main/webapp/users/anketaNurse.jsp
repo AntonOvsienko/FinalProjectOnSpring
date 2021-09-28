@@ -17,7 +17,7 @@
                  var="locale" delims=" ">
         <li class="left">
             <p>
-                <a href="/changeLocale.jsp?localeToSet=${locale}&pageToForward=users/anketaDoctor.jsp&basename=message_${locale}">
+                <a href="/changeLocale.jsp?localeToSet=${locale}&pageToForward=users/anketaNurse.jsp&basename=message_${locale}">
                     <img src="/${locale}.png" width="20" height="20"></a></p>
         </li>
     </c:forTokens>
@@ -33,8 +33,8 @@
             <hr class="hr-shadow">
             <c:if test="${changeProfile != true}">
                 <table align="center" width="100%">
-                    <c:forEach items="${doctors}" var="entry">
-                        <c:if test="${entry.getLogin() == loginDoctor}">
+                    <c:forEach items="${nurses}" var="entry">
+                        <c:if test="${entry.getLogin() == loginNurse}">
                             <tr>
                                 <th align="right"><loc:print key="Passport_Number_Empty"/></th>
                                 <th><input name="passport" placeholder="${entry.getPassport()}"
@@ -52,16 +52,10 @@
                                            pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
                             </tr>
                             <tr>
-
                                 <th align="right"><loc:print key="Number_Telephone"/></th>
                                 <th><input id="online_phone" name="telephone" type="tel" maxlength="50"
                                             pattern="[0-9]{12,12}"
                                             placeholder="${entry.getTelephone()}" readonly></th>
-                            </tr>
-                            <tr>
-                                <th align="right"><loc:print key="Department_Anketa"/></th>
-                                <th><input type="text" name="surname" placeholder="${entry.getDepartment()}"
-                                           pattern="([А-Яа-яЁё]+)|([A-Za-z]+)" readonly></th>
                             </tr>
 
                         </c:if>
@@ -71,8 +65,8 @@
             <form action="/controller" method="post">
             <c:if test="${changeProfile == true}">
                 <table align="center" width="100%">
-                    <c:forEach items="${doctors}" var="entry">
-                        <c:if test="${entry.getLogin() == loginDoctor}">
+                    <c:forEach items="${nurses}" var="entry">
+                        <c:if test="${entry.getLogin() == loginNurse}">
                             <tr>
                                 <th align="right"><loc:print key="Passport_Number_Empty"/></th>
                                 <th><input name="passport" placeholder="${entry.getPassport()}"
@@ -89,23 +83,12 @@
                                 <th align="right"><loc:print key="Surname_Anketa"/></th>
                                 <th><input type="text" name="surname" placeholder="${entry.getSurname()}"
                                            value ="${entry.getSurname()}" pattern="([А-Яа-яЁё]+)|([A-Za-z]+)"></th>
-                            </tr><tr>
+                            </tr>
+                            <tr>
                             <th align="right"><loc:print key="Number_Telephone"/></th>
                             <th><input name="telephone" maxlength="50" value="${entry.getTelephone()}"
                                        pattern="[0-9]{12,12}"
                                        placeholder="${entry.getTelephone()}"></th>
-                        </tr>
-                            <tr>
-                                <th align="right"><loc:print key="Department_Anketa"/></th>
-                                <th>
-                                    <select name="department" class="selcls">
-                                        <c:forEach items="${departments}" var="department">
-                                            <c:if test="${department.description == entry.getDepartment()}">
-                                                <option value="${department.description}" selected>${department.description}</option>
-                                            </c:if>
-                                            <option value="${department.description}">${department.description}</option>
-                                        </c:forEach>
-                                    </select></th>
                             </tr>
                             <tr>
                                 <th align="right"><loc:print key="Password"/></th>
@@ -125,25 +108,24 @@
             </c:if>
             <hr class="hr-shadow">
 
-                <button class="shine-button" type="submit" name="command" value="deleteDoctor" width="100%">
+                <button class="shine-button" type="submit" name="command" value="deleteNurse" width="100%">
                     <loc:print key="Delete_Employee"/>
                 </button>
                 <c:if test="${changeProfile != true}">
-                    <button class="shine-button" type="submit" name="command" value="updateDoctor" width="100%">
+                    <button class="shine-button" type="submit" name="command" value="updateNurse" width="100%">
                         <loc:print key="Edit"/>
                     </button>
                 </c:if>
                 <c:if test="${changeProfile == true}">
-                    <button class="shine-button" type="submit" name="command" value="updateDoctor" width="100%">
+                    <button class="shine-button" type="submit" name="command" value="updateNurse" width="100%">
                         <loc:print key="Confirm"/>
                     </button>
                 </c:if>
-                <input name="loginDoctor" value="${loginDoctor}" hidden>
-                <input name="address" value="users/anketaDoctor.jsp" hidden>
-
-
+                <input name="loginNurse" value="${loginNurse}" hidden>
+                <input name="address" value="users/anketaNurse.jsp" hidden>
             </form>
             </input>
+
             <c:if test="${messageFalse == 1}">
                 <p style="color:RED"><loc:print key="Re_Password_Error"/></p>
             </c:if>
