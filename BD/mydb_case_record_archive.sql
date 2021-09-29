@@ -34,7 +34,7 @@ CREATE TABLE `case_record_archive` (
   KEY `fk_doctor_id_idx` (`doctor_id`),
   CONSTRAINT `fk_case_record_archive_archive1` FOREIGN KEY (`archive_id`) REFERENCES `archive` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctor_archive` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `case_record_archive` (
 
 LOCK TABLES `case_record_archive` WRITE;
 /*!40000 ALTER TABLE `case_record_archive` DISABLE KEYS */;
-INSERT INTO `case_record_archive` VALUES (22,15,'Перелом','Перелом',26);
+INSERT INTO `case_record_archive` VALUES (22,15,'Перелом','Перелом',26),(23,16,'Сотрясение мозга','Сотрясение мозга',45),(24,17,'Перелом','Перелом',28),(25,18,'Удар током','Удар током',28);
 /*!40000 ALTER TABLE `case_record_archive` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-21 15:46:21
+-- Dump completed on 2021-09-29 16:48:33

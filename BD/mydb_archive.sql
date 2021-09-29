@@ -28,11 +28,10 @@ CREATE TABLE `archive` (
   `name` varchar(45) DEFAULT NULL,
   `surname` varchar(45) DEFAULT NULL,
   `telephone` varchar(45) DEFAULT NULL,
-  `birthday` varchar(45) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `passport_UNIQUE` (`passport`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +40,7 @@ CREATE TABLE `archive` (
 
 LOCK TABLES `archive` WRITE;
 /*!40000 ALTER TABLE `archive` DISABLE KEYS */;
-INSERT INTO `archive` VALUES (5,'АН49582740','Петр','Пяточкин','380509462123','1984-4-23'),(6,'АН4920481','Кирилл','Первый',NULL,'1993-12-13'),(7,'АН1240591','Вася','Амосов',NULL,'2007-8-15'),(8,'ЕП12839357','Николай','Непомнящий','380509462123','1993-4-25'),(15,'AH12289456','Всеволод','Кузнецов','380504462123','1978-8-16');
+INSERT INTO `archive` VALUES (15,'AH12289456','Всеволод','Кузнецов','380504462123','1978-08-16'),(16,'AE12089456','Николя','Тесла','380509462128','1973-01-03'),(17,'AH12039456','Антон','Доценко','380504462123','1985-01-25'),(18,'АЕ12089456','Николя','Тесла','380509462128','1973-01-03');
 /*!40000 ALTER TABLE `archive` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-21 15:46:18
+-- Dump completed on 2021-09-29 16:48:32

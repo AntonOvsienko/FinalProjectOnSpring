@@ -30,7 +30,7 @@ CREATE TABLE `login_password` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `login_password` (
 
 LOCK TABLES `login_password` WRITE;
 /*!40000 ALTER TABLE `login_password` DISABLE KEYS */;
-INSERT INTO `login_password` VALUES (1,'admin','12345','administrator'),(23,'doctor3','12345','doctor'),(26,'doctor1','12345','doctor'),(28,'doctor2','12345','doctor'),(41,'doctor9','12345','doctor'),(42,'nurse1','12345','nurse'),(45,'doctor10','12345','doctor'),(47,'nurse2','12345','nurse'),(55,'doctor80','12345','doctor'),(56,'set34q','12345','doctor'),(57,'doctor90','12345','doctor'),(58,'doctor50','12345','doctor');
+INSERT INTO `login_password` VALUES (1,'admin','12345','administrator'),(23,'doctor3','12345','doctor'),(26,'doctor1','12345','doctor'),(28,'doctor2','12345','doctor'),(41,'doctor9','12345','doctor'),(42,'nurse1','12345','nurse'),(45,'doctor10','12345','doctor'),(47,'nurse2','12345','nurse'),(55,'doctor80','12345','doctor');
 /*!40000 ALTER TABLE `login_password` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-21 15:46:18
+-- Dump completed on 2021-09-29 16:48:34

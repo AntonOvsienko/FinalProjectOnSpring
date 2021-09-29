@@ -28,7 +28,7 @@ CREATE TABLE `case_record` (
   `final_diagnosis` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `case_record` (
 
 LOCK TABLES `case_record` WRITE;
 /*!40000 ALTER TABLE `case_record` DISABLE KEYS */;
-INSERT INTO `case_record` VALUES (12,'Перелом',NULL),(18,'Удар током',NULL),(19,'Сотрясение мозга',NULL),(20,'Перелом руки',NULL),(24,'Аппендицит',NULL),(25,'Перелом',NULL),(26,'Перелом',NULL),(27,'Перелом',NULL),(28,'Перелом',NULL),(29,'Рванная рана',NULL),(30,'Сотрясение мозга',NULL),(31,'Рак',NULL),(32,'Сепсис лёгкого',NULL),(33,'Сотрясение мозга',NULL),(34,'Удар тупым предметом',NULL),(35,'Инсульт',NULL),(36,'Перелом',NULL);
+INSERT INTO `case_record` VALUES (18,'Удар током',NULL),(20,'Перелом руки',NULL),(25,'Перелом',NULL),(27,'Перелом',NULL),(31,'Рак',NULL),(40,'Аллергическая реакция',NULL),(42,'Ножеве ранение',NULL),(43,'Сотрясение мозга',NULL),(44,'Аппендицит',NULL);
 /*!40000 ALTER TABLE `case_record` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-21 15:46:19
+-- Dump completed on 2021-09-29 16:48:33

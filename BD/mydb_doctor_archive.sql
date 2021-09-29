@@ -40,7 +40,7 @@ CREATE TABLE `doctor_archive` (
 
 LOCK TABLES `doctor_archive` WRITE;
 /*!40000 ALTER TABLE `doctor_archive` DISABLE KEYS */;
-INSERT INTO `doctor_archive` VALUES (26,'Вася','Петров','AH12039457','380509462123',NULL);
+INSERT INTO `doctor_archive` VALUES (26,'Вася','Петров','AH12039457','380509462123',NULL),(28,'Макар','Доценко','AH12039456','380509462123',NULL),(45,'Арсений','Шульц','AH12040456','380509462128',NULL);
 /*!40000 ALTER TABLE `doctor_archive` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-21 15:46:22
+-- Dump completed on 2021-09-29 16:48:32

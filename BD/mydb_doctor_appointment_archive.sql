@@ -31,7 +31,7 @@ CREATE TABLE `doctor_appointment_archive` (
   PRIMARY KEY (`id`),
   KEY `fk_doctor_appointment_archive_case_record_archive1_idx` (`case_record_archive_id`),
   CONSTRAINT `fk_doctor_appointment_archive_case_record_archive1` FOREIGN KEY (`case_record_archive_id`) REFERENCES `case_record_archive` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `doctor_appointment_archive` (
 
 LOCK TABLES `doctor_appointment_archive` WRITE;
 /*!40000 ALTER TABLE `doctor_appointment_archive` DISABLE KEYS */;
-INSERT INTO `doctor_appointment_archive` VALUES (90,22,'Приём лекарств','','Вася Петров(доктор)'),(91,22,'Терапия','','Вася Петров(доктор)');
+INSERT INTO `doctor_appointment_archive` VALUES (90,22,'Приём лекарств','','Вася Петров(доктор)'),(91,22,'Терапия','','Вася Петров(доктор)'),(92,23,'Приём лекарств','','Аманда Янг(медсестра)'),(93,23,'Терапия','','Арсений Шульц(доктор)'),(94,23,'Приём лекарств','','Арсений Шульц(доктор)'),(95,24,'Терапия','','Макар Доценко(доктор)'),(96,24,'Приём лекарств','','Аманда Янг(медсестра)'),(97,25,'Терапия','','Макар Доценко(доктор)'),(98,25,'Подготовка к операции','','Аманда Янг(медсестра)'),(99,25,'Приём лекарств','','Аманда Янг(медсестра)');
 /*!40000 ALTER TABLE `doctor_appointment_archive` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-21 15:46:20
+-- Dump completed on 2021-09-29 16:48:35
