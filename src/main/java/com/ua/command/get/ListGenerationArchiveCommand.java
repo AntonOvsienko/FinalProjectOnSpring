@@ -1,10 +1,13 @@
 package com.ua.command.get;
 
 import com.ua.ConnectionPool;
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.Utils.CreateElement;
 import com.ua.command.Command;
 import com.ua.entity.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListGenerationArchiveCommand implements Command {
+
+    private static final Logger log= LogManager.getLogger(ListGenerationArchiveCommand.class.getName());
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
@@ -44,16 +49,12 @@ public class ListGenerationArchiveCommand implements Command {
             }
             session.setAttribute("archivePatient", archivePatient);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error("command ListGenerationArchive not executed" + con, throwables);
+            session.setAttribute("errorMessage",1);
             return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            CloseLink.close(con);
         }
-        System.out.println((String) session.getAttribute("finalAddress"));
         return (String) session.getAttribute("finalAddress");
     }
 

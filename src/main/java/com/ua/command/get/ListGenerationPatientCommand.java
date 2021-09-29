@@ -1,10 +1,13 @@
 package com.ua.command.get;
 
 import com.ua.ConnectionPool;
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
 import com.ua.entity.Patient;
 import com.ua.entity.Staff;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,8 @@ import java.util.List;
 import static com.ua.Utils.CreateElement.newElement;
 
 public class ListGenerationPatientCommand implements Command {
+
+    private static final Logger log= LogManager.getLogger(ListGenerationPatientCommand.class.getName());
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
@@ -62,30 +67,31 @@ public class ListGenerationPatientCommand implements Command {
                 }
                 return 0;
             });
-
             session.setAttribute("patients", patients);
             session.setAttribute("patientsByName", patientsSortByName);
             session.setAttribute("patientsByBirthday", patientsSortByBirthday);
+            ps.close();
+            rs.close();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error("command ListGenerationPatient not executed" + con, ex);
+            session.setAttribute("errorMessage",1);
+            return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                return Constant.URL_ERROR_PAGE;
-            }
+            CloseLink.close(con);
         }
         return Constant.URL_CONTROLLER_VIEW_CASERECORD;
     }
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession session= req.getSession();
         Connection con = null;
         try {
             con = ConnectionPool.getConnection();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error("connection lost " + con, throwables);
+            session.setAttribute("errorMessage",1);
+            return Constant.URL_ERROR_PAGE;
         }
         return execute(req, resp, con);
     }

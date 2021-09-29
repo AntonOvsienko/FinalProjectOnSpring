@@ -1,6 +1,7 @@
 package com.ua.command.get;
 
 import com.ua.ConnectionPool;
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.Utils.CreateElement;
 import com.ua.command.Command;
@@ -8,6 +9,8 @@ import com.ua.entity.CaseRecord;
 import com.ua.entity.Doctor;
 import com.ua.entity.DoctorAppointment;
 import com.ua.entity.Patient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListGenerationCaseRecordCommand implements Command {
+
+    private static final Logger log= LogManager.getLogger(ListGenerationCaseRecordCommand.class.getName());
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
         HttpSession session = req.getSession();
@@ -80,16 +86,17 @@ public class ListGenerationCaseRecordCommand implements Command {
                 caseRecord.setDoctorAppointmentList(doctorAppointmentList);
                 nurseCaseRecord.add(caseRecord);
             }
+            rs.close();
+            rs2.close();
+            rs3.close();
+            ps.close();
             session.setAttribute("caseRecordList", nurseCaseRecord);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error("command ListGenerationCaseRecord not executed" + con, throwables);
+            session.setAttribute("errorMessage",1);
             return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            CloseLink.close(con);
         }
         return Constant.URL_CONTROLLER_VIEW_ARCHIVE;
     }

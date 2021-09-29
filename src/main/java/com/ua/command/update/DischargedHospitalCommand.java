@@ -1,9 +1,12 @@
 package com.ua.command.update;
 
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
 import com.ua.entity.CaseRecord;
 import com.ua.entity.DoctorAppointment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,15 +16,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DischargedHospitalCommand implements Command {
+
+    private static final Logger log = LogManager.getLogger(DischargedHospitalCommand.class.getName());
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ResultSet rs2 = null;
         HttpSession session = req.getSession();
         try {
             con.setAutoCommit(false);
-
             int caseRecordId = Integer.parseInt(req.getParameter("caseRecordId"));
             System.out.println("caseRecordId => " + caseRecordId);
             String finalDiagnosis = req.getParameter("finalDiagnosis");
@@ -45,23 +49,19 @@ public class DischargedHospitalCommand implements Command {
             }
             createNewRecord(con, session, finalDiagnosis, caseRecordList, birthday, caseRecordId);
             con.commit();
-            return Constant.URL_CONTROLLER_VIEW_CASERECORD;
+            ps.close();
+            rs.close();
         } catch (SQLException throwables) {
-            try {
-                con.rollback();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            throwables.printStackTrace();
+            CloseLink.rollback(con);
+            log.error("command DischargedHospital not executed" + con, throwables);
+            session.setAttribute("errorMessage", 1);
+            return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.setAutoCommit(true);
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            CloseLink.setAutoCommitOn(con);
+            CloseLink.close(con);
         }
-        return Constant.URL_ERROR_PAGE;
+        return Constant.URL_CONTROLLER_VIEW_CASERECORD;
+
     }
 
     private void addDoctor(Connection con, HttpSession session, List<CaseRecord> caseRecordList) throws SQLException {

@@ -1,7 +1,10 @@
 package com.ua.command.update;
 
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,10 +13,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 public class UpdateDoctorCommand implements Command {
-    private static final Logger log = Logger.getLogger(UpdateDoctorCommand.class.getName());
+
+    private static final Logger log = LogManager.getLogger(UpdateDoctorCommand.class.getName());
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
@@ -42,20 +45,13 @@ public class UpdateDoctorCommand implements Command {
             updateLogin(con, req);
             con.commit();
         } catch (SQLException throwables) {
-            try {
-                con.rollback();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            throwables.printStackTrace();
-            return Constant.URL_UPDATE_DOCTOR;
+            CloseLink.rollback(con);
+            log.error("command UpdateDoctor not executed" + con, throwables);
+            session.setAttribute("errorMessage", 1);
+            return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.setAutoCommit(true);
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            CloseLink.setAutoCommitOn(con);
+            CloseLink.close(con);
         }
         session.setAttribute("successfully", "true");
         session.setAttribute("messageFalse","0");

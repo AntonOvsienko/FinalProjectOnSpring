@@ -1,11 +1,15 @@
 package com.ua.command.get;
 
 import com.ua.ConnectionPool;
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
+import com.ua.command.add.AddNewLoginCommand;
 import com.ua.entity.Doctor;
 import com.ua.entity.DoctorAppointment;
 import com.ua.entity.Patient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +25,9 @@ import java.util.List;
 import static com.ua.Utils.CreateElement.newElement;
 
 public class DoctorAppointmentListCommand implements Command {
+
+    private static final Logger log= LogManager.getLogger(DoctorAppointmentListCommand.class.getName());
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
@@ -67,18 +74,18 @@ public class DoctorAppointmentListCommand implements Command {
                     doctorAppointmentList.add(da);
                 }
             }
+            rs2.close();
+            rs.close();
+            ps.close();
             session.setAttribute("appointmentList", doctorAppointmentList);
             session.setAttribute("doctor", doctor);
             session.setAttribute("patient", patient);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error("command DoctorAppointmentList not executed" + con, throwables);
+            session.setAttribute("errorMessage",1);
             return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            CloseLink.close(con);
         }
         return Constant.URL_CONTROLLER_VIEW_CASERECORD;
     }

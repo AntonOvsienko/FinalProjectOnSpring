@@ -10,6 +10,8 @@ public class Constant {
     public static final String URL_UPDATE_DOCTOR = "users/anketaDoctor.jsp";
     public static final String URL_UPDATE_NURSE = "users/anketaNurse.jsp";
     public static final String URL_UPDATE_PATIENT = "users/anketaPatient.jsp";
+    public static final String URL_LIST_ARCHIVE = "users/doctorAppointmentArchive.jsp";
+
 
 
     public static final String URL_CONTROLLER_VIEW_NURSE = "controller?command=viewNurse";

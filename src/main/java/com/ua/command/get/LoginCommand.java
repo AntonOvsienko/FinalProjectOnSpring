@@ -1,16 +1,20 @@
 package com.ua.command.get;
 
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class LoginCommand implements Command {
-    private static final Logger log = Logger.getLogger(LoginCommand.class.getName());
+
+    private static final Logger log= LogManager.getLogger(LoginCommand.class.getName());
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp,Connection con) {
@@ -57,39 +61,19 @@ public class LoginCommand implements Command {
                     address = Constant.URL_CONTROLLER_VIEW_CASERECORD;
 
                 }
-                setAttributeSession(session, rs2);
             }
+            rs.close();
+            ps.close();
         }  catch (SQLException throwables) {
-            log.log(Level.SEVERE, "", throwables.getMessage());
+            log.error("command Login not executed" + con, throwables);
+            session.setAttribute("errorMessage",1);
+            return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException throwables) {
-                log.log(Level.SEVERE, "", throwables.getMessage());
-            }
+            CloseLink.close(con);
         }
         return address;
     }
 
-    private void setAttributeSession(HttpSession session, ResultSet rs2) throws SQLException {
-        while (rs2.next()) {
-            if (rs2.getString("name") != null) {
-                session.setAttribute("name", rs2.getString("name"));
-            }
-            if (rs2.getString("surname") != null) {
-                session.setAttribute("surname", rs2.getString("surname"));
-            }
-            if (rs2.getString("passport") != null) {
-                session.setAttribute("passport", rs2.getString("passport"));
-            }
-            if (rs2.getString("telephone") != null) {
-                session.setAttribute("telephone", rs2.getString("telephone"));
-            }
-            if (rs2.getString("id") != null) {
-                session.setAttribute("id", rs2.getInt("id"));
-            }
-        }
-    }
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {

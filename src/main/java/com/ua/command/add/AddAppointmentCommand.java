@@ -1,7 +1,10 @@
 package com.ua.command.add;
 
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +12,9 @@ import javax.servlet.http.HttpSession;
 import java.sql.*;
 
 public class AddAppointmentCommand implements Command {
+
+    private static final Logger log= LogManager.getLogger(AddAppointmentCommand.class.getName());
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
@@ -46,19 +52,12 @@ public class AddAppointmentCommand implements Command {
             }
             con.commit();
         } catch (SQLException throwables) {
-            try {
-                con.rollback();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            throwables.getMessage();
+            CloseLink.rollback(con);
+            log.error("command AddAppointment not executed" + con, throwables);
+            session.setAttribute("errorMessage",1);
             return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            CloseLink.close(con);
         }
         System.out.println(URL);
         return URL;

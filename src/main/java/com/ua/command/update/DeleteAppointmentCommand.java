@@ -1,7 +1,10 @@
 package com.ua.command.update;
 
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DeleteAppointmentCommand implements Command {
+
+    private static final Logger log = LogManager.getLogger(DeleteAppointmentCommand.class.getName());
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
@@ -28,20 +34,16 @@ public class DeleteAppointmentCommand implements Command {
                 ps.setInt(k++,Integer.parseInt(checkbox[i]));
                 ps.execute();
             }
+            ps.close();
             con.commit();
         } catch (SQLException throwables) {
-            try {
-                con.rollback();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            throwables.printStackTrace();
+            CloseLink.rollback(con);
+            log.error("command DeleteAppointment not executed" + con, throwables);
+            session.setAttribute("errorMessage", 1);
+            return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            CloseLink.setAutoCommitOn(con);
+            CloseLink.close(con);
         }
         return URL;
     }

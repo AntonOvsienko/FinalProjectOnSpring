@@ -7,7 +7,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.*;
 
-
 public class ConnectionPool {
     private static ConnectionPool instance;
     private static DataSource ds;

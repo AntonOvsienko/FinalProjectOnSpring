@@ -1,19 +1,26 @@
 package com.ua.command.add;
 
 import com.ua.ConnectionPool;
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddNewPatientCommand implements Command {
+
+    private static final Logger log= LogManager.getLogger(AddNewPatientCommand.class.getName());
+
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
-        con.setAutoCommit(false);
+    public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con){
+        HttpSession session = req.getSession();
         PreparedStatement ps = null;
         Statement st = null;
         try {
@@ -34,15 +41,13 @@ public class AddNewPatientCommand implements Command {
             }
             con.commit();
         } catch (SQLException throwables) {
-            con.rollback();
-            throwables.printStackTrace();
+            CloseLink.rollback(con);
+            log.error("command AddNewPatient not executed" + con, throwables);
+            session.setAttribute("errorMessage",1);
+            return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.setAutoCommit(true);
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            CloseLink.setAutoCommitOn(con);
+            CloseLink.close(con);
         }
         return Constant.URL_NEW_PATIENT;
     }

@@ -1,16 +1,20 @@
 package com.ua.command.add;
 
+import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
-import java.util.logging.Logger;
+
 
 public class AddNewLoginCommand implements Command {
-    private static final Logger log = Logger.getLogger(AddNewLoginCommand.class.getName());
+
+    private static final Logger log= LogManager.getLogger(AddNewLoginCommand.class.getName());
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
@@ -23,21 +27,13 @@ public class AddNewLoginCommand implements Command {
             updateLogin(con, req);
             con.commit();
         } catch (SQLException throwables) {
-            try {
-                con.rollback();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            throwables.printStackTrace();
-            session.setAttribute("error", "Ошибка ввода");
-            return Constant.URL_NEW_LOGIN;
+            CloseLink.rollback(con);
+            log.error("command AddNewLogin not executed" + con, throwables);
+            session.setAttribute("errorMessage",1);
+            return Constant.URL_ERROR_PAGE;
         } finally {
-            try {
-                con.setAutoCommit(true);
-                con.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            CloseLink.setAutoCommitOn(con);
+            CloseLink.close(con);
         }
         session.setAttribute("checkLogin", null);
         session.setAttribute("successfully", "Логин создан");
