@@ -41,6 +41,9 @@ public class Constant {
     public static final String SQL_SELECT_NURSE = "SELECT * FROM nurse";
     public static final String SQL_SELECT_NURSE_WHERE_LOGIN_PASSWORD = "SELECT * FROM nurse WHERE login_password_id=?";
     public static final String SQL_SELECT_ARCHIVE_WHERE_PASSPORT="SELECT * FROM archive WHERE passport=?";
+    public static final String SQL_SELECT_CASE_RECORD_ARCHIVE_WHERE_ARCHIVE_ID="SELECT * FROM case_record_archive WHERE archive_id=?";
+    public static final String SQL_SELECT_DOCTOR_APPOINTMENT_ARCHIVE_WHERE_ARCHIVE_ID="SELECT * FROM doctor_appointment_archive WHERE case_record_archive_id=?";
+    public static final String SQL_SELECT_ARCHIVE="SELECT * FROM archive";
     public static final String SQL_SELECT_DOCTOR_ARCHIVE="SELECT * FROM doctor_archive WHERE id=?";
     public static final String SQL_MAX_ID_PATIENT = "SELECT MAX(id) FROM patient";
     public static final String SQL_MAX_ID_CASERECORD = "SELECT MAX(id) FROM case_record";

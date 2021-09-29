@@ -10,7 +10,8 @@ div.p {
 
 table {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-    background: #ebebeb;;
+    background: White;
+    /*background: #ebebeb;*/
     font-size: 14px;
     max-width: 70%;
     width: 90%;
@@ -37,8 +38,8 @@ tr:hover td {
 }
 
 .accordion {
-    background-color: #eee;
-    /*background-color: white;*/
+    /*background-color: #eee;*/
+    background-color: white;
     color: #444;
     cursor: pointer;
     padding: 18px;
@@ -50,12 +51,14 @@ tr:hover td {
 }
 
 .active, .accordion:hover {
-    background-color: #ccc;
+    /*background-color: #ccc;*/
+    background-color: White;
 }
 
 .accordion:after {
     content: '\002B';
-    color: #777;
+    /*color: #777;*/
+    color: White;
     font-weight: bold;
     float: right;
     margin-left: 5px;
@@ -67,7 +70,8 @@ tr:hover td {
 
 .panel {
     padding: 0 18px;
-    background-color: #ebebeb;
+    /*background-color: #ebebeb; */
+    background-color: WHITE;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;

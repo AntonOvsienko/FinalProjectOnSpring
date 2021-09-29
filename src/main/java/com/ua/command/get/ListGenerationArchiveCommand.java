@@ -27,7 +27,7 @@ public class ListGenerationArchiveCommand implements Command {
         ResultSet rs = null;
         List<Patient> archivePatient = new ArrayList<>();
         try {
-            ps = con.prepareStatement("SELECT * FROM archive");
+            ps = con.prepareStatement(Constant.SQL_SELECT_ARCHIVE);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int idPatient=rs.getInt("id");
@@ -60,7 +60,7 @@ public class ListGenerationArchiveCommand implements Command {
     private void getCaseRecord(Connection con, int idPatient, List<CaseRecord> caseRecords, Patient patient) throws SQLException {
         PreparedStatement ps;
         ResultSet rs2;
-        ps= con.prepareStatement("SELECT * FROM case_record_archive WHERE archive_id=?");
+        ps= con.prepareStatement(Constant.SQL_SELECT_CASE_RECORD_ARCHIVE_WHERE_ARCHIVE_ID);
         ps.setInt(1, idPatient);
         rs2= ps.executeQuery();
         while (rs2.next()){
@@ -82,8 +82,7 @@ public class ListGenerationArchiveCommand implements Command {
     private void getDoctor(Connection con, CaseRecord caseRecord, Doctor doctor, int idDoctor) throws SQLException {
         PreparedStatement ps;
         ResultSet rs3;
-        ps= con.prepareStatement(
-                "SELECT * FROM doctor_archive WHERE id=?");
+        ps= con.prepareStatement(Constant.SQL_SELECT_DOCTOR_ARCHIVE);
         ps.setInt(1, idDoctor);
         rs3=ps.executeQuery();
         while (rs3.next()){
@@ -99,7 +98,7 @@ public class ListGenerationArchiveCommand implements Command {
         PreparedStatement ps;
         ResultSet rs3;
         ps= con.prepareStatement(
-                "SELECT * FROM doctor_appointment_archive WHERE case_record_archive_id=?");
+                Constant.SQL_SELECT_DOCTOR_APPOINTMENT_ARCHIVE_WHERE_ARCHIVE_ID);
         ps.setInt(1, idCaseRecord);
         rs3=ps.executeQuery();
         while (rs3.next()){

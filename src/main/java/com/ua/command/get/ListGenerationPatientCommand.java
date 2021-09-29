@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,17 +25,17 @@ public class ListGenerationPatientCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
+        PreparedStatement ps=null;
+        ResultSet rs=null;
 
         try {
             System.out.println("con ==> " + con);
-            ResultSet rs = con.createStatement()
-                    .executeQuery(Constant.SQL_SELECT_PATIENT);
+            ps=con.prepareStatement(Constant.SQL_SELECT_PATIENT);
+            rs = ps.executeQuery();
             List<Patient> patients = new ArrayList<>();
             while (rs.next()) {
                 Patient patient = (Patient) newElement(rs, "patient");
-//                if (patient.getCaseRecords().size() != 0) {
-                    patients.add(patient);
-//                }
+                patients.add(patient);
             }
             List<Patient> patientsSortByName = new ArrayList<>(patients);
             List<Patient> patientsSortByBirthday = new ArrayList<>(patients);

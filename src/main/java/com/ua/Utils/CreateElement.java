@@ -43,13 +43,13 @@ public class CreateElement {
         return user;
     }
 
-    private static void getCaseRecordPatient(Connection connection, Staff user, int patient_id) {
+    private static void getCaseRecordPatient(Connection con, Staff user, int patient_id) {
         PreparedStatement ps = null;
         ResultSet rs1 = null;
         ResultSet rs2 = null;
         List<CaseRecord> caseRecords = new ArrayList<>();
         try {
-            ps = connection.prepareStatement(Constant.SQL_SELECT_PATIENT_HAS_CASERECORDS_WHERE_PATIENT_ID);
+            ps = con.prepareStatement(Constant.SQL_SELECT_PATIENT_HAS_CASERECORDS_WHERE_PATIENT_ID);
             ps.setInt(1, patient_id);
             rs1 = ps.executeQuery();
             int id = 0;
@@ -60,7 +60,7 @@ public class CreateElement {
                 Staff doctor = new Doctor();
                 if (rs1.getInt("doctor_id") != 0) {
                     doctor_id = rs1.getInt("doctor_id");
-                    ps = connection.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_ID);
+                    ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_ID);
                     ps.setInt(1, doctor_id);
                     rs2 = ps.executeQuery();
                     while (rs2.next()) {
@@ -79,7 +79,7 @@ public class CreateElement {
                     }
                 }
                 Staff patient = new Patient();
-                ps = connection.prepareStatement(Constant.SQL_SELECT_PATIENT_WHERE_ID);
+                ps = con.prepareStatement(Constant.SQL_SELECT_PATIENT_WHERE_ID);
                 ps.setInt(1, patient_id);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
@@ -95,7 +95,7 @@ public class CreateElement {
                 }
                 case_record_id = rs1.getInt("case_record_id");
                 String initialDiagnosis = "";
-                ps = connection.prepareStatement(Constant.SQL_SELECT_CASERECORD_WHERE_ID);
+                ps = con.prepareStatement(Constant.SQL_SELECT_CASERECORD_WHERE_ID);
                 ps.setInt(1, case_record_id);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
@@ -108,20 +108,20 @@ public class CreateElement {
             throwables.printStackTrace();
         } finally {
             try {
-                connection.close();
+                con.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }
     }
 
-    private static void getCaseRecordDoctor(Connection connection, Staff user, int doctorId) {
+    private static void getCaseRecordDoctor(Connection con, Staff user, int doctorId) {
         PreparedStatement ps = null;
         ResultSet rs1 = null;
         ResultSet rs2 = null;
         List<CaseRecord> caseRecords = new ArrayList<>();
         try {
-            ps = connection.prepareStatement(Constant.SQL_SELECT_PATIENT_HAS_CASERECORDS_WHERE_DOCTOR_ID);
+            ps = con.prepareStatement(Constant.SQL_SELECT_PATIENT_HAS_CASERECORDS_WHERE_DOCTOR_ID);
             ps.setInt(1, doctorId);
             rs1 = ps.executeQuery();
             int id = 0;
@@ -131,7 +131,7 @@ public class CreateElement {
                 Staff patient = new Patient();
                 id = rs1.getInt("id");
                 patient_id = rs1.getInt("patient_id");
-                ps = connection.prepareStatement(Constant.SQL_SELECT_PATIENT_WHERE_ID);
+                ps = con.prepareStatement(Constant.SQL_SELECT_PATIENT_WHERE_ID);
                 ps.setInt(1, patient_id);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
@@ -142,7 +142,7 @@ public class CreateElement {
                     patient = new Patient(patient_id, name, surname, passport, telephone);
                 }
                 Staff doctor = new Doctor();
-                ps = connection.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_ID);
+                ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_WHERE_ID);
                 ps.setInt(1,doctorId);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
@@ -155,7 +155,7 @@ public class CreateElement {
                 }
                 case_record_id = rs1.getInt("case_record_id");
                 String initialDiagnosis = "";
-                ps = connection.prepareStatement(Constant.SQL_SELECT_CASERECORD_WHERE_ID);
+                ps = con.prepareStatement(Constant.SQL_SELECT_CASERECORD_WHERE_ID);
                 ps.setInt(1,case_record_id);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
@@ -169,7 +169,7 @@ public class CreateElement {
             throwables.printStackTrace();
         } finally {
             try {
-                connection.close();
+                con.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

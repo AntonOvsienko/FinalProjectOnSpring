@@ -2,10 +2,7 @@ package com.ua;
 
 import com.ua.command.Command;
 import com.ua.command.CommandContainer;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
@@ -21,7 +18,7 @@ public class TestAddController {
 
     private HttpServletRequest req;
     private HttpServletResponse resp;
-    private HttpSession httpSession;
+    private HttpSession session;
     private PreparedStatement ps;
     private ResultSet rs;
     private ResultSet rs1;
@@ -29,9 +26,11 @@ public class TestAddController {
     private Connection con;
     private Statement st;
     private Statement newLogin2;
-    private PreparedStatement newLogin;
-    private PreparedStatement newStaff2;
-    private PreparedStatement returnId;
+    private PreparedStatement preparedStatement;
+    private PreparedStatement preparedStatement1;
+    private PreparedStatement preparedStatement2;
+    private PreparedStatement preparedStatement3;
+    private String role;
 
     @Before
     public void init() {
@@ -41,14 +40,15 @@ public class TestAddController {
         rs1 = Mockito.mock(ResultSet.class);
         rs2 = Mockito.mock(ResultSet.class);
         ps = Mockito.mock(PreparedStatement.class);
-        newLogin = Mockito.mock(PreparedStatement.class);
-        newStaff2 = Mockito.mock(PreparedStatement.class);
-        returnId = Mockito.mock(PreparedStatement.class);
+        preparedStatement = Mockito.mock(PreparedStatement.class);
+        preparedStatement1 = Mockito.mock(PreparedStatement.class);
+        preparedStatement2 = Mockito.mock(PreparedStatement.class);
+        preparedStatement3 = Mockito.mock(PreparedStatement.class);
         resp = Mockito.mock(HttpServletResponse.class);
         req = Mockito.mock(HttpServletRequest.class);
-        httpSession = Mockito.mock(HttpSession.class);
+        session = Mockito.mock(HttpSession.class);
         con = mock(Connection.class);
-        Mockito.when((req.getSession())).thenReturn(httpSession);
+        Mockito.when((req.getSession())).thenReturn(session);
     }
 
 
@@ -72,26 +72,15 @@ public class TestAddController {
                 .thenReturn("text3");
         Mockito.when(req.getParameter("description4"))
                 .thenReturn("text4");
-        Mockito.when(con.createStatement())
-                .thenReturn(st);
-        Mockito.when(con.prepareStatement("INSERT INTO doctor_appointment (case_record_id,type,description,complete)" +
-                " VALUES (?,?,?,?)"))
+        Mockito.when(con.prepareStatement("SELECT * FROM patient_has_case_records WHERE id=?"))
                 .thenReturn(ps);
-        Mockito.when(st.executeQuery("SELECT * FROM patient_has_case_records WHERE id=15"))
-                .thenReturn(rs);
+        Mockito.when(req.getParameter("caseRecordId")).thenReturn("15");
+        Mockito.when(ps.executeQuery()).thenReturn(rs);
         Mockito.when(rs.next()).thenReturn(true).thenReturn(false);
         Mockito.when(rs.getInt("case_record_id")).thenReturn(40);
-
-        Mockito.when(rs.getString("role")).thenReturn("administrator");
-        Mockito.when(rs.getInt("id")).thenReturn(1);
-        Mockito.when(con.createStatement()).thenReturn(st);
-        Mockito.when(st.executeQuery("SELECT * FROM administrator WHERE login_password_id=1")).thenReturn(rs2);
-        Mockito.when(rs2.next()).thenReturn(true).thenReturn(false);
-        Mockito.when(rs2.getString("name")).thenReturn("admin");
-        Mockito.when(rs2.getString("surname")).thenReturn("admin");
-        Mockito.when(rs2.getString("passport")).thenReturn("admin");
-        Mockito.when(rs2.getString("telephone")).thenReturn("admin");
-        Mockito.when(rs2.getString("id")).thenReturn("3");
+        Mockito.when(con.prepareStatement("INSERT INTO doctor_appointment " +
+                "(case_record_id,type,description,complete) VALUES (?,?,?,?)"))
+                .thenReturn(ps);
         try (MockedStatic<ConnectionPool> utilMock = Mockito.mockStatic(ConnectionPool.class)) {
             utilMock.when(ConnectionPool::getConnection)
                     .thenReturn(con);
@@ -110,21 +99,23 @@ public class TestAddController {
                 .thenReturn("12345");
         Mockito.when(req.getParameter("password_repeat"))
                 .thenReturn("12345");
-        Mockito.when(req.getParameter("role"))
+        Mockito.when(session.getAttribute("role"))
                 .thenReturn("doctor");
         Mockito.when(con.prepareStatement("INSERT INTO login_password (login,password,role) VALUES (?,?,?)"))
-                .thenReturn(newLogin);
-        Mockito.when(con.prepareStatement("INSERT INTO doctor (login_password_id) VALUES (?)"))
-                .thenReturn(newStaff2);
-        Mockito.when(returnId.executeQuery())
-                .thenReturn(rs2);
+                .thenReturn(preparedStatement1);
         Mockito.when(con.prepareStatement("SELECT * FROM login_password WHERE login=?"))
-                .thenReturn(returnId);
+                .thenReturn(preparedStatement2);
+        Mockito.when(preparedStatement2.executeQuery())
+                .thenReturn(rs2);
         Mockito.when(rs2.next())
                 .thenReturn(true)
                 .thenReturn(false);
         Mockito.when(rs2.getInt("id"))
                 .thenReturn(10);
+        Mockito.when(con.prepareStatement("INSERT INTO " + role + " (login_password_id) VALUES (?)"))
+                .thenReturn(preparedStatement3);
+        Mockito.when(con.prepareStatement("UPDATE doctor SET name=?, surname=?, telephone=?, passport=?" +
+        ", department=? WHERE login_password_id=?")).thenReturn(preparedStatement);
         Mockito.when(req.getParameter("name"))
                 .thenReturn("Vasya");
         Mockito.when(req.getParameter("surname"))
@@ -133,6 +124,8 @@ public class TestAddController {
                 .thenReturn("AH1278394");
         Mockito.when(req.getParameter("telephone"))
                 .thenReturn("380507205912");
+        Mockito.when(session.getAttribute("idLoginPassword"))
+                .thenReturn(10);
         Mockito.when(req.getParameter("department"))
                 .thenReturn("pediatr");
         Mockito.when(con.createStatement())
@@ -164,11 +157,18 @@ public class TestAddController {
                 .thenReturn("380507205912");
         Mockito.when(req.getParameter("date"))
                 .thenReturn("1995-03-12");
+        Mockito.when(req.getParameter("diagnosis2")).thenReturn("");
+        Mockito.when(req.getParameter("diagnosis3")).thenReturn("");
+        Mockito.when(req.getParameter("diagnosis4")).thenReturn("");
+        Mockito.when(req.getParameter("selectDoctor1")).thenReturn("3");
+        Mockito.when(req.getParameter("selectDoctor2")).thenReturn(null);
+        Mockito.when(req.getParameter("selectDoctor3")).thenReturn(null);
+        Mockito.when(req.getParameter("selectDoctor4")).thenReturn(null);
         Mockito.when(con.prepareStatement("INSERT INTO patient (name,surname,passport,telephone,birthday) " +
                 "VALUES (?,?,?,?,?)"))
                 .thenReturn(ps);
         Mockito.when(con.prepareStatement("INSERT INTO patient_has_case_records " +
-                "(patient_id,case_record_id) VALUES (?,?)"))
+                "(patient_id,case_record_id,doctor_id) VALUES (?,?,?)"))
                 .thenReturn(ps);
         Mockito.when(ps.executeUpdate())
                 .thenReturn(5)
@@ -186,7 +186,7 @@ public class TestAddController {
                 .thenReturn(false);
         Mockito.when(rs.getInt(1))
                 .thenReturn(10);
-        Mockito.when(con.prepareStatement("INSERT INTO case_record (initial_diagnosis) VALUES ('null')"))
+        Mockito.when(con.prepareStatement("INSERT INTO case_record (initial_diagnosis) VALUES (?)"))
                 .thenReturn(ps);
         Mockito.when(ps.executeUpdate())
                 .thenReturn(1);
