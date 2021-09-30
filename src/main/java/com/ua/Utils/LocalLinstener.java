@@ -13,7 +13,6 @@ public class LocalLinstener implements ServletContextListener {
 		ServletContext context = sce.getServletContext();
 
 		String[] locales = context.getInitParameter("locales").split("\\s+");
-
 		context.setAttribute("locales", locales);
 	}
 }

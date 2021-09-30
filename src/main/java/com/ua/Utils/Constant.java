@@ -13,7 +13,6 @@ public class Constant {
     public static final String URL_LIST_ARCHIVE = "users/doctorAppointmentArchive.jsp";
 
 
-
     public static final String URL_CONTROLLER_VIEW_NURSE = "controller?command=viewNurse";
     public static final String URL_CONTROLLER_VIEW_CASERECORD = "controller?command=viewCaseRecord";
     public static final String URL_CONTROLLER_VIEW_ARCHIVE = "controller?command=archivePatient";

@@ -30,8 +30,8 @@ public class DoctorAppointmentListCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //Returns lists of appointments
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
         PreparedStatement ps = null;
         ResultSet rs = null;
         ResultSet rs2 = null;

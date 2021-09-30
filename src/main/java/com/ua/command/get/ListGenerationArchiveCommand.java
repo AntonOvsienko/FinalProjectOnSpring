@@ -25,9 +25,8 @@ public class ListGenerationArchiveCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
+        //Returns lists of archives
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
-
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Patient> archivePatient = new ArrayList<>();

@@ -28,9 +28,8 @@ public class ListGenerationCaseRecordCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
+        //returns sick leave
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
-
         PreparedStatement ps = null;
         ResultSet rs = null;
         ResultSet rs2 = null;

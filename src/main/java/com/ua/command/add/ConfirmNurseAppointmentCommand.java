@@ -17,12 +17,11 @@ public class ConfirmNurseAppointmentCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //notes the nurse who made the appointment
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
         Statement st = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String URL = "controller?command=viewNurse";
         String[] checkbox = req.getParameterValues("appointment");
         try {
             con.setAutoCommit(false);
@@ -63,7 +62,7 @@ public class ConfirmNurseAppointmentCommand implements Command {
         } finally {
             CloseLink.close(con);
         }
-        return URL;
+        return Constant.URL_CONTROLLER_VIEW_NURSE;
     }
 
     @Override

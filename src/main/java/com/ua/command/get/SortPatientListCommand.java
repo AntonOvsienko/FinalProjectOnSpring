@@ -20,10 +20,10 @@ public class SortPatientListCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        //patient list sorting
         HttpSession session = req.getSession();
         String sort = req.getParameter("sort2");
         session.setAttribute("sort2", sort);
-        System.out.println("sort =>" + sort);
         if (sort.equals("sortByName")) {
             session.setAttribute("patients", session.getAttribute("patientsByName"));
         }

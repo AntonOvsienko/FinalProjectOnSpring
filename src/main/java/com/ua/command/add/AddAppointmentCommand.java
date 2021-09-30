@@ -17,8 +17,8 @@ public class AddAppointmentCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //adding medical appointments to the database
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
         int caseRecordId = Integer.parseInt(req.getParameter("caseRecordId"));
         String select;
         String description;
@@ -65,7 +65,6 @@ public class AddAppointmentCommand implements Command {
 
     private void addInTable(HttpServletRequest req, Connection con, String select, String description) throws SQLException {
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
         int case_record_id = 0;
         PreparedStatement ps;
         ps = con.prepareStatement(Constant.SQL_APPOINTMENT_SELECT);

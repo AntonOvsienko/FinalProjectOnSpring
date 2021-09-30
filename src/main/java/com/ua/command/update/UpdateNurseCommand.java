@@ -20,13 +20,8 @@ public class UpdateNurseCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con){
+        //nurse profile update
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
-        System.out.println("name => " + req.getParameter("name"));
-        System.out.println("surname => " + req.getParameter("surname"));
-        System.out.println("passport => " + req.getParameter("passport"));
-        System.out.println("password => " + req.getParameter("password"));
-        System.out.println("password_repeat => " + req.getParameter("password_repeat"));
         if (session.getAttribute("changeProfile") == null) {
             session.setAttribute("changeProfile", "true");
             session.setAttribute("successfully", "");

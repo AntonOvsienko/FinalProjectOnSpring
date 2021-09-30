@@ -27,11 +27,10 @@ public class ListGenerationNurseCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //returns lists of nurse
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
 
         try {
-            System.out.println("con ==> " + con);
             ResultSet rs = con.createStatement()
                     .executeQuery(Constant.SQL_SELECT_NURSE);
             List<Nurse> nurses = new ArrayList<>();

@@ -20,10 +20,10 @@ public class DeleteNurseCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //deletes doctor login
         HttpSession session=req.getSession();
         PreparedStatement ps = null;
         String loginNurse = req.getParameter("loginNurse");
-        System.out.println("Delete =>" + loginNurse);
         try {
             ps=con.prepareStatement(Constant.SQL_LOGIN_PASSWORD_DELETE_WHERE_LOGIN);
             int k=1;

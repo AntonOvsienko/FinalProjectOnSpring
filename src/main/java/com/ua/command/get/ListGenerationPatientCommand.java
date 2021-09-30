@@ -28,13 +28,12 @@ public class ListGenerationPatientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //returns lists of patients
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
         PreparedStatement ps=null;
         ResultSet rs=null;
 
         try {
-            System.out.println("con ==> " + con);
             ps=con.prepareStatement(Constant.SQL_SELECT_PATIENT);
             rs = ps.executeQuery();
             List<Patient> patients = new ArrayList<>();

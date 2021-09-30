@@ -18,6 +18,7 @@ public class AppointDoctorToPatientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //patient-physician communication via the hospital chart
         HttpSession session = req.getSession();
         PreparedStatement ps = null;
         try {

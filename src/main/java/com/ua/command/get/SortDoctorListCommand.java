@@ -20,12 +20,11 @@ public class SortDoctorListCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        //doctor list sorting
         HttpSession session = req.getSession();
         String sort = req.getParameter("sort");
         String categorize = req.getParameter("categorize");
-        System.out.println("categorize =>" + categorize);
         session.setAttribute("sort", sort);
-        System.out.println("sort =>" + sort);
         List<Doctor> newDoctors = new ArrayList<>();
         if (sort.equals("name")) {
             newDoctors = (List<Doctor>) session.getAttribute("doctorsByName");

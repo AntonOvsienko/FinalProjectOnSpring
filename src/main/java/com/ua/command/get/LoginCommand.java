@@ -18,10 +18,10 @@ public class LoginCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp,Connection con) {
+        //Checking for a login in the database and assigning it a role
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
 
-        String address = "errorMessage/error.jsp";
+        String address="";
 
         if (req.getParameter("globalLogin") != null) {
             session.setAttribute("globalLogin", req.getParameter("globalLogin"));

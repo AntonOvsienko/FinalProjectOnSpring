@@ -17,8 +17,8 @@ public class ConfirmDoctorAppointmentCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con){
+        //notes the doctor who made the appointment
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
         Statement st = null;
         PreparedStatement ps = null;
         ResultSet rs = null;

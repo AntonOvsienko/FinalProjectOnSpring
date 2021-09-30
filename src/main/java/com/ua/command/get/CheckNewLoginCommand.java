@@ -21,8 +21,8 @@ public class CheckNewLoginCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //checks the login in the database for uniqueness
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
         System.out.println((String) session.getAttribute("globalLogin"));
         String login = req.getParameter("newLogin");
         String password = req.getParameter("password");

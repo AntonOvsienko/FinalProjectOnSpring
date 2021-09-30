@@ -21,6 +21,7 @@ public class UpdatePatientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //patient profile update
         HttpSession session = req.getSession();
         if (session.getAttribute("changeProfile") == null) {
             session.setAttribute("changeProfile", "true");

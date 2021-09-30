@@ -18,8 +18,8 @@ public class AddNewLoginCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //add new Login
         HttpSession session = req.getSession();
-        System.out.println("session ==> " + session);
         session.setAttribute("successfully", null);
         try {
             con.setAutoCommit(false);

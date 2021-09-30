@@ -1,16 +1,21 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ARTDoor
-  Date: 26.08.2021
-  Time: 9:40
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="loc" uri="http://com.ua/FinalProject" %>
 <html>
 <head>
     <title>Error 404</title>
 </head>
 <body>
-<h1>Нет такого пользователя</h1>
+<h1>
+    <c:choose>
+        <c:when test="${errorMessage ==1}">
+            <loc:print key="DatabaseOutDate"/>
+        </c:when>
+        <c:otherwise>
+            <loc:print key="LostConnectionDatabase"/>
+        </c:otherwise>
+    </c:choose>
+
+</h1>
 </body>
 </html>

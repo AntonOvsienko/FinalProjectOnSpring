@@ -20,6 +20,7 @@ public class AddNewPatientCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con){
+        //add new Patient
         HttpSession session = req.getSession();
         PreparedStatement ps = null;
         Statement st = null;

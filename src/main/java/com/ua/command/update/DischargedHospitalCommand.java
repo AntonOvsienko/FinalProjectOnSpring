@@ -21,6 +21,7 @@ public class DischargedHospitalCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //moving the case history to the archive and discharging the patient
         PreparedStatement ps = null;
         ResultSet rs = null;
         HttpSession session = req.getSession();

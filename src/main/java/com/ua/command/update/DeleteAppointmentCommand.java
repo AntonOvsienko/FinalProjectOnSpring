@@ -20,6 +20,7 @@ public class DeleteAppointmentCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
+        //Deletes the doctor's appointment
         HttpSession session = req.getSession();
         System.out.println("session ==> " + session);
         PreparedStatement ps = null;

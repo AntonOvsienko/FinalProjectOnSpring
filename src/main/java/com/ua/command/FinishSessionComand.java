@@ -13,6 +13,7 @@ public class FinishSessionComand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
+        //close the session and return to the start page
 
         HttpSession session = req.getSession();
         session.invalidate();
