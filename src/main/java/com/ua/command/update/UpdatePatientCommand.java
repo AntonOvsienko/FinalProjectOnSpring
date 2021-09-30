@@ -23,14 +23,15 @@ public class UpdatePatientCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
         //patient profile update
         HttpSession session = req.getSession();
-        if (session.getAttribute("changeProfile") == null) {
-            session.setAttribute("changeProfile", "true");
-            session.setAttribute("successfully", "");
-            session.setAttribute("error", "");
-            return Constant.URL_UPDATE_PATIENT;
-        }
-        session.setAttribute("successfully", "");
+
         try {
+            if (session.getAttribute("changeProfile") == null) {
+                session.setAttribute("changeProfile", "true");
+                session.setAttribute("successfully", "");
+                session.setAttribute("error", "");
+                return Constant.URL_UPDATE_PATIENT;
+            }
+            session.setAttribute("successfully", "");
             con.setAutoCommit(false);
             updatePatient(con, req);
             con.commit();

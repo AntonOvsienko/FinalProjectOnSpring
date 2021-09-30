@@ -22,18 +22,19 @@ public class UpdateNurseCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con){
         //nurse profile update
         HttpSession session = req.getSession();
-        if (session.getAttribute("changeProfile") == null) {
-            session.setAttribute("changeProfile", "true");
-            session.setAttribute("successfully", "");
-            session.setAttribute("error", "");
-            return Constant.URL_UPDATE_NURSE;
-        }
-        if (!req.getParameter("password").equals(req.getParameter("password_repeat"))) {
-            session.setAttribute("messageFalse", "1");
-            return Constant.URL_UPDATE_NURSE;
-        }
-        session.setAttribute("successfully", "");
+
         try {
+            if (session.getAttribute("changeProfile") == null) {
+                session.setAttribute("changeProfile", "true");
+                session.setAttribute("successfully", "");
+                session.setAttribute("error", "");
+                return Constant.URL_UPDATE_NURSE;
+            }
+            if (!req.getParameter("password").equals(req.getParameter("password_repeat"))) {
+                session.setAttribute("messageFalse", "1");
+                return Constant.URL_UPDATE_NURSE;
+            }
+            session.setAttribute("successfully", "");
             con.setAutoCommit(false);
             updateLogin(con, req);
             con.commit();

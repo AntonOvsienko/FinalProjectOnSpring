@@ -23,18 +23,19 @@ public class UpdateDoctorCommand implements Command {
         //doctor profile update
         HttpSession session = req.getSession();
         String address = req.getParameter("address");
-        if (session.getAttribute("changeProfile") == null) {
-            session.setAttribute("changeProfile", "true");
-            session.setAttribute("successfully", "");
-            session.setAttribute("error", "");
-            return Constant.URL_UPDATE_DOCTOR;
-        }
-        if (!req.getParameter("password").equals(req.getParameter("password_repeat"))) {
-            session.setAttribute("messageFalse","1");
-            return Constant.URL_UPDATE_DOCTOR;
-        }
-        session.setAttribute("successfully", "");
+
         try {
+            if (session.getAttribute("changeProfile") == null) {
+                session.setAttribute("changeProfile", "true");
+                session.setAttribute("successfully", "");
+                session.setAttribute("error", "");
+                return Constant.URL_UPDATE_DOCTOR;
+            }
+            if (!req.getParameter("password").equals(req.getParameter("password_repeat"))) {
+                session.setAttribute("messageFalse","1");
+                return Constant.URL_UPDATE_DOCTOR;
+            }
+            session.setAttribute("successfully", "");
             con.setAutoCommit(false);
             updateLogin(con, req);
             con.commit();
