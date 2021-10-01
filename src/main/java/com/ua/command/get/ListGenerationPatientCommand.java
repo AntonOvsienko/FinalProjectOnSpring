@@ -38,7 +38,7 @@ public class ListGenerationPatientCommand implements Command {
             rs = ps.executeQuery();
             List<Patient> patients = new ArrayList<>();
             while (rs.next()) {
-                Patient patient = (Patient) newElement(rs, "patient");
+                Patient patient = (Patient) newElement(rs, "patient", con);
                 patients.add(patient);
             }
             List<Patient> patientsSortByName = new ArrayList<>(patients);

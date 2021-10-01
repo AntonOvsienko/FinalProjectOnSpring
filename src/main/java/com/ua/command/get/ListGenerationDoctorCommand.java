@@ -36,7 +36,7 @@ public class ListGenerationDoctorCommand implements Command {
                     .executeQuery(Constant.SQL_SELECT_DOCTOR);
             List<Doctor> doctors = new ArrayList<>();
             while (rs.next()) {
-                Doctor doctor = (Doctor) newElement(rs, "doctor");
+                Doctor doctor = (Doctor) newElement(rs, "doctor", con);
                 doctors.add(doctor);
             }
             List<Doctor> doctorsSortByName = new ArrayList<>(doctors);

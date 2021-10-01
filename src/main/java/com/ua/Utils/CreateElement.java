@@ -5,10 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import com.ua.ConnectionPool;
-import com.ua.command.update.UpdatePatientCommand;
 import com.ua.entity.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
@@ -17,26 +14,26 @@ import java.util.regex.Pattern;
 
 public class CreateElement {
 
-    public static Staff newElement(ResultSet rs, String role) throws SQLException {
+    public static Staff newElement(ResultSet rs, String role, Connection con) throws SQLException {
         Staff user = null;
         if (role.equals("doctor")) {
             user = new Doctor();
             if (rs.getString("department") != null) {
                 user.setDepartment(rs.getString("department"));
             }
-            getLoginPassword(rs, ConnectionPool.getConnection(), user);
+            getLoginPassword(rs, con, user);
             getStandartFields(rs, user);
-            getCaseRecordDoctor(ConnectionPool.getConnection(), user, user.getId());
+            getCaseRecordDoctor(con, user, user.getId());
         }
         if (role.equals("patient")) {
             user = new Patient();
             getAge(rs, (Patient) user);
             getStandartFields(rs, user);
-            getCaseRecordPatient(ConnectionPool.getConnection(), user, user.getId());
+            getCaseRecordPatient(con, user, user.getId());
         }
         if (role.equals("nurse")) {
             user = new Nurse();
-            getLoginPassword(rs, ConnectionPool.getConnection(), user);
+            getLoginPassword(rs, con, user);
             getStandartFields(rs, user);
         }
         return user;
@@ -194,26 +191,23 @@ public class CreateElement {
     }
 
     public static void getLoginPassword(ResultSet rs, Connection con, Staff user) throws SQLException {
-        try {
-            if (rs.getString("login_password_id") != null) {
-                int login_password_id = rs.getInt("login_password_id");
-                PreparedStatement ps = con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_ID);
-                ps.setInt(1, login_password_id);
-                ResultSet rs2 = ps.executeQuery();
-                while (rs2.next()) {
-                    if (rs2.getString("role") != null) {
-                        user.setRole(rs2.getString("role"));
-                    }
-                    if (rs2.getString("login") != null) {
-                        user.setLogin(rs2.getString("login"));
-                    }
-                    if (rs2.getString("password") != null) {
-                        user.setPassword(rs2.getString("password"));
-                    }
+
+        if (rs.getString("login_password_id") != null) {
+            int login_password_id = rs.getInt("login_password_id");
+            PreparedStatement ps = con.prepareStatement(Constant.SQL_SELECT_LOGIN_PASSWORD_WHERE_ID);
+            ps.setInt(1, login_password_id);
+            ResultSet rs2 = ps.executeQuery();
+            while (rs2.next()) {
+                if (rs2.getString("role") != null) {
+                    user.setRole(rs2.getString("role"));
+                }
+                if (rs2.getString("login") != null) {
+                    user.setLogin(rs2.getString("login"));
+                }
+                if (rs2.getString("password") != null) {
+                    user.setPassword(rs2.getString("password"));
                 }
             }
-        } finally {
-           CloseLink.close(con);
         }
     }
 }

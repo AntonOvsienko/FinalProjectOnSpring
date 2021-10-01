@@ -35,7 +35,7 @@ public class ListGenerationNurseCommand implements Command {
                     .executeQuery(Constant.SQL_SELECT_NURSE);
             List<Nurse> nurses = new ArrayList<>();
             while (rs.next()) {
-                Nurse nurse = (Nurse) newElement(rs, "nurse");
+                Nurse nurse = (Nurse) newElement(rs, "nurse", con);
                 nurses.add(nurse);
             }
             nurses.sort(Comparator.comparing(Staff::getName));

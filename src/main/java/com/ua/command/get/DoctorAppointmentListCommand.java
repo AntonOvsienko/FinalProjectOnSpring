@@ -4,7 +4,6 @@ import com.ua.ConnectionPool;
 import com.ua.Utils.CloseLink;
 import com.ua.Utils.Constant;
 import com.ua.command.Command;
-import com.ua.command.add.AddNewLoginCommand;
 import com.ua.entity.Doctor;
 import com.ua.entity.DoctorAppointment;
 import com.ua.entity.Patient;
@@ -57,13 +56,13 @@ public class DoctorAppointmentListCommand implements Command {
                 ps.setInt(1, idDoctor);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
-                    doctor = (Doctor) newElement(rs2, "doctor");
+                    doctor = (Doctor) newElement(rs2, "doctor", con);
                 }
                 ps = con.prepareStatement(Constant.SQL_SELECT_PATIENT_WHERE_ID);
                 ps.setInt(1,idPatient);
                 rs2 = ps.executeQuery();
                 while (rs2.next()) {
-                    patient = (Patient) newElement(rs2, "patient");
+                    patient = (Patient) newElement(rs2, "patient", con);
                 }
                 ps = con.prepareStatement(Constant.SQL_SELECT_DOCTOR_APPOINTMENT_WHERE_CASERECORDS_ID);
                 ps.setInt(1,idCaseRecord);
