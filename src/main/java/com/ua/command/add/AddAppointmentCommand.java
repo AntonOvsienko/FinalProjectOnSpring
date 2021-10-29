@@ -5,12 +5,14 @@ import com.ua.Utils.Constant;
 import com.ua.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
 
+@Component("addAppointment")
 public class AddAppointmentCommand implements Command {
 
     private static final Logger log= LogManager.getLogger(AddAppointmentCommand.class.getName());
