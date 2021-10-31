@@ -2,6 +2,7 @@ package com.ua.command.get;
 
 import com.ua.command.Command;
 import com.ua.entity.Doctor;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component("sortDoctorList")
 public class SortDoctorListCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {

@@ -8,6 +8,7 @@ import com.ua.entity.Nurse;
 import com.ua.entity.Staff;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import static com.ua.Utils.CreateElement.newElement;
 
+@Component("viewNurse")
 public class ListGenerationNurseCommand implements Command {
 
     private static final Logger log= LogManager.getLogger(ListGenerationNurseCommand.class.getName());

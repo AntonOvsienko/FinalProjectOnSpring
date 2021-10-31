@@ -11,6 +11,7 @@ import com.ua.entity.DoctorAppointment;
 import com.ua.entity.Patient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("viewCaseRecord")
 public class ListGenerationCaseRecordCommand implements Command {
 
     private static final Logger log= LogManager.getLogger(ListGenerationCaseRecordCommand.class.getName());

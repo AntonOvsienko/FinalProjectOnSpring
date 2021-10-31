@@ -7,6 +7,7 @@ import com.ua.entity.CaseRecord;
 import com.ua.entity.DoctorAppointment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component("dischargedHospital")
 public class DischargedHospitalCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(DischargedHospitalCommand.class.getName());

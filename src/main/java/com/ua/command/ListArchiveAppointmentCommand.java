@@ -7,6 +7,7 @@ import com.ua.command.update.UpdatePatientCommand;
 import com.ua.entity.DoctorAppointment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("archiveAppointment")
 public class ListArchiveAppointmentCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(UpdatePatientCommand.class.getName());

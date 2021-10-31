@@ -8,6 +8,7 @@ import com.ua.command.Command;
 import com.ua.entity.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("archivePatient")
 public class ListGenerationArchiveCommand implements Command {
 
     private static final Logger log= LogManager.getLogger(ListGenerationArchiveCommand.class.getName());

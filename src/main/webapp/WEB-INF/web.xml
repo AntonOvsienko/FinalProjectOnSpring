@@ -4,25 +4,11 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <display-name>spring-cource-mvc</display-name>
+
     <session-config>
         <session-timeout>15</session-timeout>
     </session-config>
-
-    <filter>
-        <filter-name>SecurityFilter</filter-name>
-        <filter-class>com.ua.Utils.SecurityFilter</filter-class>
-        <init-param>
-            <param-name>security-config</param-name>
-            <param-value>
-                admin [controller newLogin.jsp newPatient.jsp newLogin.jsp]
-            </param-value>
-        </init-param>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>SecurityFilter</filter-name>
-        <url-pattern>/users/*</url-pattern>
-    </filter-mapping>
 
     <context-param>
         <param-name>defaultLocale</param-name>
@@ -33,5 +19,20 @@
         <param-name>locales</param-name>
         <param-value>ru en</param-value>
     </context-param>
+
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/applicationContext.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
 </web-app>
