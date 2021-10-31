@@ -6,6 +6,7 @@ import com.ua.command.Command;
 import com.ua.command.get.LoginCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.*;
 
 @Component("doctorToPatient")
+@Scope("prototype")
 public class AppointDoctorToPatientCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(AppointDoctorToPatientCommand.class.getName());

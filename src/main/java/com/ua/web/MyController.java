@@ -19,12 +19,12 @@ public class MyController {
 
     @RequestMapping("/controller")
     public String controllerPage(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
-        String commandString="";
+        String commandString = "";
         req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession();
         System.out.println("session==>" + session);
         session.setMaxInactiveInterval(30);
-        AnnotationConfigApplicationContext context= new AnnotationConfigApplicationContext("SpringConfig.class");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("SpringConfig.class");
 
         // (1) get command name
 
@@ -45,6 +45,8 @@ public class MyController {
             address = command.execute(req, resp, ConnectionPool.getConnection());
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            context.close();
         }
         return address;
     }

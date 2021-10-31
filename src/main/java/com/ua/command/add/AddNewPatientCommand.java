@@ -6,6 +6,7 @@ import com.ua.Utils.Constant;
 import com.ua.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("addNewPatient")
+@Scope("prototype")
 public class AddNewPatientCommand implements Command {
 
     private static final Logger log= LogManager.getLogger(AddNewPatientCommand.class.getName());

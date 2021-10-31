@@ -3,6 +3,7 @@ package com.ua.command.get;
 import com.ua.command.Command;
 import com.ua.entity.CaseRecord;
 import com.ua.entity.Patient;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Component("sortPatientList")
+@Scope("prototype")
 public class SortPatientListCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) throws SQLException {
