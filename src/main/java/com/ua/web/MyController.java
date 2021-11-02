@@ -1,12 +1,14 @@
 package com.ua.web;
 
 import com.ua.ConnectionPool;
+import com.ua.SpringConfig;
 import com.ua.Utils.Constant;
 import com.ua.command.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -17,14 +19,13 @@ import java.sql.SQLException;
 @Controller
 public class MyController {
 
-    @RequestMapping("/controller")
+    @RequestMapping(value = "/controller")
     public String controllerPage(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
-        String commandString = "";
         req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession();
         System.out.println("session==>" + session);
         session.setMaxInactiveInterval(30);
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("SpringConfig.class");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
         // (1) get command name
 
