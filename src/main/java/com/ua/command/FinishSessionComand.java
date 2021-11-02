@@ -2,6 +2,7 @@ package com.ua.command;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,7 @@ import java.sql.Connection;
 public class FinishSessionComand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp, Connection con) {
-        return null;
+        return execute(req, resp);
     }
 
     @Override
